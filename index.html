@@ -8,30 +8,35 @@
 <title>Our Work – Omnivision Design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ─── CSS VARIABLES ─────────────────────────────── */
+  /* ─── VARIABLES ─────────────────────────────── */
   :root {
-    --bg:        #04060f;
-    --bg2:       #080c1a;
-    --glass:     rgba(255,255,255,0.04);
-    --glass-b:   rgba(255,255,255,0.10);
-    --border:    rgba(255,255,255,0.08);
-    --accent:    #4f8ef7;
-    --accent2:   #a259ff;
-    --white:     #f0f4ff;
-    --muted:     rgba(240,244,255,0.50);
-    --card-r:    18px;
-    --font-h:    'Syne', sans-serif;
-    --font-b:    'DM Sans', sans-serif;
+    --bg:         #f8f4f9;
+    --bg2:        #f2edf5;
+    --surface:    #ffffff;
+    --surface2:   #fdf7ff;
+    --border:     rgba(220,190,230,0.5);
+    --border-h:   rgba(255,60,160,0.25);
+    --pink:       #ff2d87;
+    --pink2:      #ff6eb4;
+    --pink3:      #ffd6ec;
+    --rose:       #e8006a;
+    --violet:     #9b30d6;
+    --text:       #1a0a24;
+    --text2:      #5a3a6e;
+    --muted:      #9b7aae;
+    --card-r:     20px;
+    --font-h:     'Syne', sans-serif;
+    --font-b:     'DM Sans', sans-serif;
   }
 
-  /* ─── RESET ──────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
-    color: var(--white);
+    color: var(--text);
     font-family: var(--font-b);
     overflow-x: hidden;
     cursor: none;
@@ -39,30 +44,39 @@
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
 
-  /* ─── CUSTOM AI CURSOR ───────────────────────────── */
+  /* ─── CURSOR ─────────────────────────────── */
   #cursor {
     position: fixed;
-    width: 28px; height: 28px;
+    width: 22px; height: 22px;
     border-radius: 50%;
-    background: #fff;
-    mix-blend-mode: difference;
+    background: var(--pink);
+    mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%,-50%);
     transition: width .15s, height .15s, opacity .2s;
     will-change: transform;
+    box-shadow: 0 0 20px rgba(255,45,135,0.5);
   }
-  #cursor.grow { width: 54px; height: 54px; }
+  #cursor.grow { width: 50px; height: 50px; opacity: .6; }
 
-  /* ─── NOISE OVERLAY ──────────────────────────────── */
+  /* ─── GRAIN OVERLAY ─────────────────────────── */
   body::before {
     content:'';
-    position:fixed;
-    inset:0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events:none;
-    z-index:0;
-    opacity:.35;
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0; opacity:.2;
+  }
+
+  /* ─── MESH BACKGROUND ─────────────────────── */
+  body::after {
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 10% 20%, rgba(255,45,135,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 80%, rgba(155,48,214,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(255,110,180,0.04) 0%, transparent 70%);
+    pointer-events:none; z-index:0;
   }
 
   /* ─── NAV ────────────────────────────────────────── */
@@ -71,9 +85,9 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 clamp(1.2rem,4vw,3rem);
     height: 72px;
-    background: rgba(4,6,15,0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(248,244,249,0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
   }
   .nav-logo {
@@ -81,7 +95,7 @@
     font-weight: 800;
     font-size: 1.25rem;
     letter-spacing: -.02em;
-    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    background: linear-gradient(120deg, var(--pink), var(--violet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -93,56 +107,61 @@
     transition: color .25s;
     font-weight: 500;
   }
-  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
   .nav-cta {
     padding: .5rem 1.3rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, var(--pink), var(--violet));
     border-radius: 50px;
     font-size: .82rem;
     font-weight: 600;
     font-family: var(--font-h);
     color: #fff;
     letter-spacing: .04em;
-    transition: opacity .2s, transform .2s;
+    transition: opacity .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(255,45,135,.3);
   }
-  .nav-cta:hover { opacity:.85; transform: scale(1.04); }
+  .nav-cta:hover { opacity:.9; transform: scale(1.04); box-shadow: 0 6px 28px rgba(255,45,135,.45); }
   .nav-phone { font-size:.82rem; color: var(--muted); }
   .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
-  .hamburger span { width:24px; height:2px; background:var(--white); border-radius:2px; transition:.3s; }
+  .hamburger span { width:24px; height:2px; background:var(--text); border-radius:2px; transition:.3s; }
 
   @media(max-width:900px){
     .nav-links, .nav-phone { display:none; }
     .hamburger { display:flex; }
   }
 
-  /* ─── HERO SECTION ────────────────────────────────── */
+  /* ─── HERO ────────────────────────────────── */
   .hero {
     position: relative;
     padding: clamp(5rem,12vw,9rem) clamp(1.2rem,6vw,5rem) clamp(3rem,6vw,5rem);
     text-align: center;
     overflow: hidden;
+    z-index: 1;
   }
   .hero-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
+    filter: blur(90px);
     pointer-events: none;
-    opacity: .35;
   }
-  .orb1 { width:500px;height:500px; background:var(--accent); top:-150px; left:-100px; }
-  .orb2 { width:400px;height:400px; background:var(--accent2); top:-80px; right:-80px; }
+  .orb1 { width:600px;height:600px; background:rgba(255,45,135,0.12); top:-200px; left:-150px; }
+  .orb2 { width:500px;height:500px; background:rgba(155,48,214,0.10); top:-100px; right:-120px; }
+  .orb3 { width:400px;height:400px; background:rgba(255,110,180,0.08); bottom:-100px; left:50%; transform:translateX(-50%); }
+
   .hero-eyebrow {
-    display: inline-block;
+    display: inline-flex; align-items: center; gap: .5rem;
     font-size: .78rem;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(79,142,247,.3);
-    padding: .35rem 1rem;
+    color: var(--pink);
+    border: 1px solid rgba(255,45,135,0.25);
+    background: rgba(255,45,135,0.06);
+    padding: .38rem 1.1rem;
     border-radius: 50px;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.6rem;
     font-family: var(--font-h);
   }
+  .hero-eyebrow::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 8px var(--pink); }
   .hero h1 {
     font-family: var(--font-h);
     font-size: clamp(2.8rem,7vw,6rem);
@@ -150,21 +169,31 @@
     line-height: 1.05;
     letter-spacing: -.04em;
     margin-bottom: 1.2rem;
+    color: var(--text);
   }
   .hero h1 span {
-    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    background: linear-gradient(120deg, var(--pink), var(--violet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    position: relative;
   }
   .hero-sub {
-    max-width: 560px; margin: 0 auto 1rem;
-    font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+    max-width: 580px; margin: 0 auto 1rem;
+    font-size: 1.05rem; color: var(--text2); line-height: 1.7;
   }
   .breadcrumb {
     font-size: .8rem; color: var(--muted); margin-top: 1rem;
   }
-  .breadcrumb a { color: var(--accent); }
+  .breadcrumb a { color: var(--pink); font-weight: 500; }
+
+  /* hero deco line */
+  .hero-line {
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(255,45,135,0.35));
+  }
 
   /* ─── FILTER BUTTONS ──────────────────────────────── */
   .filters-wrap {
@@ -177,22 +206,27 @@
     padding: .5rem 1.3rem;
     border-radius: 50px;
     border: 1px solid var(--border);
-    background: var(--glass);
+    background: var(--surface);
     color: var(--muted);
     font-family: var(--font-h);
     font-size: .82rem; font-weight: 600;
     cursor: none;
-    transition: background .25s, color .25s, border-color .25s, transform .2s;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    transition: background .25s, color .25s, border-color .25s, transform .2s, box-shadow .25s;
     letter-spacing: .04em;
+    box-shadow: 0 1px 4px rgba(155,122,174,0.08);
   }
-  .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,.2); transform: translateY(-2px); }
+  .filter-btn:hover {
+    color: var(--text);
+    border-color: rgba(255,45,135,.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(255,45,135,.1);
+  }
   .filter-btn.active {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, var(--pink), var(--violet));
     color: #fff;
     border-color: transparent;
-    box-shadow: 0 4px 20px rgba(79,142,247,.35);
+    box-shadow: 0 6px 24px rgba(255,45,135,.35);
+    transform: translateY(-1px);
   }
 
   /* ─── GRID ────────────────────────────────────────── */
@@ -203,7 +237,7 @@
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
-    gap: 1.4rem;
+    gap: 1.5rem;
   }
 
   /* ─── CARDS ───────────────────────────────────────── */
@@ -211,23 +245,32 @@
     position: relative;
     border-radius: var(--card-r);
     overflow: hidden;
-    background: var(--glass);
+    background: var(--surface);
     border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     cursor: none;
-    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .3s;
+    transition: transform .38s cubic-bezier(.22,1,.36,1), box-shadow .38s, border-color .3s;
     will-change: transform;
+    box-shadow: 0 2px 12px rgba(155,122,174,0.1);
+  }
+  .card::before {
+    content:'';
+    position:absolute; inset:0;
+    border-radius: var(--card-r);
+    background: linear-gradient(135deg, rgba(255,45,135,0.04), rgba(155,48,214,0.03));
+    opacity:0;
+    transition: opacity .3s;
+    z-index:0; pointer-events:none;
   }
   .card:hover {
-    transform: translateY(-8px) scale(1.012);
-    border-color: rgba(79,142,247,.35);
-    box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 30px rgba(79,142,247,.12);
+    transform: translateY(-8px) scale(1.013);
+    border-color: rgba(255,45,135,.3);
+    box-shadow: 0 20px 50px rgba(155,122,174,0.2), 0 0 0 1px rgba(255,45,135,.12), 0 0 40px rgba(255,45,135,.06);
   }
+  .card:hover::before { opacity:1; }
   .card-img-wrap {
     position: relative; overflow: hidden;
     aspect-ratio: 16/10;
-    background: #0d1125;
+    background: var(--bg2);
   }
   .card-img-wrap img {
     width: 100%; height: 100%; object-fit: cover;
@@ -236,9 +279,9 @@
   .card:hover .card-img-wrap img { transform: scale(1.07); }
   .card-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg,transparent 40%,rgba(4,6,15,.9) 100%);
+    background: linear-gradient(180deg, transparent 35%, rgba(255,255,255,0.92) 100%);
     opacity: 0;
-    transition: opacity .3s;
+    transition: opacity .32s;
     display: flex; align-items: flex-end; justify-content: center;
     padding-bottom: 1.2rem;
   }
@@ -246,46 +289,47 @@
   .view-btn {
     display: flex; align-items: center; gap: .4rem;
     padding: .5rem 1.2rem;
-    background: rgba(255,255,255,.12);
-    backdrop-filter: blur(8px);
+    background: linear-gradient(135deg, var(--pink), var(--violet));
     border-radius: 50px;
     font-size: .8rem; font-weight: 600;
     font-family: var(--font-h);
     color: #fff; letter-spacing:.04em;
-    border: 1px solid rgba(255,255,255,.2);
     pointer-events: none;
     transform: translateY(10px);
     transition: transform .3s;
+    box-shadow: 0 4px 18px rgba(255,45,135,.4);
   }
   .card:hover .view-btn { transform: translateY(0); }
   .card-body {
     padding: 1rem 1.1rem 1.2rem;
     display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
   }
   .card-title {
     font-family: var(--font-h);
     font-size: .95rem; font-weight: 700;
     letter-spacing: -.01em;
+    color: var(--text);
   }
   .card-tag {
     font-size: .68rem; font-weight: 600;
     font-family: var(--font-h);
     letter-spacing: .08em; text-transform: uppercase;
-    padding: .25rem .7rem;
+    padding: .25rem .75rem;
     border-radius: 50px;
-    border: 1px solid var(--border);
-    color: var(--accent);
-    background: rgba(79,142,247,.08);
+    border: 1px solid rgba(255,45,135,0.2);
+    color: var(--pink);
+    background: rgba(255,45,135,.06);
     white-space: nowrap;
   }
   .card.hidden { display: none; }
 
-  /* ─── MODAL / POPUP ────────────────────────────────── */
+  /* ─── MODAL ────────────────────────────────── */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(26,10,36,.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     z-index: 1000;
     display: flex; align-items: center; justify-content: center;
     padding: 1rem;
@@ -294,23 +338,24 @@
   }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
   .modal {
-    background: linear-gradient(145deg, rgba(13,17,37,.95), rgba(8,12,26,.98));
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 22px;
+    background: var(--surface);
+    border: 1px solid rgba(255,45,135,.15);
+    border-radius: 24px;
     width: 100%; max-width: 700px;
     max-height: 90vh;
     overflow-y: auto;
     padding: 0;
     transform: translateY(30px) scale(.97);
-    transition: transform .35s cubic-bezier(.22,1,.36,1);
+    transition: transform .38s cubic-bezier(.22,1,.36,1);
     scrollbar-width: thin;
-    scrollbar-color: var(--accent) transparent;
+    scrollbar-color: var(--pink) transparent;
+    box-shadow: 0 40px 100px rgba(26,10,36,0.2), 0 0 0 1px rgba(255,45,135,.08);
   }
   .modal-overlay.open .modal { transform: translateY(0) scale(1); }
   .modal-img {
     width: 100%; aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: 22px 22px 0 0;
+    border-radius: 24px 24px 0 0;
   }
   .modal-body { padding: 1.8rem 2rem 2rem; }
   .modal-tag {
@@ -318,9 +363,9 @@
     font-size: .72rem; font-weight: 700;
     font-family: var(--font-h);
     letter-spacing: .1em; text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(79,142,247,.12);
-    border: 1px solid rgba(79,142,247,.3);
+    color: var(--pink);
+    background: rgba(255,45,135,.08);
+    border: 1px solid rgba(255,45,135,.2);
     padding: .28rem .8rem;
     border-radius: 50px;
     margin-bottom: 1rem;
@@ -332,9 +377,10 @@
     letter-spacing: -.03em;
     margin-bottom: .8rem;
     line-height: 1.15;
+    color: var(--text);
   }
   .modal-desc {
-    color: var(--muted);
+    color: var(--text2);
     font-size: .95rem; line-height: 1.75;
     margin-bottom: 1.4rem;
   }
@@ -349,35 +395,45 @@
     padding: .3rem .9rem;
     border-radius: 50px;
     border: 1px solid var(--border);
-    color: var(--muted);
-    background: var(--glass);
+    color: var(--text2);
+    background: var(--bg2);
   }
   .modal-close {
     position: absolute; top: 1.1rem; right: 1.2rem;
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: rgba(255,255,255,.08);
-    border: 1px solid var(--border);
-    color: var(--white);
+    background: rgba(255,45,135,.08);
+    border: 1px solid rgba(255,45,135,.15);
+    color: var(--pink);
     font-size: 1.1rem;
     display: flex; align-items: center; justify-content: center;
     cursor: none;
     transition: background .2s, transform .2s;
     z-index: 10;
   }
-  .modal-close:hover { background: rgba(255,255,255,.15); transform: scale(1.1); }
+  .modal-close:hover { background: rgba(255,45,135,.15); transform: scale(1.1); }
   .modal { position: relative; }
 
   /* ─── CTA STRIP ─────────────────────────────────────── */
   .cta-strip {
     margin: 0 clamp(1rem,4vw,3.5rem) 5rem;
-    border-radius: 22px;
+    border-radius: 24px;
     padding: clamp(2.5rem,5vw,4rem) clamp(2rem,5vw,4rem);
-    background: linear-gradient(135deg, rgba(79,142,247,.12), rgba(162,89,255,.12));
-    border: 1px solid rgba(79,142,247,.2);
+    background: linear-gradient(135deg, rgba(255,45,135,.07), rgba(155,48,214,.07));
+    border: 1px solid rgba(255,45,135,.15);
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
     gap: 1.5rem;
     position: relative; z-index: 1;
+    overflow: hidden;
+  }
+  .cta-strip::before {
+    content:'';
+    position:absolute; top:-80px; right:-80px;
+    width:300px;height:300px;
+    border-radius:50%;
+    background:rgba(255,45,135,.07);
+    filter:blur(60px);
+    pointer-events:none;
   }
   .cta-strip h2 {
     font-family: var(--font-h);
@@ -386,25 +442,65 @@
     letter-spacing: -.03em;
     max-width: 500px;
     line-height: 1.2;
+    color: var(--text);
   }
-  .cta-strip h2 span { color: var(--accent); }
+  .cta-strip h2 span {
+    background: linear-gradient(120deg, var(--pink), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .cta-strip-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
   .cta-primary {
     padding: .75rem 2rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, var(--pink), var(--violet));
     border-radius: 50px;
     font-family: var(--font-h); font-weight: 700;
     font-size: .9rem; letter-spacing: .04em;
     color: #fff;
-    transition: opacity .2s, transform .2s;
+    transition: opacity .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 6px 24px rgba(255,45,135,.35);
   }
-  .cta-primary:hover { opacity: .85; transform: translateY(-2px); }
+  .cta-primary:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,45,135,.45); }
   .cta-phone { color: var(--muted); font-size: .9rem; }
-  .cta-phone a { color: var(--accent); font-weight: 600; }
+  .cta-phone a { color: var(--pink); font-weight: 600; }
+
+  /* ─── PARTNERS ─────────────────────────────────────── */
+  .partners {
+    padding: 3rem clamp(1.2rem,5vw,4rem);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    position: relative; z-index: 1;
+    overflow: hidden;
+    background: var(--surface2);
+  }
+  .partners-label {
+    text-align: center;
+    font-size: .75rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--muted);
+    font-family: var(--font-h); margin-bottom: 1.5rem;
+  }
+  .partners-logos {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    gap: 1rem 1.8rem;
+  }
+  .partners-logos span {
+    font-family: var(--font-h); font-weight: 700;
+    font-size: .85rem; letter-spacing: .06em;
+    color: var(--muted);
+    padding: .4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    transition: color .2s, border-color .2s, box-shadow .2s;
+  }
+  .partners-logos span:hover { color: var(--pink); border-color: rgba(255,45,135,.25); box-shadow: 0 2px 12px rgba(255,45,135,.1); }
 
   /* ─── FOOTER ─────────────────────────────────────────── */
   footer {
-    background: var(--bg2);
+    background: var(--surface2);
     border-top: 1px solid var(--border);
     padding: 4rem clamp(1.2rem,5vw,4rem) 2rem;
     position: relative; z-index: 1;
@@ -419,23 +515,23 @@
   .footer-brand .logo {
     font-family: var(--font-h); font-weight: 800; font-size: 1.2rem;
     letter-spacing: -.02em;
-    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    background: linear-gradient(120deg, var(--pink), var(--violet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 1rem;
     display: inline-block;
   }
-  .footer-brand p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+  .footer-brand p { font-size: .9rem; color: var(--text2); line-height: 1.7; }
   .footer-col h4 {
     font-family: var(--font-h); font-weight: 700;
     font-size: .85rem; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--white);
+    text-transform: uppercase; color: var(--text);
     margin-bottom: 1rem;
   }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
   .footer-col ul li a { font-size: .88rem; color: var(--muted); transition: color .2s; }
-  .footer-col ul li a:hover { color: var(--white); }
+  .footer-col ul li a:hover { color: var(--pink); }
   .footer-bottom {
     border-top: 1px solid var(--border);
     padding-top: 1.5rem;
@@ -448,46 +544,16 @@
   .footer-socials a {
     width: 34px; height: 34px;
     border-radius: 50%;
-    background: var(--glass);
+    background: var(--surface);
     border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
-    transition: border-color .2s, transform .2s;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
     font-size: .8rem;
-  }
-  .footer-socials a:hover { border-color: var(--accent); transform: translateY(-2px); }
-
-  /* ─── PARTNER LOGOS STRIP ─────────────────────────────── */
-  .partners {
-    padding: 3rem clamp(1.2rem,5vw,4rem);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 0;
-    position: relative; z-index: 1;
-    overflow: hidden;
-  }
-  .partners-label {
-    text-align: center;
-    font-size: .75rem; letter-spacing: .15em;
-    text-transform: uppercase; color: var(--muted);
-    font-family: var(--font-h); margin-bottom: 1.5rem;
-  }
-  .partners-logos {
-    display: flex; flex-wrap: wrap;
-    justify-content: center; align-items: center;
-    gap: 1.5rem 2.5rem;
-  }
-  .partners-logos span {
-    font-family: var(--font-h); font-weight: 700;
-    font-size: .9rem; letter-spacing: .06em;
     color: var(--muted);
-    padding: .4rem .9rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: color .2s, border-color .2s;
   }
-  .partners-logos span:hover { color: var(--white); border-color: rgba(255,255,255,.2); }
+  .footer-socials a:hover { border-color: var(--pink); transform: translateY(-2px); color: var(--pink); box-shadow: 0 4px 12px rgba(255,45,135,.15); }
 
-  /* ─── MOBILE RESPONSIVE ────────────────────────────────── */
+  /* ─── MOBILE ────────────────────────────────────────── */
   @media(max-width:700px) {
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     .portfolio-grid { grid-template-columns: 1fr; }
@@ -523,27 +589,29 @@
   </div>
 </nav>
 
-<!-- MOBILE MENU (simple) -->
-<div id="mobileMenu" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,.97);z-index:490;padding:6rem 2rem 2rem;backdrop-filter:blur(20px)">
+<!-- MOBILE MENU -->
+<div id="mobileMenu" style="display:none;position:fixed;inset:0;background:rgba(248,244,249,.97);z-index:490;padding:6rem 2rem 2rem;backdrop-filter:blur(20px)">
   <ul style="list-style:none;display:flex;flex-direction:column;gap:1.8rem">
-    <li><a href="https://www.omnivisiondesign.com/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Home</a></li>
-    <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">About</a></li>
-    <li><a href="https://www.omnivisiondesign.com/services/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Services</a></li>
-    <li><a href="#" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--accent)">Our Work</a></li>
-    <li><a href="https://www.omnivisiondesign.com/blog/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Blog</a></li>
-    <li><a href="https://www.omnivisiondesign.com/contact/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Contact</a></li>
+    <li><a href="https://www.omnivisiondesign.com/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--text)">Home</a></li>
+    <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--text)">About</a></li>
+    <li><a href="https://www.omnivisiondesign.com/services/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--text)">Services</a></li>
+    <li><a href="#" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--pink)">Our Work</a></li>
+    <li><a href="https://www.omnivisiondesign.com/blog/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--text)">Blog</a></li>
+    <li><a href="https://www.omnivisiondesign.com/contact/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--text)">Contact</a></li>
   </ul>
-  <button onclick="toggleMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:white;font-size:2rem;cursor:pointer">✕</button>
+  <button onclick="toggleMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--pink);font-size:2rem;cursor:pointer">✕</button>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
   <p class="hero-eyebrow gsap-fade">Portfolio</p>
   <h1 class="gsap-fade">Our <span>Work</span></h1>
   <p class="hero-sub gsap-fade">Web design, SEO, SEM, video and social media marketing — results-driven digital work for businesses across Montreal and beyond.</p>
   <p class="breadcrumb gsap-fade"><a href="https://www.omnivisiondesign.com">Home</a> &rsaquo; Our Work</p>
+  <div class="hero-line"></div>
 </section>
 
 <!-- FILTER BUTTONS -->
@@ -561,7 +629,6 @@
 <section class="grid-section">
   <div class="portfolio-grid" id="portfolioGrid">
 
-    <!-- 1. Greene Locksmiths -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('greene')">
       <div class="card-img-wrap">
         <img src="image1.jpg" alt="Greene Locksmiths website screenshot" loading="lazy" width="653" height="490">
@@ -573,7 +640,6 @@
       </div>
     </article>
 
-    <!-- 2. Paramedic360 -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('paramedic')">
       <div class="card-img-wrap">
         <img src="image2.jpg" alt="Paramedic360 website screenshot" loading="lazy" width="653" height="490">
@@ -585,7 +651,6 @@
       </div>
     </article>
 
-    <!-- 3. Archex -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('archex')">
       <div class="card-img-wrap">
         <img src="image3.jpg" alt="Archex website screenshot" loading="lazy" width="653" height="490">
@@ -597,7 +662,6 @@
       </div>
     </article>
 
-    <!-- 4. Medaca -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('medaca')">
       <div class="card-img-wrap">
         <img src="image4.jpg" alt="Medaca website screenshot" loading="lazy" width="653" height="490">
@@ -609,7 +673,6 @@
       </div>
     </article>
 
-    <!-- 5. HostSailor -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('hostsailor')">
       <div class="card-img-wrap">
         <img src="image5.jpg" alt="HostSailor website screenshot" loading="lazy" width="653" height="490">
@@ -621,7 +684,6 @@
       </div>
     </article>
 
-    <!-- 6. SuiteStay -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('suitestay')">
       <div class="card-img-wrap">
         <img src="image6.jpg" alt="SuiteStay website screenshot" loading="lazy" width="653" height="490">
@@ -633,7 +695,6 @@
       </div>
     </article>
 
-    <!-- 7. McKell Institute -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('mckell')">
       <div class="card-img-wrap">
         <img src="image7.jpg" alt="McKell Institute website screenshot" loading="lazy" width="653" height="490">
@@ -645,7 +706,6 @@
       </div>
     </article>
 
-    <!-- 8. SignalAlarm -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('signalalarm')">
       <div class="card-img-wrap">
         <img src="image8.jpg" alt="SignalAlarm website screenshot" loading="lazy" width="653" height="490">
@@ -657,7 +717,6 @@
       </div>
     </article>
 
-    <!-- 9. CleanTile -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('cleantile')">
       <div class="card-img-wrap">
         <img src="image9.jpg" alt="CleanTile website screenshot" loading="lazy" width="653" height="490">
@@ -669,7 +728,6 @@
       </div>
     </article>
 
-    <!-- 10. CliniqueAgatha -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('clinique')">
       <div class="card-img-wrap">
         <img src="image10.jpg" alt="CliniqueAgatha website screenshot" loading="lazy" width="653" height="490">
@@ -681,7 +739,6 @@
       </div>
     </article>
 
-    <!-- 11. KBS Maintenance -->
     <article class="card gsap-fade" data-category="website-maintenance" onclick="openModal('kbs')">
       <div class="card-img-wrap">
         <img src="image11.jpg" alt="KBS Maintenance website screenshot" loading="lazy" width="653" height="490">
@@ -693,7 +750,6 @@
       </div>
     </article>
 
-    <!-- 12. Scan Plus Tech -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('scanplus')">
       <div class="card-img-wrap">
         <img src="image12.jpg" alt="Scan Plus Tech website screenshot" loading="lazy" width="653" height="490">
@@ -705,7 +761,6 @@
       </div>
     </article>
 
-    <!-- 13. Omnivision Design -->
     <article class="card gsap-fade" data-category="web-design" onclick="openModal('omnivision')">
       <div class="card-img-wrap">
         <img src="image13.jpg" alt="Omnivision Design website screenshot" loading="lazy" width="653" height="490">
@@ -717,7 +772,6 @@
       </div>
     </article>
 
-    <!-- 14. Archex SEO -->
     <article class="card gsap-fade" data-category="seo" onclick="openModal('archexseo')">
       <div class="card-img-wrap">
         <img src="image14.jpg" alt="Archex SEO project screenshot" loading="lazy" width="653" height="490">
@@ -729,7 +783,6 @@
       </div>
     </article>
 
-    <!-- 15. Canada Peptide SEO -->
     <article class="card gsap-fade" data-category="seo" onclick="openModal('canadapeptide')">
       <div class="card-img-wrap">
         <img src="image15.jpg" alt="Canada Peptide SEO project screenshot" loading="lazy" width="653" height="490">
@@ -741,7 +794,6 @@
       </div>
     </article>
 
-    <!-- 16. LazyBagParis SEO -->
     <article class="card gsap-fade" data-category="seo" onclick="openModal('lazybag')">
       <div class="card-img-wrap">
         <img src="image16.jpg" alt="LazyBagParis SEO project screenshot" loading="lazy" width="653" height="490">
@@ -753,7 +805,6 @@
       </div>
     </article>
 
-    <!-- 17. GoldMPS SEO -->
     <article class="card gsap-fade" data-category="seo" onclick="openModal('goldmps')">
       <div class="card-img-wrap">
         <img src="image17.jpg" alt="GoldMPS SEO project screenshot" loading="lazy" width="653" height="490">
@@ -765,7 +816,6 @@
       </div>
     </article>
 
-    <!-- 18. SweetDreamsBamboo SEO -->
     <article class="card gsap-fade" data-category="seo" onclick="openModal('sweetdreams')">
       <div class="card-img-wrap">
         <img src="image18.jpg" alt="SweetDreamsBamboo SEO project screenshot" loading="lazy" width="653" height="490">
@@ -777,7 +827,6 @@
       </div>
     </article>
 
-    <!-- 19. Signal Alarm SEM -->
     <article class="card gsap-fade" data-category="sem" onclick="openModal('signalalarmsem')">
       <div class="card-img-wrap">
         <img src="image19.jpg" alt="Signal Alarm SEM project screenshot" loading="lazy" width="653" height="490">
@@ -837,10 +886,10 @@
     <div class="footer-brand">
       <span class="logo">Omnivision Design</span>
       <p>Omnivision Design is a Montreal Web Marketing Company offering internet marketing services to small, medium and large businesses, including public companies, delivering the best web marketing strategy for companies in any industry.</p>
-      <p style="margin-top:.8rem;font-size:.85rem;color:var(--muted)">
+      <p style="margin-top:.8rem;font-size:.85rem;color:var(--text2)">
         106-7470 Sherbrooke St W, Montreal, QC H4B 1S5<br>
         6860 Chester Ave, Montreal, QC H4V 1K6<br>
-        <a href="tel:5146556276" style="color:var(--accent)">(514) 655-6276</a>
+        <a href="tel:5146556276" style="color:var(--pink)">(514) 655-6276</a>
       </p>
     </div>
     <div class="footer-col">
@@ -864,7 +913,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 Omnivision Design — All rights reserved | <a href="https://www.omnivisiondesign.com/privacy-policy/" style="color:var(--accent)">Privacy Policy</a> | <a href="https://www.omnivisiondesign.com/sitemap/" style="color:var(--accent)">Sitemap</a></p>
+    <p>© 2024 Omnivision Design — All rights reserved | <a href="https://www.omnivisiondesign.com/privacy-policy/" style="color:var(--pink)">Privacy Policy</a> | <a href="https://www.omnivisiondesign.com/sitemap/" style="color:var(--pink)">Sitemap</a></p>
     <div class="footer-socials">
       <a href="https://www.facebook.com/omnivision.design" aria-label="Facebook" target="_blank" rel="noopener">f</a>
       <a href="https://twitter.com/omnivisiondes" aria-label="Twitter/X" target="_blank" rel="noopener">𝕏</a>
@@ -1097,14 +1146,13 @@ window.addEventListener('load', () => {
       );
     });
   } else {
-    /* fallback: reveal all if GSAP fails to load */
     document.querySelectorAll('.gsap-fade').forEach(el => {
       el.style.opacity = 1; el.style.transform = 'none';
     });
   }
 });
 
-/* ─── FADE-IN KEYFRAME (filter) ──────────────────────────────── */
+/* ─── FADE-IN KEYFRAME ──────────────────────────────────────── */
 const st = document.createElement('style');
 st.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}`;
 document.head.appendChild(st);
