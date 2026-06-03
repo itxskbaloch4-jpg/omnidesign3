@@ -41,18 +41,8 @@
 
   /* ─── CUSTOM AI CURSOR ───────────────────────────── */
   #cursor {
-    position: fixed;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: #fff;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%,-50%);
-    transition: width .15s, height .15s, opacity .2s;
-    will-change: transform;
-  }
-  #cursor.grow { width: 54px; height: 54px; }
+    #cursor { position:fixed; width:24px; height:24px; border-radius:50%; background:#fff; mix-blend-mode:difference; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .15s,height .15s; }
+#cursor.grow { width:52px; height:52px; }
 
   /* ─── NOISE OVERLAY ──────────────────────────────── */
   body::before {
