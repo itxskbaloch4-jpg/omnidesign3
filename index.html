@@ -1071,8 +1071,8 @@ const cursor = document.getElementById('cursor');
 let mx = 0, my = 0, cx = 0, cy = 0;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 (function animCursor(){
-  cx += (mx - cx) * .18;
-  cy += (my - cy) * .18;
+  cx += (mx - cx) * .28;
+  cy += (my - cy) * .28;
   cursor.style.left = cx + 'px';
   cursor.style.top  = cy + 'px';
   requestAnimationFrame(animCursor);
