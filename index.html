@@ -3,978 +3,1111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Work — Omnivision Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="description" content="Checkout our portfolio of web design, web development, SEO and social media marketing.">
+<meta name="robots" content="index, follow">
+<title>Our Work – Omnivision Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ─── CSS VARIABLES ─────────────────────────────── */
+  :root {
+    --bg:        #04060f;
+    --bg2:       #080c1a;
+    --glass:     rgba(255,255,255,0.04);
+    --glass-b:   rgba(255,255,255,0.10);
+    --border:    rgba(255,255,255,0.08);
+    --accent:    #4f8ef7;
+    --accent2:   #a259ff;
+    --white:     #f0f4ff;
+    --muted:     rgba(240,244,255,0.50);
+    --card-r:    18px;
+    --font-h:    'Syne', sans-serif;
+    --font-b:    'DM Sans', sans-serif;
+  }
 
-:root {
-  --bg:        #07090e;
-  --bg2:       #0c0f18;
-  --bg3:       #11141f;
-  --accent:    #c8f542;
-  --accent2:   #4af0c0;
-  --text:      #eef0f8;
-  --muted:     #5c6370;
-  --glass-bg:  rgba(255,255,255,0.04);
-  --glass-border: rgba(255,255,255,0.10);
-  --glass-shadow: 0 8px 40px rgba(0,0,0,0.55);
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-  --font-mono:    'Space Mono', monospace;
-}
+  /* ─── RESET ──────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-b);
+    overflow-x: hidden;
+    cursor: none;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
 
-html { scroll-behavior: smooth; }
+  /* ─── CUSTOM AI CURSOR ───────────────────────────── */
+  #cursor {
+    position: fixed;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width .15s, height .15s, opacity .2s;
+    will-change: transform;
+  }
+  #cursor.grow { width: 54px; height: 54px; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+  /* ─── NOISE OVERLAY ──────────────────────────────── */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:0;
+    opacity:.35;
+  }
 
-/* ── CURSOR ── */
-* { cursor: none !important; }
+  /* ─── NAV ────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 500;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.2rem,4vw,3rem);
+    height: 72px;
+    background: rgba(4,6,15,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -.02em;
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .88rem;
+    color: var(--muted);
+    transition: color .25s;
+    font-weight: 500;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    padding: .5rem 1.3rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50px;
+    font-size: .82rem;
+    font-weight: 600;
+    font-family: var(--font-h);
+    color: #fff;
+    letter-spacing: .04em;
+    transition: opacity .2s, transform .2s;
+  }
+  .nav-cta:hover { opacity:.85; transform: scale(1.04); }
+  .nav-phone { font-size:.82rem; color: var(--muted); }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+  .hamburger span { width:24px; height:2px; background:var(--white); border-radius:2px; transition:.3s; }
 
-#c-dot {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: #fff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%,-50%);
-  mix-blend-mode: difference;
-  transition: width .18s ease, height .18s ease;
-}
+  @media(max-width:900px){
+    .nav-links, .nav-phone { display:none; }
+    .hamburger { display:flex; }
+  }
 
-#c-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid #fff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%,-50%);
-  mix-blend-mode: difference;
-  transition: width .22s ease, height .22s ease, opacity .2s ease, border-color .2s ease;
-}
+  /* ─── HERO SECTION ────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: clamp(5rem,12vw,9rem) clamp(1.2rem,6vw,5rem) clamp(3rem,6vw,5rem);
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: .35;
+  }
+  .orb1 { width:500px;height:500px; background:var(--accent); top:-150px; left:-100px; }
+  .orb2 { width:400px;height:400px; background:var(--accent2); top:-80px; right:-80px; }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(79,142,247,.3);
+    padding: .35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.4rem;
+    font-family: var(--font-h);
+  }
+  .hero h1 {
+    font-family: var(--font-h);
+    font-size: clamp(2.8rem,7vw,6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.04em;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 560px; margin: 0 auto 1rem;
+    font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+  }
+  .breadcrumb {
+    font-size: .8rem; color: var(--muted); margin-top: 1rem;
+  }
+  .breadcrumb a { color: var(--accent); }
 
-#c-ring.big  { width: 64px; height: 64px; opacity: .55; }
-#c-dot.small { width: 5px;  height: 5px; }
+  /* ─── FILTER BUTTONS ──────────────────────────────── */
+  .filters-wrap {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: .65rem;
+    padding: 2.5rem clamp(1.2rem,5vw,4rem) 1rem;
+    position: relative; z-index: 1;
+  }
+  .filter-btn {
+    padding: .5rem 1.3rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--muted);
+    font-family: var(--font-h);
+    font-size: .82rem; font-weight: 600;
+    cursor: none;
+    transition: background .25s, color .25s, border-color .25s, transform .2s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    letter-spacing: .04em;
+  }
+  .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,.2); transform: translateY(-2px); }
+  .filter-btn.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 20px rgba(79,142,247,.35);
+  }
 
-/* ── GRAIN OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: .45;
-}
+  /* ─── GRID ────────────────────────────────────────── */
+  .grid-section {
+    padding: 2rem clamp(1rem,4vw,3.5rem) 5rem;
+    position: relative; z-index: 1;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    gap: 1.4rem;
+  }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1.2rem 4rem;
-  background: rgba(7,9,14,0.38);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: 0 2px 32px rgba(0,0,0,0.45);
-}
+  /* ─── CARDS ───────────────────────────────────────── */
+  .card {
+    position: relative;
+    border-radius: var(--card-r);
+    overflow: hidden;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: none;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .3s;
+    will-change: transform;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.012);
+    border-color: rgba(79,142,247,.35);
+    box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 30px rgba(79,142,247,.12);
+  }
+  .card-img-wrap {
+    position: relative; overflow: hidden;
+    aspect-ratio: 16/10;
+    background: #0d1125;
+  }
+  .card-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+  }
+  .card:hover .card-img-wrap img { transform: scale(1.07); }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,transparent 40%,rgba(4,6,15,.9) 100%);
+    opacity: 0;
+    transition: opacity .3s;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 1.2rem;
+  }
+  .card:hover .card-overlay { opacity: 1; }
+  .view-btn {
+    display: flex; align-items: center; gap: .4rem;
+    padding: .5rem 1.2rem;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(8px);
+    border-radius: 50px;
+    font-size: .8rem; font-weight: 600;
+    font-family: var(--font-h);
+    color: #fff; letter-spacing:.04em;
+    border: 1px solid rgba(255,255,255,.2);
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: transform .3s;
+  }
+  .card:hover .view-btn { transform: translateY(0); }
+  .card-body {
+    padding: 1rem 1.1rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-title {
+    font-family: var(--font-h);
+    font-size: .95rem; font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .card-tag {
+    font-size: .68rem; font-weight: 600;
+    font-family: var(--font-h);
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: .25rem .7rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    background: rgba(79,142,247,.08);
+    white-space: nowrap;
+  }
+  .card.hidden { display: none; }
 
-.nav-logo {
-  font-family: var(--font-display);
-  font-size: 1.55rem; letter-spacing: 2px;
-  color: var(--text); text-decoration: none;
-}
-.nav-logo span { color: var(--accent); }
+  /* ─── MODAL / POPUP ────────────────────────────────── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: linear-gradient(145deg, rgba(13,17,37,.95), rgba(8,12,26,.98));
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 22px;
+    width: 100%; max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 0;
+    transform: translateY(30px) scale(.97);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+  .modal-img {
+    width: 100%; aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 22px 22px 0 0;
+  }
+  .modal-body { padding: 1.8rem 2rem 2rem; }
+  .modal-tag {
+    display: inline-block;
+    font-size: .72rem; font-weight: 700;
+    font-family: var(--font-h);
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(79,142,247,.12);
+    border: 1px solid rgba(79,142,247,.3);
+    padding: .28rem .8rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+  }
+  .modal-title {
+    font-family: var(--font-h);
+    font-size: clamp(1.4rem,3vw,2rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    margin-bottom: .8rem;
+    line-height: 1.15;
+  }
+  .modal-desc {
+    color: var(--muted);
+    font-size: .95rem; line-height: 1.75;
+    margin-bottom: 1.4rem;
+  }
+  .modal-meta {
+    display: flex; flex-wrap: wrap; gap: .7rem;
+    margin-bottom: 1.6rem;
+  }
+  .modal-meta span {
+    font-size: .78rem; font-weight: 600;
+    font-family: var(--font-h);
+    letter-spacing:.04em;
+    padding: .3rem .9rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--glass);
+  }
+  .modal-close {
+    position: absolute; top: 1.1rem; right: 1.2rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: none;
+    transition: background .2s, transform .2s;
+    z-index: 10;
+  }
+  .modal-close:hover { background: rgba(255,255,255,.15); transform: scale(1.1); }
+  .modal { position: relative; }
 
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a {
-  font-size: .75rem; font-weight: 500; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--muted);
-  text-decoration: none; transition: color .2s;
-}
-.nav-links a:hover,
-.nav-links a.active { color: var(--accent); }
+  /* ─── CTA STRIP ─────────────────────────────────────── */
+  .cta-strip {
+    margin: 0 clamp(1rem,4vw,3.5rem) 5rem;
+    border-radius: 22px;
+    padding: clamp(2.5rem,5vw,4rem) clamp(2rem,5vw,4rem);
+    background: linear-gradient(135deg, rgba(79,142,247,.12), rgba(162,89,255,.12));
+    border: 1px solid rgba(79,142,247,.2);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .cta-strip h2 {
+    font-family: var(--font-h);
+    font-size: clamp(1.5rem,3vw,2.2rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    max-width: 500px;
+    line-height: 1.2;
+  }
+  .cta-strip h2 span { color: var(--accent); }
+  .cta-strip-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .cta-primary {
+    padding: .75rem 2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50px;
+    font-family: var(--font-h); font-weight: 700;
+    font-size: .9rem; letter-spacing: .04em;
+    color: #fff;
+    transition: opacity .2s, transform .2s;
+  }
+  .cta-primary:hover { opacity: .85; transform: translateY(-2px); }
+  .cta-phone { color: var(--muted); font-size: .9rem; }
+  .cta-phone a { color: var(--accent); font-weight: 600; }
 
-.nav-cta {
-  background: var(--accent); color: #07090e;
-  font-family: var(--font-mono); font-size: .7rem;
-  font-weight: 700; letter-spacing: 1px;
-  padding: .6rem 1.5rem; border: none;
-  text-decoration: none; transition: background .2s, transform .15s;
-}
-.nav-cta:hover { background: #d6ff5c; transform: translateY(-1px); }
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 4rem clamp(1.2rem,5vw,4rem) 2rem;
+    position: relative; z-index: 1;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand { max-width: 320px; }
+  .footer-brand .logo {
+    font-family: var(--font-h); font-weight: 800; font-size: 1.2rem;
+    letter-spacing: -.02em;
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+  .footer-brand p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+  .footer-col h4 {
+    font-family: var(--font-h); font-weight: 700;
+    font-size: .85rem; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .footer-col ul li a { font-size: .88rem; color: var(--muted); transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 1rem;
+  }
+  .footer-bottom p { font-size: .8rem; color: var(--muted); }
+  .footer-socials { display: flex; gap: .8rem; }
+  .footer-socials a {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, transform .2s;
+    font-size: .8rem;
+  }
+  .footer-socials a:hover { border-color: var(--accent); transform: translateY(-2px); }
 
-/* ── HERO ── */
-.hero {
-  position: relative;
-  padding: 14rem 4rem 5rem;
-  overflow: hidden;
-}
+  /* ─── PARTNER LOGOS STRIP ─────────────────────────────── */
+  .partners {
+    padding: 3rem clamp(1.2rem,5vw,4rem);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    position: relative; z-index: 1;
+    overflow: hidden;
+  }
+  .partners-label {
+    text-align: center;
+    font-size: .75rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--muted);
+    font-family: var(--font-h); margin-bottom: 1.5rem;
+  }
+  .partners-logos {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    gap: 1.5rem 2.5rem;
+  }
+  .partners-logos span {
+    font-family: var(--font-h); font-weight: 700;
+    font-size: .9rem; letter-spacing: .06em;
+    color: var(--muted);
+    padding: .4rem .9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: color .2s, border-color .2s;
+  }
+  .partners-logos span:hover { color: var(--white); border-color: rgba(255,255,255,.2); }
 
-.hero-bg-num {
-  position: absolute; top: 3rem; right: -1rem;
-  font-family: var(--font-display);
-  font-size: 28vw; color: rgba(255,255,255,0.018);
-  line-height: 1; user-select: none; pointer-events: none;
-}
+  /* ─── MOBILE RESPONSIVE ────────────────────────────────── */
+  @media(max-width:700px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .modal-body { padding: 1.2rem 1.2rem 1.5rem; }
+    .cta-strip { text-align: center; justify-content: center; }
+    .cta-strip-actions { justify-content: center; }
+  }
 
-.hero-tag {
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--font-mono); font-size: .68rem;
-  letter-spacing: 2px; color: var(--accent);
-  text-transform: uppercase; margin-bottom: 1.4rem;
-  opacity: 0;
-}
-.hero-tag::before {
-  content: ''; display: block;
-  width: 2rem; height: 1px; background: var(--accent);
-}
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 9rem);
-  line-height: .9; letter-spacing: 2px;
-  color: var(--text); margin-bottom: 1.8rem;
-  overflow: hidden;
-}
-
-.hero h1 em {
-  font-style: normal; color: transparent;
-  -webkit-text-stroke: 1px rgba(200,245,66,.5);
-}
-
-.hero-sub {
-  max-width: 460px; font-size: .98rem;
-  line-height: 1.75; color: var(--muted);
-  margin-bottom: 2.8rem; opacity: 0;
-}
-
-.hero-stats { display: flex; gap: 3rem; }
-
-.stat { opacity: 0; }
-.stat-num {
-  font-family: var(--font-display);
-  font-size: 2.8rem; color: var(--accent); line-height: 1;
-}
-.stat-label {
-  font-size: .68rem; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--muted); margin-top: .2rem;
-}
-
-/* ── TICKER ── */
-.ticker-wrap {
-  overflow: hidden;
-  border-top: 1px solid var(--glass-border);
-  border-bottom: 1px solid var(--glass-border);
-  padding: 1rem 0; margin-bottom: 3.5rem;
-  position: relative; z-index: 2;
-  background: rgba(255,255,255,0.015);
-  backdrop-filter: blur(6px);
-}
-.ticker-track {
-  display: flex; gap: 4rem;
-  width: max-content;
-  animation: ticker 22s linear infinite;
-}
-.ticker-item {
-  font-family: var(--font-display);
-  font-size: 1.05rem; letter-spacing: 3px;
-  color: var(--muted); white-space: nowrap; text-transform: uppercase;
-}
-.ticker-item span { color: var(--accent); margin-right: 4rem; }
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* ── FILTER BAR ── */
-.filter-section {
-  padding: 0 4rem 2.5rem;
-  position: relative; z-index: 2;
-}
-.filter-bar {
-  display: flex; gap: .45rem; flex-wrap: wrap;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 1.8rem;
-}
-.filter-btn {
-  font-family: var(--font-mono); font-size: .65rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  padding: .5rem 1.1rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  color: var(--muted);
-  transition: all .22s;
-}
-.filter-btn:hover {
-  border-color: rgba(200,245,66,.35);
-  color: var(--text);
-  background: rgba(200,245,66,.05);
-}
-.filter-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #07090e; font-weight: 700;
-}
-
-/* ── GRID ── */
-.portfolio-section {
-  padding: 0 4rem 6rem;
-  position: relative; z-index: 2;
-}
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1.5px;
-}
-
-/* ── CARD ── */
-.portfolio-card {
-  position: relative; aspect-ratio: 4/3;
-  overflow: hidden; background: var(--bg3);
-}
-.portfolio-card.hidden { display: none; }
-.portfolio-card.featured { grid-column: span 2; aspect-ratio: 16/9; }
-
-.card-img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform .65s cubic-bezier(.25,.46,.45,.94);
-  filter: grayscale(25%) brightness(.72);
-}
-.portfolio-card:hover .card-img {
-  transform: scale(1.07);
-  filter: grayscale(0%) brightness(.88);
-}
-
-/* glass card overlay */
-.card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(7,9,14,.92) 0%,
-    rgba(7,9,14,.28) 55%,
-    transparent 100%
-  );
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  opacity: 0;
-  transition: opacity .4s ease, backdrop-filter .4s ease;
-  display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 1.8rem;
-}
-.portfolio-card:hover .card-overlay {
-  opacity: 1;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-.card-always {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 1.4rem;
-  background: linear-gradient(to top, rgba(7,9,14,.85), transparent);
-}
-
-.card-category {
-  font-family: var(--font-mono); font-size: .58rem;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: .3rem;
-}
-.card-title {
-  font-family: var(--font-display);
-  font-size: 1.45rem; letter-spacing: 1px; color: var(--text);
-}
-
-.card-hover-content {
-  opacity: 0; transform: translateY(10px);
-  transition: all .32s ease .06s;
-}
-.portfolio-card:hover .card-hover-content {
-  opacity: 1; transform: translateY(0);
-}
-.card-desc {
-  font-size: .78rem; color: rgba(238,240,248,.6);
-  margin-top: .45rem; line-height: 1.55;
-}
-.card-cta {
-  display: inline-flex; align-items: center; gap: .45rem;
-  margin-top: .9rem;
-  font-family: var(--font-mono); font-size: .62rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--accent); text-decoration: none;
-  border-bottom: 1px solid rgba(200,245,66,.4);
-  padding-bottom: 2px; transition: gap .2s;
-}
-.card-cta:hover { gap: .8rem; }
-
-/* ── GLASS BADGE on card top-right ── */
-.card-badge {
-  position: absolute; top: 1rem; right: 1rem;
-  font-family: var(--font-mono); font-size: .55rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  padding: .3rem .7rem;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,.75);
-  border-radius: 2px;
-}
-
-/* ── CTA SECTION ── */
-.cta-section {
-  position: relative; z-index: 2;
-  margin: 0 4rem 6rem;
-  padding: 5rem 4rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.07);
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 2rem;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute; top: -60%; left: -10%;
-  width: 50%; height: 200%;
-  background: radial-gradient(ellipse, rgba(200,245,66,.065) 0%, transparent 70%);
-  pointer-events: none;
-}
-.cta-label {
-  font-family: var(--font-mono); font-size: .68rem;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 1rem;
-}
-.cta-heading {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem,5vw,4.5rem); line-height: .95; letter-spacing: 1px;
-}
-.cta-heading em { font-style: normal; color: var(--accent); }
-.cta-right { flex-shrink: 0; }
-.cta-btn {
-  display: block;
-  background: var(--accent); color: #07090e;
-  font-family: var(--font-mono); font-size: .72rem;
-  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  padding: 1rem 2.5rem; text-decoration: none;
-  transition: transform .15s, background .2s;
-  margin-bottom: .7rem; text-align: center;
-}
-.cta-btn:hover { background: #d6ff5c; transform: translateY(-2px); }
-.cta-phone {
-  font-family: var(--font-mono); font-size: .68rem;
-  letter-spacing: 1px; color: var(--muted);
-  text-align: center; display: block;
-  text-decoration: none; transition: color .2s;
-}
-.cta-phone:hover { color: var(--text); }
-
-/* ── PARTNER LOGOS STRIP ── */
-.partners {
-  position: relative; z-index: 2;
-  padding: 0 4rem 5rem;
-}
-.partners-label {
-  font-family: var(--font-mono); font-size: .6rem;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 1.5rem;
-}
-.partners-row {
-  display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
-}
-.partner-pill {
-  font-family: var(--font-mono); font-size: .62rem;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  padding: .45rem 1.1rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--glass-border);
-  color: var(--muted);
-  transition: color .2s, border-color .2s;
-}
-.partner-pill:hover { color: var(--text); border-color: rgba(200,245,66,.3); }
-
-/* ── FOOTER ── */
-footer {
-  position: relative; z-index: 2;
-  border-top: 1px solid var(--glass-border);
-  background: rgba(7,9,14,.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 3rem 4rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.footer-logo {
-  font-family: var(--font-display); font-size: 1.35rem;
-  letter-spacing: 2px; color: var(--text); text-decoration: none;
-}
-.footer-logo span { color: var(--accent); }
-.footer-links { display: flex; gap: 2rem; list-style: none; }
-.footer-links a {
-  font-size: .72rem; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--muted); text-decoration: none; transition: color .2s;
-}
-.footer-links a:hover { color: var(--text); }
-.footer-copy {
-  font-family: var(--font-mono); font-size: .62rem; color: var(--muted);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 1rem 2rem; }
-  .nav-links { display: none; }
-  .hero { padding: 10rem 2rem 4rem; }
-  .filter-section, .portfolio-section, .partners { padding-left: 2rem; padding-right: 2rem; }
-  .portfolio-grid { grid-template-columns: repeat(2,1fr); }
-  .portfolio-card.featured { grid-column: span 2; }
-  .cta-section { flex-direction: column; margin: 0 2rem 4rem; padding: 3rem 2rem; }
-  footer { flex-direction: column; gap: 1.5rem; padding: 2rem; text-align: center; }
-}
-@media (max-width: 600px) {
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .portfolio-card.featured { grid-column: span 1; }
-  .hero h1 { font-size: 3.5rem; }
-  .hero-stats { gap: 1.8rem; }
-}
+  /* ─── SCROLL ANIMATIONS ──────────────────────────────── */
+  .gsap-fade { opacity: 0; transform: translateY(28px); }
 </style>
 </head>
 <body>
 
 <!-- CURSOR -->
-<div id="c-dot"></div>
-<div id="c-ring"></div>
+<div id="cursor"></div>
 
 <!-- NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">OMNI<span>VISION</span></a>
+<nav>
+  <a href="https://www.omnivisiondesign.com" class="nav-logo">Omnivision Design</a>
   <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
+    <li><a href="https://www.omnivisiondesign.com/">Home</a></li>
+    <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/">About</a></li>
+    <li><a href="https://www.omnivisiondesign.com/services/">Services</a></li>
     <li><a href="#" class="active">Our Work</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="https://www.omnivisiondesign.com/blog/">Blog</a></li>
+    <li><a href="https://www.omnivisiondesign.com/contact/">Contact</a></li>
   </ul>
-  <a href="#" class="nav-cta">Free Quote</a>
+  <span class="nav-phone">(514)-655-6276</span>
+  <a href="https://www.omnivisiondesign.com/contact/" class="nav-cta">Request a Quote</a>
+  <div class="hamburger" onclick="toggleMenu()" aria-label="Menu" role="button">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
+<!-- MOBILE MENU (simple) -->
+<div id="mobileMenu" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,.97);z-index:490;padding:6rem 2rem 2rem;backdrop-filter:blur(20px)">
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:1.8rem">
+    <li><a href="https://www.omnivisiondesign.com/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Home</a></li>
+    <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">About</a></li>
+    <li><a href="https://www.omnivisiondesign.com/services/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Services</a></li>
+    <li><a href="#" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700;color:var(--accent)">Our Work</a></li>
+    <li><a href="https://www.omnivisiondesign.com/blog/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Blog</a></li>
+    <li><a href="https://www.omnivisiondesign.com/contact/" style="font-family:var(--font-h);font-size:1.6rem;font-weight:700">Contact</a></li>
+  </ul>
+  <button onclick="toggleMenu()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:white;font-size:2rem;cursor:pointer">✕</button>
+</div>
+
 <!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg-num">19</div>
-  <p class="hero-tag" id="heroTag">Portfolio</p>
-  <h1 id="heroTitle">OUR<br><em>WORK</em></h1>
-  <p class="hero-sub" id="heroSub">Web design, SEO, digital marketing, and branding — crafted for businesses that want to grow.</p>
-  <div class="hero-stats">
-    <div class="stat" id="stat1">
-      <div class="stat-num">19+</div>
-      <div class="stat-label">Projects</div>
-    </div>
-    <div class="stat" id="stat2">
-      <div class="stat-num">6</div>
-      <div class="stat-label">Services</div>
-    </div>
-    <div class="stat" id="stat3">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Client Focus</div>
-    </div>
+<section class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <p class="hero-eyebrow gsap-fade">Portfolio</p>
+  <h1 class="gsap-fade">Our <span>Work</span></h1>
+  <p class="hero-sub gsap-fade">Web design, SEO, SEM, video and social media marketing — results-driven digital work for businesses across Montreal and beyond.</p>
+  <p class="breadcrumb gsap-fade"><a href="https://www.omnivisiondesign.com">Home</a> &rsaquo; Our Work</p>
+</section>
+
+<!-- FILTER BUTTONS -->
+<div class="filters-wrap" id="filters">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="web-design">Web Design</button>
+  <button class="filter-btn" data-filter="seo">SEO</button>
+  <button class="filter-btn" data-filter="sem">SEM</button>
+  <button class="filter-btn" data-filter="logo-design">Logo Design</button>
+  <button class="filter-btn" data-filter="video">Video</button>
+  <button class="filter-btn" data-filter="website-maintenance">Website Maintenance</button>
+</div>
+
+<!-- PORTFOLIO GRID -->
+<section class="grid-section">
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <!-- 1. Greene Locksmiths -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('greene')">
+      <div class="card-img-wrap">
+        <img src="image1.jpg" alt="Greene Locksmiths website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Greene Locksmiths</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 2. Paramedic360 -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('paramedic')">
+      <div class="card-img-wrap">
+        <img src="image2.jpg" alt="Paramedic360 website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Paramedic360</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 3. Archex -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('archex')">
+      <div class="card-img-wrap">
+        <img src="image3.jpg" alt="Archex website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Archex</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 4. Medaca -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('medaca')">
+      <div class="card-img-wrap">
+        <img src="image4.jpg" alt="Medaca website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Medaca</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 5. HostSailor -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('hostsailor')">
+      <div class="card-img-wrap">
+        <img src="image5.jpg" alt="HostSailor website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">HostSailor</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 6. SuiteStay -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('suitestay')">
+      <div class="card-img-wrap">
+        <img src="image6.jpg" alt="SuiteStay website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">SuiteStay</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 7. McKell Institute -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('mckell')">
+      <div class="card-img-wrap">
+        <img src="image7.jpg" alt="McKell Institute website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">McKell Institute</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 8. SignalAlarm -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('signalalarm')">
+      <div class="card-img-wrap">
+        <img src="image8.jpg" alt="SignalAlarm website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">SignalAlarm</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 9. CleanTile -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('cleantile')">
+      <div class="card-img-wrap">
+        <img src="image9.jpg" alt="CleanTile website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">CleanTile</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 10. CliniqueAgatha -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('clinique')">
+      <div class="card-img-wrap">
+        <img src="image10.jpg" alt="CliniqueAgatha website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">CliniqueAgatha</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 11. KBS Maintenance -->
+    <article class="card gsap-fade" data-category="website-maintenance" onclick="openModal('kbs')">
+      <div class="card-img-wrap">
+        <img src="image11.jpg" alt="KBS Maintenance website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">KBS Maintenance</span>
+        <span class="card-tag">Maintenance</span>
+      </div>
+    </article>
+
+    <!-- 12. Scan Plus Tech -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('scanplus')">
+      <div class="card-img-wrap">
+        <img src="image12.jpg" alt="Scan Plus Tech website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Scan Plus Tech</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 13. Omnivision Design -->
+    <article class="card gsap-fade" data-category="web-design" onclick="openModal('omnivision')">
+      <div class="card-img-wrap">
+        <img src="image13.jpg" alt="Omnivision Design website screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Omnivision Design</span>
+        <span class="card-tag">Web Design</span>
+      </div>
+    </article>
+
+    <!-- 14. Archex SEO -->
+    <article class="card gsap-fade" data-category="seo" onclick="openModal('archexseo')">
+      <div class="card-img-wrap">
+        <img src="image14.jpg" alt="Archex SEO project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Archex SEO</span>
+        <span class="card-tag">SEO</span>
+      </div>
+    </article>
+
+    <!-- 15. Canada Peptide SEO -->
+    <article class="card gsap-fade" data-category="seo" onclick="openModal('canadapeptide')">
+      <div class="card-img-wrap">
+        <img src="image15.jpg" alt="Canada Peptide SEO project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Canada Peptide SEO</span>
+        <span class="card-tag">SEO</span>
+      </div>
+    </article>
+
+    <!-- 16. LazyBagParis SEO -->
+    <article class="card gsap-fade" data-category="seo" onclick="openModal('lazybag')">
+      <div class="card-img-wrap">
+        <img src="image16.jpg" alt="LazyBagParis SEO project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">LazyBagParis SEO</span>
+        <span class="card-tag">SEO</span>
+      </div>
+    </article>
+
+    <!-- 17. GoldMPS SEO -->
+    <article class="card gsap-fade" data-category="seo" onclick="openModal('goldmps')">
+      <div class="card-img-wrap">
+        <img src="image17.jpg" alt="GoldMPS SEO project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">GoldMPS SEO</span>
+        <span class="card-tag">SEO</span>
+      </div>
+    </article>
+
+    <!-- 18. SweetDreamsBamboo SEO -->
+    <article class="card gsap-fade" data-category="seo" onclick="openModal('sweetdreams')">
+      <div class="card-img-wrap">
+        <img src="image18.jpg" alt="SweetDreamsBamboo SEO project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">SweetDreamsBamboo SEO</span>
+        <span class="card-tag">SEO</span>
+      </div>
+    </article>
+
+    <!-- 19. Signal Alarm SEM -->
+    <article class="card gsap-fade" data-category="sem" onclick="openModal('signalalarmsem')">
+      <div class="card-img-wrap">
+        <img src="image19.jpg" alt="Signal Alarm SEM project screenshot" loading="lazy" width="653" height="490">
+        <div class="card-overlay"><span class="view-btn">&#9654; View Project</span></div>
+      </div>
+      <div class="card-body">
+        <span class="card-title">Signal Alarm SEM</span>
+        <span class="card-tag">SEM</span>
+      </div>
+    </article>
+
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track">
-    <span class="ticker-item">Web Design <span>✦</span></span>
-    <span class="ticker-item">SEO Optimization <span>✦</span></span>
-    <span class="ticker-item">Google Ads <span>✦</span></span>
-    <span class="ticker-item">Social Media <span>✦</span></span>
-    <span class="ticker-item">Logo Design <span>✦</span></span>
-    <span class="ticker-item">Video Production <span>✦</span></span>
-    <span class="ticker-item">Web Design <span>✦</span></span>
-    <span class="ticker-item">SEO Optimization <span>✦</span></span>
-    <span class="ticker-item">Google Ads <span>✦</span></span>
-    <span class="ticker-item">Social Media <span>✦</span></span>
-    <span class="ticker-item">Logo Design <span>✦</span></span>
-    <span class="ticker-item">Video Production <span>✦</span></span>
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeOnBackdrop(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <img id="modalImg" src="" alt="" class="modal-img">
+    <div class="modal-body">
+      <span class="modal-tag" id="modalTag"></span>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-meta" id="modalMeta"></div>
+    </div>
   </div>
 </div>
 
-<!-- FILTERS -->
-<section class="filter-section">
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all">All Work</button>
-    <button class="filter-btn" data-filter="web">Web Design</button>
-    <button class="filter-btn" data-filter="logo">Logo Design</button>
-    <button class="filter-btn" data-filter="seo">SEO</button>
-    <button class="filter-btn" data-filter="sem">SEM</button>
-    <button class="filter-btn" data-filter="video">Video</button>
-    <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+<!-- PARTNER LOGOS -->
+<div class="partners">
+  <p class="partners-label">Platforms &amp; Partners We Work With</p>
+  <div class="partners-logos">
+    <span>WordPress</span>
+    <span>Shopify</span>
+    <span>WooCommerce</span>
+    <span>Google Ads</span>
+    <span>Facebook</span>
+    <span>LinkedIn</span>
+    <span>Pinterest</span>
+    <span>Instagram</span>
+    <span>X / Twitter</span>
   </div>
-</section>
+</div>
 
-<!-- PORTFOLIO GRID -->
-<section class="portfolio-section">
-  <div class="portfolio-grid" id="portfolioGrid">
-
-    <div class="portfolio-card featured" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg" alt="Greene Locksmiths" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Greene Locksmiths</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Greene Locksmiths</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Full website redesign focused on local service visibility and lead generation.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png" alt="Paramedic360" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Paramedic360</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">Paramedic360</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Healthcare site built for trust, speed, and mobile-first experience.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png" alt="Archex" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Archex</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">Archex</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Architecture firm branding and web presence with a premium editorial feel.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png" alt="Medaca" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Medaca</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">Medaca</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Medical clinic website optimized for patient acquisition and online booking.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png" alt="HostSailor" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">HostSailor</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">HostSailor</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Hosting company digital revamp focused on conversion rate and clarity.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png" alt="SuiteStay" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">SuiteStay</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">SuiteStay</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Luxury accommodation site with immersive visuals and smart booking flow.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card featured" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png" alt="McKell Institute" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">McKell Institute</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">McKell Institute</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Think tank website redesign — authority, research content, and readability.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png" alt="SignalAlarm" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">SignalAlarm</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">SignalAlarm</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Security company site optimized for local lead capture and trust signals.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="maintenance">
-      <span class="card-badge">Maintenance</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png" alt="CleanTile" loading="lazy">
-      <div class="card-always"><div class="card-category">Maintenance</div><div class="card-title">CleanTile</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Maintenance</div><div class="card-title">CleanTile</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Ongoing site maintenance and performance optimization for tile cleaning business.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png" alt="CliniqueAgatha" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">CliniqueAgatha</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">CliniqueAgatha</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Beauty clinic website with bilingual support and elegant visual identity.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="maintenance">
-      <span class="card-badge">Maintenance</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png" alt="KBS Maintenance" loading="lazy">
-      <div class="card-always"><div class="card-category">Maintenance</div><div class="card-title">KBS Maintenance</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Maintenance</div><div class="card-title">KBS Maintenance</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Website health monitoring and monthly update services for KBS.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png" alt="Scan Plus Tech" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Scan Plus Tech</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">Scan Plus Tech</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Tech services company redesign with a clean, credibility-building layout.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card featured" data-category="web">
-      <span class="card-badge">Web Design</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png" alt="Omnivision Design" loading="lazy">
-      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Omnivision Design</div></div>
-      <div class="card-overlay">
-        <div class="card-category">Web Design</div><div class="card-title">Omnivision Design</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Our own agency website — built to showcase our full range of capabilities.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="seo">
-      <span class="card-badge">SEO</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg" alt="Archex SEO" loading="lazy">
-      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">Archex SEO</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEO</div><div class="card-title">Archex SEO</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Full SEO campaign boosting organic traffic and keyword rankings for Archex.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="seo">
-      <span class="card-badge">SEO</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg" alt="Canada Peptide" loading="lazy">
-      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">Canada Peptide</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEO</div><div class="card-title">Canada Peptide SEO</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Niche SEO strategy for a peptide supplier in a competitive market segment.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="seo">
-      <span class="card-badge">SEO</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg" alt="LazyBagParis" loading="lazy">
-      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">LazyBagParis</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEO</div><div class="card-title">LazyBagParis SEO</div>
-        <div class="card-hover-content">
-          <p class="card-desc">E-commerce SEO for a fashion brand targeting French-speaking markets.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="seo">
-      <span class="card-badge">SEO</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg" alt="GoldMPS" loading="lazy">
-      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">GoldMPS</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEO</div><div class="card-title">GoldMPS SEO</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Technical and content SEO strategy for a managed print services provider.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="seo">
-      <span class="card-badge">SEO</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg" alt="SweetDreams Bamboo" loading="lazy">
-      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">SweetDreams Bamboo</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEO</div><div class="card-title">SweetDreamsBamboo SEO</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Organic growth SEO for an eco-friendly bamboo bedding brand.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-card" data-category="sem">
-      <span class="card-badge">SEM</span>
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg" alt="Signal Alarm SEM" loading="lazy">
-      <div class="card-always"><div class="card-category">SEM</div><div class="card-title">Signal Alarm SEM</div></div>
-      <div class="card-overlay">
-        <div class="card-category">SEM</div><div class="card-title">Signal Alarm SEM</div>
-        <div class="card-hover-content">
-          <p class="card-desc">Google Ads campaign management delivering high-intent leads for Signal Alarm.</p>
-          <a href="#" class="card-cta">View Project →</a>
-        </div>
-      </div>
-    </div>
-
+<!-- CTA STRIP -->
+<div class="cta-strip gsap-fade">
+  <h2>Ready to grow your business <span>online?</span></h2>
+  <div class="cta-strip-actions">
+    <a href="https://www.omnivisiondesign.com/contact/" class="cta-primary">Get a Free Quote</a>
+    <p class="cta-phone">Or call us: <a href="tel:5146556276">(514) 655-6276</a></p>
   </div>
-</section>
-
-<!-- PARTNERS -->
-<section class="partners" id="partners">
-  <p class="partners-label">Platforms We Work With</p>
-  <div class="partners-row">
-    <span class="partner-pill">WordPress</span>
-    <span class="partner-pill">Shopify</span>
-    <span class="partner-pill">WooCommerce</span>
-    <span class="partner-pill">Google Ads</span>
-    <span class="partner-pill">Facebook</span>
-    <span class="partner-pill">Instagram</span>
-    <span class="partner-pill">LinkedIn</span>
-    <span class="partner-pill">Pinterest</span>
-    <span class="partner-pill">X / Twitter</span>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" id="ctaSection">
-  <div>
-    <p class="cta-label">Start Your Project</p>
-    <h2 class="cta-heading">Ready to <em>Grow</em><br>Your Business?</h2>
-  </div>
-  <div class="cta-right">
-    <a href="#" class="cta-btn">Get a Free Quote</a>
-    <a href="tel:5146556276" class="cta-phone">(514) 655-6276</a>
-  </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <a href="#" class="footer-logo">OMNI<span>VISION</span></a>
-  <ul class="footer-links">
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">Privacy</a></li>
-    <li><a href="#">Sitemap</a></li>
-  </ul>
-  <p class="footer-copy">© 2026 Omnivision Design. Montreal, QC.</p>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Omnivision Design</span>
+      <p>Omnivision Design is a Montreal Web Marketing Company offering internet marketing services to small, medium and large businesses, including public companies, delivering the best web marketing strategy for companies in any industry.</p>
+      <p style="margin-top:.8rem;font-size:.85rem;color:var(--muted)">
+        106-7470 Sherbrooke St W, Montreal, QC H4B 1S5<br>
+        6860 Chester Ave, Montreal, QC H4V 1K6<br>
+        <a href="tel:5146556276" style="color:var(--accent)">(514) 655-6276</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/">About</a></li>
+        <li><a href="https://www.omnivisiondesign.com/clients/">Clients</a></li>
+        <li><a href="https://www.omnivisiondesign.com/testimonials/">Testimonials</a></li>
+        <li><a href="https://www.omnivisiondesign.com/team/">Team</a></li>
+        <li><a href="https://www.omnivisiondesign.com/faq/">FAQ</a></li>
+        <li><a href="https://www.omnivisiondesign.com/internship/">Internship</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Latest Posts</h4>
+      <ul>
+        <li><a href="https://www.omnivisiondesign.com/how-to-build-aeo-authority-with-content/">How to Build AEO Authority With Content</a></li>
+        <li><a href="https://www.omnivisiondesign.com/how-to-design-a-website-that-converts-visitors-into-leads/">How to Design a Website That Converts</a></li>
+        <li><a href="https://www.omnivisiondesign.com/ai-threats-explained-what-you-need-to-know/">AI Threats Explained</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Omnivision Design — All rights reserved | <a href="https://www.omnivisiondesign.com/privacy-policy/" style="color:var(--accent)">Privacy Policy</a> | <a href="https://www.omnivisiondesign.com/sitemap/" style="color:var(--accent)">Sitemap</a></p>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/omnivision.design" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+      <a href="https://twitter.com/omnivisiondes" aria-label="Twitter/X" target="_blank" rel="noopener">𝕏</a>
+      <a href="http://ca.linkedin.com/in/omnivisiondesign" aria-label="LinkedIn" target="_blank" rel="noopener">in</a>
+      <a href="https://www.pinterest.com/omnivisiondesign/" aria-label="Pinterest" target="_blank" rel="noopener">𝕡</a>
+      <a href="https://www.instagram.com/omnivisiondesign/" aria-label="Instagram" target="_blank" rel="noopener">◎</a>
+    </div>
+  </div>
 </footer>
 
 <!-- GSAP CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-/* ═══════════════════════════════════════
-   1. CUSTOM CURSOR
-═══════════════════════════════════════ */
-const dot  = document.getElementById('c-dot');
-const ring = document.getElementById('c-ring');
-let mx = window.innerWidth/2, my = window.innerHeight/2;
-let rx = mx, ry = my;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  gsap.to(dot, { x: mx, y: my, duration: 0.08, ease: 'power2.out' });
-});
-
-// Ring follows with lag
-gsap.ticker.add(() => {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  gsap.set(ring, { x: rx, y: ry });
-});
-
-document.querySelectorAll('a, button, .portfolio-card, .filter-btn').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    dot.classList.add('small');
-    ring.classList.add('big');
-  });
-  el.addEventListener('mouseleave', () => {
-    dot.classList.remove('small');
-    ring.classList.remove('big');
-  });
-});
-
-/* ═══════════════════════════════════════
-   2. HERO ENTRANCE — GSAP TIMELINE
-═══════════════════════════════════════ */
-const heroTl = gsap.timeline({ delay: 0.1 });
-
-heroTl
-  .from('#heroTag', {
-    opacity: 0, x: -30, duration: 0.7, ease: 'power3.out'
-  })
-  .from('#heroTitle', {
-    opacity: 0, y: 60, duration: 1, ease: 'power4.out',
-    skewY: 4
-  }, '-=0.4')
-  .from('#heroSub', {
-    opacity: 0, y: 20, duration: 0.7, ease: 'power3.out'
-  }, '-=0.5')
-  .from(['#stat1','#stat2','#stat3'], {
-    opacity: 0, y: 20, duration: 0.5,
-    stagger: 0.12, ease: 'power2.out'
-  }, '-=0.4');
-
-/* ═══════════════════════════════════════
-   3. NAV SCROLL GLASS EFFECT
-═══════════════════════════════════════ */
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    nav.style.background = 'rgba(7,9,14,0.72)';
-    nav.style.backdropFilter = 'blur(36px) saturate(200%)';
-  } else {
-    nav.style.background = 'rgba(7,9,14,0.38)';
-    nav.style.backdropFilter = 'blur(28px) saturate(180%)';
+/* ─── PROJECT DATA ──────────────────────────────────────────── */
+const projects = {
+  greene: {
+    title: 'Greene Locksmiths',
+    tag: 'Web Design',
+    img: 'image1.jpg',
+    desc: 'A professional web design project for Greene Locksmiths. We created a modern, conversion-focused website that clearly communicates their emergency locksmith services. The design emphasises trust signals, fast load times, and a prominent call-to-action to drive phone calls and quote requests.',
+    meta: ['Web Design','Montreal','WordPress','Mobile-Friendly','Local SEO']
+  },
+  paramedic: {
+    title: 'Paramedic360',
+    tag: 'Web Design',
+    img: 'image2.jpg',
+    desc: 'A clean, authoritative website built for Paramedic360. The project focused on communicating professional credibility in the medical training industry, featuring course listings, instructor bios, registration forms, and an intuitive user journey optimised for conversions.',
+    meta: ['Web Design','Medical Training','WordPress','Responsive','UX Optimised']
+  },
+  archex: {
+    title: 'Archex',
+    tag: 'Web Design',
+    img: 'image3.jpg',
+    desc: 'A premium web presence for Archex, a construction and architecture firm. The website showcases their portfolio through high-quality imagery and structured project case studies. Built to reflect the brand\'s precision and quality, with fast performance and strong SEO foundations.',
+    meta: ['Web Design','Architecture','WordPress','Portfolio','SEO-Ready']
+  },
+  medaca: {
+    title: 'Medaca',
+    tag: 'Web Design',
+    img: 'image4.jpg',
+    desc: 'Omnivision designed and developed a sophisticated, trust-building website for Medaca — a healthcare and medical services company. The result is a clean, professional digital presence that effectively communicates their services, with appointment booking integration and HIPAA-conscious content architecture.',
+    meta: ['Web Design','Healthcare','WordPress','Booking Integration','Mobile-Friendly']
+  },
+  hostsailor: {
+    title: 'HostSailor',
+    tag: 'Web Design',
+    img: 'image5.jpg',
+    desc: 'HostSailor is a web hosting provider. Omnivision Design delivered a technically sharp, feature-rich website that clearly presents hosting plans, pricing tables, and technical specifications. The design is modern and competitive within the hosting industry, with strong conversion elements throughout.',
+    meta: ['Web Design','Web Hosting','Custom Design','Pricing Tables','Performance-Focused']
+  },
+  suitestay: {
+    title: 'SuiteStay',
+    tag: 'Web Design',
+    img: 'image6.jpg',
+    desc: 'SuiteStay required a luxury-feel property rental website. Omnivision crafted a visually elegant digital experience with property galleries, availability features, and a booking-oriented layout. The design evokes premium hospitality while remaining fully functional and conversion-driven.',
+    meta: ['Web Design','Real Estate','Luxury Design','Booking UI','Responsive']
+  },
+  mckell: {
+    title: 'McKell Institute',
+    tag: 'Web Design',
+    img: 'image7.jpg',
+    desc: 'The McKell Institute is a public policy think-tank. Omnivision created a credible, editorial-style website that effectively presents research, reports, and policy positions. The design balances academic authority with modern readability, including a content hub and email capture system.',
+    meta: ['Web Design','Non-Profit','Policy Research','Editorial Layout','WordPress']
+  },
+  signalalarm: {
+    title: 'SignalAlarm',
+    tag: 'Web Design',
+    img: 'image8.jpg',
+    desc: 'A complete website project for SignalAlarm, a security and alarm systems company. The site was designed to generate inbound leads, featuring service pages, a trust-building homepage, and a strong call-to-action strategy to convert visitors into customers.',
+    meta: ['Web Design','Security Systems','Lead Generation','WordPress','Local Business']
+  },
+  cleantile: {
+    title: 'CleanTile',
+    tag: 'Web Design',
+    img: 'image9.jpg',
+    desc: 'CleanTile needed a clear, professional online presence for their tile cleaning and restoration services. Omnivision delivered a results-focused website with before-and-after gallery sections, service area targeting, and a frictionless quote request flow to increase bookings.',
+    meta: ['Web Design','Home Services','Gallery Section','Quote Form','Mobile-Friendly']
+  },
+  clinique: {
+    title: 'CliniqueAgatha',
+    tag: 'Web Design',
+    img: 'image10.jpg',
+    desc: 'A premium aesthetic clinic website for CliniqueAgatha. The design reflects the brand\'s high-end positioning in the beauty and wellness space — elegant typography, soft imagery, service showcases, online booking integration, and a refined colour palette that instils client confidence.',
+    meta: ['Web Design','Aesthetic Clinic','Luxury Feel','Booking System','Bilingual']
+  },
+  kbs: {
+    title: 'KBS Maintenance',
+    tag: 'Website Maintenance',
+    img: 'image11.jpg',
+    desc: 'Omnivision provides ongoing website maintenance services for KBS Maintenance, keeping their site secure, fast, and up to date. Services include security monitoring, plugin updates, content updates, performance optimisation, and regular backups.',
+    meta: ['Website Maintenance','Security','Performance','WordPress','Ongoing Support']
+  },
+  scanplus: {
+    title: 'Scan Plus Tech',
+    tag: 'Web Design',
+    img: 'image12.jpg',
+    desc: 'A modern, technology-forward website for Scan Plus Tech, a document scanning and digitisation company. The project emphasised clear service communication, strong local SEO structure, and a professional design that positions the brand as an industry leader in their region.',
+    meta: ['Web Design','Technology','B2B','WordPress','Local SEO']
+  },
+  omnivision: {
+    title: 'Omnivision Design',
+    tag: 'Web Design',
+    img: 'image13.jpg',
+    desc: 'Omnivision Design\'s own website — a showcase of our capabilities across web design, SEO, SEM, social media, and digital marketing. Built to the highest performance and conversion standards, the site reflects our expertise and serves as both a portfolio and a lead generation engine.',
+    meta: ['Web Design','Agency Site','WordPress','High-Performance','SEO Optimised']
+  },
+  archexseo: {
+    title: 'Archex SEO',
+    tag: 'SEO',
+    img: 'image14.jpg',
+    desc: 'Omnivision ran a comprehensive SEO campaign for Archex, targeting competitive construction and architecture keywords. The campaign included technical SEO audits, content strategy, on-page optimisation, and link building — resulting in significantly improved organic search rankings and traffic.',
+    meta: ['SEO','Construction','Keyword Research','On-Page SEO','Link Building']
+  },
+  canadapeptide: {
+    title: 'Canada Peptide SEO',
+    tag: 'SEO',
+    img: 'image15.jpg',
+    desc: 'A targeted SEO strategy for Canada Peptide, an e-commerce company in a competitive niche. Omnivision focused on technical SEO, product page optimisation, content marketing, and authority building — delivering measurable organic growth and improved visibility in search results.',
+    meta: ['SEO','E-Commerce','Technical SEO','Content Marketing','Organic Growth']
+  },
+  lazybag: {
+    title: 'LazyBagParis SEO',
+    tag: 'SEO',
+    img: 'image16.jpg',
+    desc: 'SEO project for LazyBagParis, a fashion and accessories brand. Omnivision developed a multilingual SEO strategy targeting both English and French audiences. The work included keyword mapping, on-page content optimisation, and structured data implementation to improve product visibility in search.',
+    meta: ['SEO','Fashion','Multilingual','Structured Data','On-Page Optimisation']
+  },
+  goldmps: {
+    title: 'GoldMPS SEO',
+    tag: 'SEO',
+    img: 'image17.jpg',
+    desc: 'Omnivision delivered an SEO campaign for GoldMPS targeting high-intent keywords in their industry. The project covered a full technical audit, backlink profile analysis, competitor gap analysis, and a content calendar — substantially growing their organic traffic and domain authority over time.',
+    meta: ['SEO','Technical Audit','Backlink Strategy','Competitor Analysis','Content']
+  },
+  sweetdreams: {
+    title: 'SweetDreamsBamboo SEO',
+    tag: 'SEO',
+    img: 'image18.jpg',
+    desc: 'A full SEO engagement for SweetDreamsBamboo, a sustainable baby and lifestyle products brand. Omnivision implemented a content-driven SEO strategy targeting eco-conscious shoppers, combining product optimisation, blog content creation, and category page improvements to grow organic revenue.',
+    meta: ['SEO','Sustainable Products','Content SEO','E-Commerce','Organic Revenue']
+  },
+  signalalarmsem: {
+    title: 'Signal Alarm SEM',
+    tag: 'SEM',
+    img: 'image19.jpg',
+    desc: 'A high-performance Google Ads (SEM) campaign for Signal Alarm. Omnivision managed the full paid search strategy: keyword selection, ad copy creation, bid strategy, landing page alignment, and conversion tracking. The campaign significantly reduced cost-per-lead while increasing qualified enquiries.',
+    meta: ['SEM','Google Ads','Conversion Tracking','Landing Pages','Pay-Per-Click']
   }
+};
+
+/* ─── CURSOR ────────────────────────────────────────────────── */
+const cursor = document.getElementById('cursor');
+let mx = 0, my = 0, cx = 0, cy = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor(){
+  cx += (mx - cx) * .18;
+  cy += (my - cy) * .18;
+  cursor.style.left = cx + 'px';
+  cursor.style.top  = cy + 'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.card,.filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
 });
 
-/* ═══════════════════════════════════════
-   4. PORTFOLIO CARDS — GSAP SCROLL REVEAL
-═══════════════════════════════════════ */
-gsap.utils.toArray('.portfolio-card').forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: {
-      trigger: card,
-      start: 'top 88%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 40,
-    scale: 0.96,
-    duration: 0.65,
-    delay: (i % 3) * 0.1,
-    ease: 'power3.out'
-  });
-});
-
-/* ═══════════════════════════════════════
-   5. FILTER BUTTONS — GSAP ENTRANCE
-═══════════════════════════════════════ */
-gsap.from('.filter-btn', {
-  scrollTrigger: {
-    trigger: '#filterBar',
-    start: 'top 90%'
-  },
-  opacity: 0, y: 16,
-  stagger: 0.07,
-  duration: 0.5,
-  ease: 'power2.out'
-});
-
-/* ═══════════════════════════════════════
-   6. CTA SECTION — GSAP SCROLL
-═══════════════════════════════════════ */
-gsap.from('#ctaSection', {
-  scrollTrigger: {
-    trigger: '#ctaSection',
-    start: 'top 85%'
-  },
-  opacity: 0, y: 50,
-  duration: 0.9,
-  ease: 'power3.out'
-});
-
-/* ═══════════════════════════════════════
-   7. PARTNERS PILLS — STAGGER
-═══════════════════════════════════════ */
-gsap.from('.partner-pill', {
-  scrollTrigger: {
-    trigger: '#partners',
-    start: 'top 88%'
-  },
-  opacity: 0, scale: 0.88,
-  stagger: 0.06, duration: 0.45,
-  ease: 'back.out(1.4)'
-});
-
-/* ═══════════════════════════════════════
-   8. FILTER LOGIC
-═══════════════════════════════════════ */
+/* ─── FILTER ────────────────────────────────────────────────── */
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-
-    document.querySelectorAll('.portfolio-card').forEach(card => {
-      const show = f === 'all' || card.dataset.category === f;
-      if (show) {
+    document.querySelectorAll('.card').forEach(card => {
+      if(f === 'all' || card.dataset.category === f){
         card.classList.remove('hidden');
-        gsap.fromTo(card,
-          { opacity: 0, scale: 0.94, y: 20 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: 'power2.out' }
-        );
+        card.style.animation = 'fadeIn .4s ease forwards';
       } else {
-        gsap.to(card, {
-          opacity: 0, scale: 0.94, duration: 0.25, ease: 'power2.in',
-          onComplete: () => card.classList.add('hidden')
-        });
+        card.classList.add('hidden');
       }
     });
   });
 });
+
+/* ─── MODAL ─────────────────────────────────────────────────── */
+function openModal(id){
+  const p = projects[id];
+  if(!p) return;
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.title + ' preview';
+  document.getElementById('modalTag').textContent = p.tag;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalDesc').textContent = p.desc;
+  const meta = document.getElementById('modalMeta');
+  meta.innerHTML = p.meta.map(m => `<span>${m}</span>`).join('');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeOnBackdrop(e){
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+/* ─── MOBILE MENU ────────────────────────────────────────────── */
+function toggleMenu(){
+  const m = document.getElementById('mobileMenu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+/* ─── GSAP SCROLL ANIMATIONS ─────────────────────────────────── */
+window.addEventListener('load', () => {
+  if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.gsap-fade').forEach((el, i) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 32 },
+        { opacity: 1, y: 0, duration: .8, ease: 'power3.out',
+          delay: i < 4 ? i * .12 : 0,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+  } else {
+    /* fallback: reveal all if GSAP fails to load */
+    document.querySelectorAll('.gsap-fade').forEach(el => {
+      el.style.opacity = 1; el.style.transform = 'none';
+    });
+  }
+});
+
+/* ─── FADE-IN KEYFRAME (filter) ──────────────────────────────── */
+const st = document.createElement('style');
+st.textContent = `@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}`;
+document.head.appendChild(st);
 </script>
 </body>
 </html>
