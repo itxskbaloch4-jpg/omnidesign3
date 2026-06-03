@@ -4,542 +4,458 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Work — Omnivision Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #080a0f;
-    --bg2: #0d1018;
-    --bg3: #12151e;
-    --accent: #c8f542;
-    --accent2: #4af0c0;
-    --text: #f0f2f8;
-    --muted: #6b7280;
-    --border: rgba(255,255,255,0.07);
-    --glass: rgba(255,255,255,0.04);
-    --card-hover: rgba(200,245,66,0.06);
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 4rem;
-    background: rgba(8,10,15,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    letter-spacing: 2px;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .nav-logo span { color: var(--accent); }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-
-  .nav-cta {
-    background: var(--accent);
-    color: #080a0f;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 0.6rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .nav-cta:hover { background: #d4ff55; transform: translateY(-1px); }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    padding: 14rem 4rem 6rem;
-    overflow: hidden;
-  }
-
-  .hero-bg-number {
-    position: absolute;
-    top: 4rem;
-    right: -2rem;
-    font-family: var(--font-display);
-    font-size: 28vw;
-    color: rgba(255,255,255,0.02);
-    line-height: 1;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 9rem);
-    line-height: 0.9;
-    letter-spacing: 2px;
-    color: var(--text);
-    margin-bottom: 2rem;
-  }
-
-  .hero h1 em {
-    font-style: normal;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(200,245,66,0.5);
-  }
-
-  .hero-sub {
-    max-width: 480px;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--muted);
-    margin-bottom: 3rem;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 3rem;
-  }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 2.8rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.25rem;
-  }
-
-  /* ── FILTER BAR ── */
-  .filter-section {
-    padding: 0 4rem 3rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .filter-bar {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 2rem;
-  }
-
-  .filter-btn {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 0.55rem 1.2rem;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-  }
-
-  .filter-btn:hover {
-    border-color: rgba(200,245,66,0.3);
-    color: var(--text);
-  }
-
-  .filter-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #080a0f;
-    font-weight: 700;
-  }
-
-  /* ── GRID ── */
-  .portfolio-section {
-    padding: 0 4rem 6rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-  }
-
-  /* ── CARD ── */
-  .portfolio-card {
-    position: relative;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    cursor: pointer;
-    background: var(--bg3);
-  }
-
-  .portfolio-card.hidden {
-    display: none;
-  }
-
-  .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: grayscale(30%) brightness(0.75);
-  }
-
-  .portfolio-card:hover .card-img {
-    transform: scale(1.08);
-    filter: grayscale(0%) brightness(0.9);
-  }
-
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(8,10,15,0.95) 0%, rgba(8,10,15,0.4) 50%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.8rem;
-  }
-
-  .portfolio-card:hover .card-overlay {
-    opacity: 1;
-  }
-
-  .card-always {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 1.5rem;
-    background: linear-gradient(to top, rgba(8,10,15,0.9), transparent);
-  }
-
-  .card-category {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.35rem;
-  }
-
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    color: var(--text);
-  }
-
-  .card-hover-content {
-    opacity: 0;
-    transform: translateY(8px);
-    transition: all 0.35s ease 0.05s;
-  }
-
-  .portfolio-card:hover .card-hover-content {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .card-desc {
-    font-size: 0.8rem;
-    color: rgba(240,242,248,0.65);
-    margin-top: 0.5rem;
-    line-height: 1.5;
-  }
-
-  .card-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(200,245,66,0.4);
-    padding-bottom: 2px;
-    transition: gap 0.2s;
-  }
-
-  .card-cta:hover { gap: 0.8rem; }
-
-  /* ── FEATURED (LARGE) CARD ── */
-  .portfolio-card.featured {
-    grid-column: span 2;
-    aspect-ratio: 16/9;
-  }
-
-  /* ── CTA SECTION ── */
-  .cta-section {
-    position: relative;
-    z-index: 2;
-    margin: 0 4rem 6rem;
-    padding: 5rem 4rem;
-    border: 1px solid var(--border);
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: -60%;
-    left: -10%;
-    width: 50%;
-    height: 200%;
-    background: radial-gradient(ellipse, rgba(200,245,66,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .cta-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  .cta-heading {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    letter-spacing: 1px;
-  }
-
-  .cta-heading em {
-    font-style: normal;
-    color: var(--accent);
-  }
-
-  .cta-right { flex-shrink: 0; }
-
-  .cta-btn-primary {
-    display: block;
-    background: var(--accent);
-    color: #080a0f;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 1rem 2.5rem;
-    text-decoration: none;
-    transition: transform 0.15s, background 0.2s;
-    margin-bottom: 0.75rem;
-    text-align: center;
-  }
-
-  .cta-btn-primary:hover { background: #d4ff55; transform: translateY(-2px); }
-
-  .cta-phone {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    color: var(--muted);
-    text-align: center;
-    text-decoration: none;
-    display: block;
-  }
-
-  .cta-phone:hover { color: var(--text); }
-
-  /* ── FOOTER ── */
-  footer {
-    position: relative;
-    z-index: 2;
-    border-top: 1px solid var(--border);
-    padding: 3rem 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-logo {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .footer-logo span { color: var(--accent); }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .footer-links a {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--text); }
-
-  .footer-copy {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-  }
-
-  /* ── SCROLL ANIMATION ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── TICKER ── */
-  .ticker-wrap {
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-    margin-bottom: 4rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .ticker-track {
-    display: flex;
-    gap: 4rem;
-    width: max-content;
-    animation: ticker 20s linear infinite;
-  }
-
-  .ticker-item {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    color: var(--muted);
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  .ticker-item span { color: var(--accent); margin-right: 4rem; }
-
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 2rem; }
-    .nav-links { display: none; }
-    .hero { padding: 10rem 2rem 4rem; }
-    .filter-section, .portfolio-section { padding-left: 2rem; padding-right: 2rem; }
-    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-    .portfolio-card.featured { grid-column: span 2; }
-    .cta-section { flex-direction: column; margin: 0 2rem 4rem; padding: 3rem 2rem; }
-    footer { flex-direction: column; gap: 1.5rem; padding: 2rem; text-align: center; }
-  }
-
-  @media (max-width: 600px) {
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .portfolio-card.featured { grid-column: span 1; }
-    .hero h1 { font-size: 3.5rem; }
-    .hero-stats { gap: 2rem; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #07090e;
+  --bg2:       #0c0f18;
+  --bg3:       #11141f;
+  --accent:    #c8f542;
+  --accent2:   #4af0c0;
+  --text:      #eef0f8;
+  --muted:     #5c6370;
+  --glass-bg:  rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-shadow: 0 8px 40px rgba(0,0,0,0.55);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── CURSOR ── */
+* { cursor: none !important; }
+
+#c-dot {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: difference;
+  transition: width .18s ease, height .18s ease;
+}
+
+#c-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: difference;
+  transition: width .22s ease, height .22s ease, opacity .2s ease, border-color .2s ease;
+}
+
+#c-ring.big  { width: 64px; height: 64px; opacity: .55; }
+#c-dot.small { width: 5px;  height: 5px; }
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .45;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 4rem;
+  background: rgba(7,9,14,0.38);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 2px 32px rgba(0,0,0,0.45);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.55rem; letter-spacing: 2px;
+  color: var(--text); text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: .75rem; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent); }
+
+.nav-cta {
+  background: var(--accent); color: #07090e;
+  font-family: var(--font-mono); font-size: .7rem;
+  font-weight: 700; letter-spacing: 1px;
+  padding: .6rem 1.5rem; border: none;
+  text-decoration: none; transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: #d6ff5c; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 14rem 4rem 5rem;
+  overflow: hidden;
+}
+
+.hero-bg-num {
+  position: absolute; top: 3rem; right: -1rem;
+  font-family: var(--font-display);
+  font-size: 28vw; color: rgba(255,255,255,0.018);
+  line-height: 1; user-select: none; pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: 2px; color: var(--accent);
+  text-transform: uppercase; margin-bottom: 1.4rem;
+  opacity: 0;
+}
+.hero-tag::before {
+  content: ''; display: block;
+  width: 2rem; height: 1px; background: var(--accent);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: .9; letter-spacing: 2px;
+  color: var(--text); margin-bottom: 1.8rem;
+  overflow: hidden;
+}
+
+.hero h1 em {
+  font-style: normal; color: transparent;
+  -webkit-text-stroke: 1px rgba(200,245,66,.5);
+}
+
+.hero-sub {
+  max-width: 460px; font-size: .98rem;
+  line-height: 1.75; color: var(--muted);
+  margin-bottom: 2.8rem; opacity: 0;
+}
+
+.hero-stats { display: flex; gap: 3rem; }
+
+.stat { opacity: 0; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem; color: var(--accent); line-height: 1;
+}
+.stat-label {
+  font-size: .68rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted); margin-top: .2rem;
+}
+
+/* ── TICKER ── */
+.ticker-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 0; margin-bottom: 3.5rem;
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,0.015);
+  backdrop-filter: blur(6px);
+}
+.ticker-track {
+  display: flex; gap: 4rem;
+  width: max-content;
+  animation: ticker 22s linear infinite;
+}
+.ticker-item {
+  font-family: var(--font-display);
+  font-size: 1.05rem; letter-spacing: 3px;
+  color: var(--muted); white-space: nowrap; text-transform: uppercase;
+}
+.ticker-item span { color: var(--accent); margin-right: 4rem; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── FILTER BAR ── */
+.filter-section {
+  padding: 0 4rem 2.5rem;
+  position: relative; z-index: 2;
+}
+.filter-bar {
+  display: flex; gap: .45rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 1.8rem;
+}
+.filter-btn {
+  font-family: var(--font-mono); font-size: .65rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: .5rem 1.1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  transition: all .22s;
+}
+.filter-btn:hover {
+  border-color: rgba(200,245,66,.35);
+  color: var(--text);
+  background: rgba(200,245,66,.05);
+}
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #07090e; font-weight: 700;
+}
+
+/* ── GRID ── */
+.portfolio-section {
+  padding: 0 4rem 6rem;
+  position: relative; z-index: 2;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.5px;
+}
+
+/* ── CARD ── */
+.portfolio-card {
+  position: relative; aspect-ratio: 4/3;
+  overflow: hidden; background: var(--bg3);
+}
+.portfolio-card.hidden { display: none; }
+.portfolio-card.featured { grid-column: span 2; aspect-ratio: 16/9; }
+
+.card-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .65s cubic-bezier(.25,.46,.45,.94);
+  filter: grayscale(25%) brightness(.72);
+}
+.portfolio-card:hover .card-img {
+  transform: scale(1.07);
+  filter: grayscale(0%) brightness(.88);
+}
+
+/* glass card overlay */
+.card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7,9,14,.92) 0%,
+    rgba(7,9,14,.28) 55%,
+    transparent 100%
+  );
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: opacity .4s ease, backdrop-filter .4s ease;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 1.8rem;
+}
+.portfolio-card:hover .card-overlay {
+  opacity: 1;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.card-always {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.4rem;
+  background: linear-gradient(to top, rgba(7,9,14,.85), transparent);
+}
+
+.card-category {
+  font-family: var(--font-mono); font-size: .58rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .3rem;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem; letter-spacing: 1px; color: var(--text);
+}
+
+.card-hover-content {
+  opacity: 0; transform: translateY(10px);
+  transition: all .32s ease .06s;
+}
+.portfolio-card:hover .card-hover-content {
+  opacity: 1; transform: translateY(0);
+}
+.card-desc {
+  font-size: .78rem; color: rgba(238,240,248,.6);
+  margin-top: .45rem; line-height: 1.55;
+}
+.card-cta {
+  display: inline-flex; align-items: center; gap: .45rem;
+  margin-top: .9rem;
+  font-family: var(--font-mono); font-size: .62rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(200,245,66,.4);
+  padding-bottom: 2px; transition: gap .2s;
+}
+.card-cta:hover { gap: .8rem; }
+
+/* ── GLASS BADGE on card top-right ── */
+.card-badge {
+  position: absolute; top: 1rem; right: 1rem;
+  font-family: var(--font-mono); font-size: .55rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: .3rem .7rem;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,.75);
+  border-radius: 2px;
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  position: relative; z-index: 2;
+  margin: 0 4rem 6rem;
+  padding: 5rem 4rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.07);
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 2rem;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -60%; left: -10%;
+  width: 50%; height: 200%;
+  background: radial-gradient(ellipse, rgba(200,245,66,.065) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-label {
+  font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem,5vw,4.5rem); line-height: .95; letter-spacing: 1px;
+}
+.cta-heading em { font-style: normal; color: var(--accent); }
+.cta-right { flex-shrink: 0; }
+.cta-btn {
+  display: block;
+  background: var(--accent); color: #07090e;
+  font-family: var(--font-mono); font-size: .72rem;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 1rem 2.5rem; text-decoration: none;
+  transition: transform .15s, background .2s;
+  margin-bottom: .7rem; text-align: center;
+}
+.cta-btn:hover { background: #d6ff5c; transform: translateY(-2px); }
+.cta-phone {
+  font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: 1px; color: var(--muted);
+  text-align: center; display: block;
+  text-decoration: none; transition: color .2s;
+}
+.cta-phone:hover { color: var(--text); }
+
+/* ── PARTNER LOGOS STRIP ── */
+.partners {
+  position: relative; z-index: 2;
+  padding: 0 4rem 5rem;
+}
+.partners-label {
+  font-family: var(--font-mono); font-size: .6rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.5rem;
+}
+.partners-row {
+  display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
+}
+.partner-pill {
+  font-family: var(--font-mono); font-size: .62rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: .45rem 1.1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  transition: color .2s, border-color .2s;
+}
+.partner-pill:hover { color: var(--text); border-color: rgba(200,245,66,.3); }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--glass-border);
+  background: rgba(7,9,14,.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 3rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: var(--font-display); font-size: 1.35rem;
+  letter-spacing: 2px; color: var(--text); text-decoration: none;
+}
+.footer-logo span { color: var(--accent); }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a {
+  font-size: .72rem; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color .2s;
+}
+.footer-links a:hover { color: var(--text); }
+.footer-copy {
+  font-family: var(--font-mono); font-size: .62rem; color: var(--muted);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 2rem; }
+  .nav-links { display: none; }
+  .hero { padding: 10rem 2rem 4rem; }
+  .filter-section, .portfolio-section, .partners { padding-left: 2rem; padding-right: 2rem; }
+  .portfolio-grid { grid-template-columns: repeat(2,1fr); }
+  .portfolio-card.featured { grid-column: span 2; }
+  .cta-section { flex-direction: column; margin: 0 2rem 4rem; padding: 3rem 2rem; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2rem; text-align: center; }
+}
+@media (max-width: 600px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .portfolio-card.featured { grid-column: span 1; }
+  .hero h1 { font-size: 3.5rem; }
+  .hero-stats { gap: 1.8rem; }
+}
 </style>
 </head>
 <body>
 
+<!-- CURSOR -->
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="#" class="nav-logo">OMNI<span>VISION</span></a>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
@@ -553,23 +469,23 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-number">19</div>
-  <p class="hero-tag">Portfolio</p>
-  <h1>OUR<br><em>WORK</em></h1>
-  <p class="hero-sub">Web design, SEO, digital marketing, and branding — crafted for businesses that want to grow.</p>
+<section class="hero" id="hero">
+  <div class="hero-bg-num">19</div>
+  <p class="hero-tag" id="heroTag">Portfolio</p>
+  <h1 id="heroTitle">OUR<br><em>WORK</em></h1>
+  <p class="hero-sub" id="heroSub">Web design, SEO, digital marketing, and branding — crafted for businesses that want to grow.</p>
   <div class="hero-stats">
-    <div>
+    <div class="stat" id="stat1">
       <div class="stat-num">19+</div>
       <div class="stat-label">Projects</div>
     </div>
-    <div>
+    <div class="stat" id="stat2">
       <div class="stat-num">6</div>
       <div class="stat-label">Services</div>
     </div>
-    <div>
+    <div class="stat" id="stat3">
       <div class="stat-num">100%</div>
-      <div class="stat-label">Client Focused</div>
+      <div class="stat-label">Client Focus</div>
     </div>
   </div>
 </section>
@@ -593,8 +509,8 @@
 </div>
 
 <!-- FILTERS -->
-<section class="filter-section reveal">
-  <div class="filter-bar">
+<section class="filter-section">
+  <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-filter="all">All Work</button>
     <button class="filter-btn" data-filter="web">Web Design</button>
     <button class="filter-btn" data-filter="logo">Logo Design</button>
@@ -609,50 +525,39 @@
 <section class="portfolio-section">
   <div class="portfolio-grid" id="portfolioGrid">
 
-    <!-- Card 1 — Featured -->
-    <div class="portfolio-card featured reveal" data-category="web">
+    <div class="portfolio-card featured" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg" alt="Greene Locksmiths" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Greene Locksmiths</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Greene Locksmiths</div></div>
       <div class="card-overlay">
         <div class="card-category">Web Design</div>
         <div class="card-title">Greene Locksmiths</div>
         <div class="card-hover-content">
-          <p class="card-desc">Full website redesign with a focus on local service visibility and lead generation.</p>
+          <p class="card-desc">Full website redesign focused on local service visibility and lead generation.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png" alt="Paramedic360" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Paramedic360</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Paramedic360</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Paramedic360</div>
+        <div class="card-category">Web Design</div><div class="card-title">Paramedic360</div>
         <div class="card-hover-content">
-          <p class="card-desc">Healthcare sector website built for trust, speed, and mobile-first experience.</p>
+          <p class="card-desc">Healthcare site built for trust, speed, and mobile-first experience.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 3 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png" alt="Archex" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Archex</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Archex</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Archex</div>
+        <div class="card-category">Web Design</div><div class="card-title">Archex</div>
         <div class="card-hover-content">
           <p class="card-desc">Architecture firm branding and web presence with a premium editorial feel.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -660,16 +565,12 @@
       </div>
     </div>
 
-    <!-- Card 4 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png" alt="Medaca" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Medaca</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Medaca</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Medaca</div>
+        <div class="card-category">Web Design</div><div class="card-title">Medaca</div>
         <div class="card-hover-content">
           <p class="card-desc">Medical clinic website optimized for patient acquisition and online booking.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -677,16 +578,12 @@
       </div>
     </div>
 
-    <!-- Card 5 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png" alt="HostSailor" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">HostSailor</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">HostSailor</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">HostSailor</div>
+        <div class="card-category">Web Design</div><div class="card-title">HostSailor</div>
         <div class="card-hover-content">
           <p class="card-desc">Hosting company digital revamp focused on conversion rate and clarity.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -694,50 +591,38 @@
       </div>
     </div>
 
-    <!-- Card 6 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png" alt="SuiteStay" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">SuiteStay</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">SuiteStay</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">SuiteStay</div>
+        <div class="card-category">Web Design</div><div class="card-title">SuiteStay</div>
         <div class="card-hover-content">
-          <p class="card-desc">Luxury accommodation website with immersive visuals and smart booking flow.</p>
+          <p class="card-desc">Luxury accommodation site with immersive visuals and smart booking flow.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 7 — Featured -->
-    <div class="portfolio-card featured reveal" data-category="web">
+    <div class="portfolio-card featured" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png" alt="McKell Institute" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">McKell Institute</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">McKell Institute</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">McKell Institute</div>
+        <div class="card-category">Web Design</div><div class="card-title">McKell Institute</div>
         <div class="card-hover-content">
-          <p class="card-desc">Think tank website redesign with a focus on authority, research content, and readability.</p>
+          <p class="card-desc">Think tank website redesign — authority, research content, and readability.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 8 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png" alt="SignalAlarm" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">SignalAlarm</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">SignalAlarm</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">SignalAlarm</div>
+        <div class="card-category">Web Design</div><div class="card-title">SignalAlarm</div>
         <div class="card-hover-content">
           <p class="card-desc">Security company site optimized for local lead capture and trust signals.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -745,33 +630,25 @@
       </div>
     </div>
 
-    <!-- Card 9 -->
-    <div class="portfolio-card reveal" data-category="maintenance">
+    <div class="portfolio-card" data-category="maintenance">
+      <span class="card-badge">Maintenance</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png" alt="CleanTile" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Maintenance</div>
-        <div class="card-title">CleanTile</div>
-      </div>
+      <div class="card-always"><div class="card-category">Maintenance</div><div class="card-title">CleanTile</div></div>
       <div class="card-overlay">
-        <div class="card-category">Maintenance</div>
-        <div class="card-title">CleanTile</div>
+        <div class="card-category">Maintenance</div><div class="card-title">CleanTile</div>
         <div class="card-hover-content">
-          <p class="card-desc">Ongoing site maintenance and performance optimization for a tile cleaning business.</p>
+          <p class="card-desc">Ongoing site maintenance and performance optimization for tile cleaning business.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 10 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png" alt="CliniqueAgatha" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">CliniqueAgatha</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">CliniqueAgatha</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">CliniqueAgatha</div>
+        <div class="card-category">Web Design</div><div class="card-title">CliniqueAgatha</div>
         <div class="card-hover-content">
           <p class="card-desc">Beauty clinic website with bilingual support and elegant visual identity.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -779,16 +656,12 @@
       </div>
     </div>
 
-    <!-- Card 11 -->
-    <div class="portfolio-card reveal" data-category="maintenance">
+    <div class="portfolio-card" data-category="maintenance">
+      <span class="card-badge">Maintenance</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png" alt="KBS Maintenance" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Maintenance</div>
-        <div class="card-title">KBS Maintenance</div>
-      </div>
+      <div class="card-always"><div class="card-category">Maintenance</div><div class="card-title">KBS Maintenance</div></div>
       <div class="card-overlay">
-        <div class="card-category">Maintenance</div>
-        <div class="card-title">KBS Maintenance</div>
+        <div class="card-category">Maintenance</div><div class="card-title">KBS Maintenance</div>
         <div class="card-hover-content">
           <p class="card-desc">Website health monitoring and monthly update services for KBS.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -796,16 +669,12 @@
       </div>
     </div>
 
-    <!-- Card 12 -->
-    <div class="portfolio-card reveal" data-category="web">
+    <div class="portfolio-card" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png" alt="Scan Plus Tech" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Scan Plus Tech</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Scan Plus Tech</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Scan Plus Tech</div>
+        <div class="card-category">Web Design</div><div class="card-title">Scan Plus Tech</div>
         <div class="card-hover-content">
           <p class="card-desc">Tech services company redesign with a clean, credibility-building layout.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -813,16 +682,12 @@
       </div>
     </div>
 
-    <!-- Card 13 — Featured -->
-    <div class="portfolio-card featured reveal" data-category="web">
+    <div class="portfolio-card featured" data-category="web">
+      <span class="card-badge">Web Design</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png" alt="Omnivision Design" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Omnivision Design</div>
-      </div>
+      <div class="card-always"><div class="card-category">Web Design</div><div class="card-title">Omnivision Design</div></div>
       <div class="card-overlay">
-        <div class="card-category">Web Design</div>
-        <div class="card-title">Omnivision Design</div>
+        <div class="card-category">Web Design</div><div class="card-title">Omnivision Design</div>
         <div class="card-hover-content">
           <p class="card-desc">Our own agency website — built to showcase our full range of capabilities.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -830,33 +695,25 @@
       </div>
     </div>
 
-    <!-- Card 14 -->
-    <div class="portfolio-card reveal" data-category="seo">
+    <div class="portfolio-card" data-category="seo">
+      <span class="card-badge">SEO</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg" alt="Archex SEO" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEO</div>
-        <div class="card-title">Archex SEO</div>
-      </div>
+      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">Archex SEO</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEO</div>
-        <div class="card-title">Archex SEO</div>
+        <div class="card-category">SEO</div><div class="card-title">Archex SEO</div>
         <div class="card-hover-content">
-          <p class="card-desc">Full SEO campaign that boosted organic traffic and keyword rankings for Archex.</p>
+          <p class="card-desc">Full SEO campaign boosting organic traffic and keyword rankings for Archex.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 15 -->
-    <div class="portfolio-card reveal" data-category="seo">
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg" alt="Canada Peptide SEO" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEO</div>
-        <div class="card-title">Canada Peptide</div>
-      </div>
+    <div class="portfolio-card" data-category="seo">
+      <span class="card-badge">SEO</span>
+      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg" alt="Canada Peptide" loading="lazy">
+      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">Canada Peptide</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEO</div>
-        <div class="card-title">Canada Peptide SEO</div>
+        <div class="card-category">SEO</div><div class="card-title">Canada Peptide SEO</div>
         <div class="card-hover-content">
           <p class="card-desc">Niche SEO strategy for a peptide supplier in a competitive market segment.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -864,33 +721,25 @@
       </div>
     </div>
 
-    <!-- Card 16 -->
-    <div class="portfolio-card reveal" data-category="seo">
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg" alt="LazyBagParis SEO" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEO</div>
-        <div class="card-title">LazyBagParis</div>
-      </div>
+    <div class="portfolio-card" data-category="seo">
+      <span class="card-badge">SEO</span>
+      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg" alt="LazyBagParis" loading="lazy">
+      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">LazyBagParis</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEO</div>
-        <div class="card-title">LazyBagParis SEO</div>
+        <div class="card-category">SEO</div><div class="card-title">LazyBagParis SEO</div>
         <div class="card-hover-content">
-          <p class="card-desc">E-commerce SEO optimization for a fashion brand targeting French-speaking markets.</p>
+          <p class="card-desc">E-commerce SEO for a fashion brand targeting French-speaking markets.</p>
           <a href="#" class="card-cta">View Project →</a>
         </div>
       </div>
     </div>
 
-    <!-- Card 17 -->
-    <div class="portfolio-card reveal" data-category="seo">
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg" alt="GoldMPS SEO" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEO</div>
-        <div class="card-title">GoldMPS</div>
-      </div>
+    <div class="portfolio-card" data-category="seo">
+      <span class="card-badge">SEO</span>
+      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg" alt="GoldMPS" loading="lazy">
+      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">GoldMPS</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEO</div>
-        <div class="card-title">GoldMPS SEO</div>
+        <div class="card-category">SEO</div><div class="card-title">GoldMPS SEO</div>
         <div class="card-hover-content">
           <p class="card-desc">Technical and content SEO strategy for a managed print services provider.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -898,16 +747,12 @@
       </div>
     </div>
 
-    <!-- Card 18 -->
-    <div class="portfolio-card reveal" data-category="seo">
-      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg" alt="SweetDreamsBamboo SEO" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEO</div>
-        <div class="card-title">SweetDreams Bamboo</div>
-      </div>
+    <div class="portfolio-card" data-category="seo">
+      <span class="card-badge">SEO</span>
+      <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg" alt="SweetDreams Bamboo" loading="lazy">
+      <div class="card-always"><div class="card-category">SEO</div><div class="card-title">SweetDreams Bamboo</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEO</div>
-        <div class="card-title">SweetDreamsBamboo SEO</div>
+        <div class="card-category">SEO</div><div class="card-title">SweetDreamsBamboo SEO</div>
         <div class="card-hover-content">
           <p class="card-desc">Organic growth SEO for an eco-friendly bamboo bedding brand.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -915,16 +760,12 @@
       </div>
     </div>
 
-    <!-- Card 19 -->
-    <div class="portfolio-card reveal" data-category="sem">
+    <div class="portfolio-card" data-category="sem">
+      <span class="card-badge">SEM</span>
       <img class="card-img" src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg" alt="Signal Alarm SEM" loading="lazy">
-      <div class="card-always">
-        <div class="card-category">SEM</div>
-        <div class="card-title">Signal Alarm SEM</div>
-      </div>
+      <div class="card-always"><div class="card-category">SEM</div><div class="card-title">Signal Alarm SEM</div></div>
       <div class="card-overlay">
-        <div class="card-category">SEM</div>
-        <div class="card-title">Signal Alarm SEM</div>
+        <div class="card-category">SEM</div><div class="card-title">Signal Alarm SEM</div>
         <div class="card-hover-content">
           <p class="card-desc">Google Ads campaign management delivering high-intent leads for Signal Alarm.</p>
           <a href="#" class="card-cta">View Project →</a>
@@ -935,14 +776,30 @@
   </div>
 </section>
 
-<!-- CTA SECTION -->
-<section class="cta-section reveal">
+<!-- PARTNERS -->
+<section class="partners" id="partners">
+  <p class="partners-label">Platforms We Work With</p>
+  <div class="partners-row">
+    <span class="partner-pill">WordPress</span>
+    <span class="partner-pill">Shopify</span>
+    <span class="partner-pill">WooCommerce</span>
+    <span class="partner-pill">Google Ads</span>
+    <span class="partner-pill">Facebook</span>
+    <span class="partner-pill">Instagram</span>
+    <span class="partner-pill">LinkedIn</span>
+    <span class="partner-pill">Pinterest</span>
+    <span class="partner-pill">X / Twitter</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="ctaSection">
   <div>
     <p class="cta-label">Start Your Project</p>
     <h2 class="cta-heading">Ready to <em>Grow</em><br>Your Business?</h2>
   </div>
   <div class="cta-right">
-    <a href="#" class="cta-btn-primary">Get a Free Quote</a>
+    <a href="#" class="cta-btn">Get a Free Quote</a>
     <a href="tel:5146556276" class="cta-phone">(514) 655-6276</a>
   </div>
 </section>
@@ -960,46 +817,164 @@
   <p class="footer-copy">© 2026 Omnivision Design. Montreal, QC.</p>
 </footer>
 
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
 <script>
-  // ── FILTER LOGIC ──
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.portfolio-card');
+gsap.registerPlugin(ScrollTrigger);
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
+/* ═══════════════════════════════════════
+   1. CUSTOM CURSOR
+═══════════════════════════════════════ */
+const dot  = document.getElementById('c-dot');
+const ring = document.getElementById('c-ring');
+let mx = window.innerWidth/2, my = window.innerHeight/2;
+let rx = mx, ry = my;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  gsap.to(dot, { x: mx, y: my, duration: 0.08, ease: 'power2.out' });
+});
+
+// Ring follows with lag
+gsap.ticker.add(() => {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  gsap.set(ring, { x: rx, y: ry });
+});
+
+document.querySelectorAll('a, button, .portfolio-card, .filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    dot.classList.add('small');
+    ring.classList.add('big');
   });
+  el.addEventListener('mouseleave', () => {
+    dot.classList.remove('small');
+    ring.classList.remove('big');
+  });
+});
 
-  // ── SCROLL REVEAL ──
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        observer.unobserve(entry.target);
+/* ═══════════════════════════════════════
+   2. HERO ENTRANCE — GSAP TIMELINE
+═══════════════════════════════════════ */
+const heroTl = gsap.timeline({ delay: 0.1 });
+
+heroTl
+  .from('#heroTag', {
+    opacity: 0, x: -30, duration: 0.7, ease: 'power3.out'
+  })
+  .from('#heroTitle', {
+    opacity: 0, y: 60, duration: 1, ease: 'power4.out',
+    skewY: 4
+  }, '-=0.4')
+  .from('#heroSub', {
+    opacity: 0, y: 20, duration: 0.7, ease: 'power3.out'
+  }, '-=0.5')
+  .from(['#stat1','#stat2','#stat3'], {
+    opacity: 0, y: 20, duration: 0.5,
+    stagger: 0.12, ease: 'power2.out'
+  }, '-=0.4');
+
+/* ═══════════════════════════════════════
+   3. NAV SCROLL GLASS EFFECT
+═══════════════════════════════════════ */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.style.background = 'rgba(7,9,14,0.72)';
+    nav.style.backdropFilter = 'blur(36px) saturate(200%)';
+  } else {
+    nav.style.background = 'rgba(7,9,14,0.38)';
+    nav.style.backdropFilter = 'blur(28px) saturate(180%)';
+  }
+});
+
+/* ═══════════════════════════════════════
+   4. PORTFOLIO CARDS — GSAP SCROLL REVEAL
+═══════════════════════════════════════ */
+gsap.utils.toArray('.portfolio-card').forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: 'top 88%',
+      toggleActions: 'play none none none'
+    },
+    opacity: 0,
+    y: 40,
+    scale: 0.96,
+    duration: 0.65,
+    delay: (i % 3) * 0.1,
+    ease: 'power3.out'
+  });
+});
+
+/* ═══════════════════════════════════════
+   5. FILTER BUTTONS — GSAP ENTRANCE
+═══════════════════════════════════════ */
+gsap.from('.filter-btn', {
+  scrollTrigger: {
+    trigger: '#filterBar',
+    start: 'top 90%'
+  },
+  opacity: 0, y: 16,
+  stagger: 0.07,
+  duration: 0.5,
+  ease: 'power2.out'
+});
+
+/* ═══════════════════════════════════════
+   6. CTA SECTION — GSAP SCROLL
+═══════════════════════════════════════ */
+gsap.from('#ctaSection', {
+  scrollTrigger: {
+    trigger: '#ctaSection',
+    start: 'top 85%'
+  },
+  opacity: 0, y: 50,
+  duration: 0.9,
+  ease: 'power3.out'
+});
+
+/* ═══════════════════════════════════════
+   7. PARTNERS PILLS — STAGGER
+═══════════════════════════════════════ */
+gsap.from('.partner-pill', {
+  scrollTrigger: {
+    trigger: '#partners',
+    start: 'top 88%'
+  },
+  opacity: 0, scale: 0.88,
+  stagger: 0.06, duration: 0.45,
+  ease: 'back.out(1.4)'
+});
+
+/* ═══════════════════════════════════════
+   8. FILTER LOGIC
+═══════════════════════════════════════ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const show = f === 'all' || card.dataset.category === f;
+      if (show) {
+        card.classList.remove('hidden');
+        gsap.fromTo(card,
+          { opacity: 0, scale: 0.94, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+        );
+      } else {
+        gsap.to(card, {
+          opacity: 0, scale: 0.94, duration: 0.25, ease: 'power2.in',
+          onComplete: () => card.classList.add('hidden')
+        });
       }
     });
-  }, { threshold: 0.08 });
-
-  reveals.forEach(el => observer.observe(el));
-
-  // ── NAV SCROLL EFFECT ──
-  const navEl = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    navEl.style.background = window.scrollY > 60
-      ? 'rgba(8,10,15,0.97)'
-      : 'rgba(8,10,15,0.85)';
   });
+});
 </script>
 </body>
 </html>
