@@ -3,610 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Checkout our portfolio of web design, web development, SEO and social media marketing — Omnivision Design, Montreal.">
-<meta name="robots" content="index, follow">
-<title>Selected Work — Omnivision Design</title>
+<meta name="description" content="Selected work from Omnivision Design — web design, SEO and digital marketing agency in Montreal.">
+<title>Work — Omnivision Design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Inter:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET & ROOT ─────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#0D0D0D;
+  --off:#1A1A1A;
+  --white:#FFFFFF;
+  --page:#F7F7F5;
+  --rule:#E0E0DB;
+  --blue:#0057FF;
+  --blue-d:#0040CC;
+  --muted:#767672;
+  --light:#AEAEA9;
+  --font-d:'Barlow Condensed',sans-serif;
+  --font-b:'Barlow',sans-serif;
+  --font-i:'Inter',sans-serif;
+}
+body{background:var(--white);color:var(--black);font-family:var(--font-b);overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
 
-:root {
-  --ink:      #0A0A0F;
-  --ink2:     #13131C;
-  --surface:  #1A1A27;
-  --surface2: #20202E;
-  --gold:     #D4A853;
-  --gold2:    #F2C86B;
-  --gold3:    rgba(212,168,83,0.08);
-  --chalk:    #F5F0E8;
-  --chalk2:   #C8C2B8;
-  --dim:      #6B6880;
-  --dim2:     #4A4760;
-  --wire:     rgba(212,168,83,0.12);
-  --wire2:    rgba(245,240,232,0.06);
-  --red:      #E8533A;
-  --font-d:   'Space Grotesk', sans-serif;
-  --font-b:   'Inter', sans-serif;
-  --font-m:   'DM Mono', monospace;
+/* ── CURSOR ─────────────────── */
+#cur{position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference}
+#cur-inner{
+  width:10px;height:10px;border-radius:50%;background:var(--black);
+  transform:translate(-50%,-50%);transition:width .2s,height .2s;
 }
+#cur-outer{
+  position:fixed;z-index:9998;pointer-events:none;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(13,13,13,0.3);
+  transform:translate(-50%,-50%);
+  transition:width .35s,height .35s,border-color .25s;
+}
+body:has(.card:hover) #cur-outer{width:80px;height:80px;border-color:var(--blue)}
+body:has(.card:hover) #cur-inner{background:var(--blue)}
 
-body {
-  background: var(--ink);
-  color: var(--chalk);
-  font-family: var(--font-b);
-  overflow-x: hidden;
-  cursor: none;
+/* ── NAV ─────────────────────── */
+nav{
+  position:sticky;top:0;z-index:700;
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1.2rem,4vw,3rem);
+  background:var(--white);
+  border-bottom:1px solid var(--rule);
 }
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
+.nav-logo{
+  font-family:var(--font-d);font-weight:800;font-size:1.1rem;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--black);
+}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-family:var(--font-i);font-size:.75rem;font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+  transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--black)}
+.nav-links a.active{border-bottom:2px solid var(--blue);padding-bottom:2px}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-phone{font-family:var(--font-i);font-size:.72rem;color:var(--muted)}
+.nav-btn{
+  font-family:var(--font-d);font-weight:700;font-size:.82rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:var(--black);color:var(--white);
+  padding:.48rem 1.4rem;
+  transition:background .2s;
+}
+.nav-btn:hover{background:var(--blue)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+.hamburger span{width:22px;height:1.5px;background:var(--black)}
+@media(max-width:860px){.nav-links,.nav-phone{display:none}.hamburger{display:flex}}
 
-/* ─── CUSTOM CURSOR ────────────────────────────────────────── */
-#c-dot {
-  position: fixed; z-index: 9999; pointer-events: none;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--gold);
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s, background .2s, opacity .2s;
-  will-change: transform;
+/* ── TICKER ──────────────────── */
+.ticker{
+  background:var(--black);overflow:hidden;
+  border-bottom:none;
 }
-#c-ring {
-  position: fixed; z-index: 9998; pointer-events: none;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid rgba(212,168,83,0.5);
-  transform: translate(-50%,-50%);
-  transition: width .3s, height .3s, border-color .3s, opacity .3s;
-  will-change: transform;
+.ticker-t{
+  display:flex;white-space:nowrap;
+  animation:tick 32s linear infinite;
 }
-#c-dot.hover  { width: 12px; height: 12px; background: var(--gold2); }
-#c-ring.hover { width: 60px; height: 60px; border-color: rgba(212,168,83,0.25); }
-#c-label {
-  position: fixed; z-index: 9997; pointer-events: none;
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .12em;
-  color: var(--gold); text-transform: uppercase; opacity: 0;
-  transition: opacity .2s; white-space: nowrap;
-  transform: translate(20px, -50%);
+.ticker-t:hover{animation-play-state:paused}
+.ti{
+  display:inline-flex;align-items:center;gap:1.2rem;
+  padding:.65rem 2rem;
+  font-family:var(--font-d);font-size:.78rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);
 }
-#c-label.show { opacity: 1; }
+.ti .sep{color:var(--blue);font-size:1rem}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ─── NOISE TEXTURE ────────────────────────────────────────── */
-body::before {
-  content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity:.15;
+/* ── HERO ─────────────────────── */
+.hero{
+  padding:clamp(4rem,8vw,7rem) clamp(1.2rem,4vw,3rem) 0;
+  border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:end;gap:0;
 }
+.hero-l{padding-bottom:3rem;border-right:1px solid var(--rule);padding-right:3rem}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:var(--font-i);font-size:.7rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:1.4rem;
+}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--blue)}
+.hero h1{
+  font-family:var(--font-d);font-weight:900;
+  font-size:clamp(5rem,11vw,9.5rem);
+  line-height:.9;letter-spacing:-.01em;text-transform:uppercase;
+  color:var(--black);
+}
+.hero h1 i{font-style:italic;color:var(--blue)}
+.hero-r{
+  padding-left:3rem;padding-bottom:3rem;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:2rem;
+}
+.hero-desc{
+  font-family:var(--font-b);font-size:1rem;font-weight:300;
+  color:var(--muted);line-height:1.8;max-width:380px;
+}
+.hero-disciplines{
+  display:flex;flex-wrap:wrap;gap:.5rem;
+}
+.disc{
+  font-family:var(--font-i);font-size:.68rem;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:.3rem .8rem;color:var(--muted);
+  transition:border-color .2s,color .2s;
+}
+.disc:hover{border-color:var(--blue);color:var(--blue)}
+.hero-count{
+  font-family:var(--font-d);font-weight:800;font-size:1rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--light);
+}
+.hero-count strong{font-size:3rem;color:var(--black);display:block;line-height:1}
 
-/* ─── NAV ──────────────────────────────────────────────────── */
-nav {
-  position: sticky; top: 0; z-index: 800;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(1.5rem,4vw,3.5rem);
-  height: 64px;
-  background: rgba(10,10,15,0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--wire);
-}
-.nav-logo {
-  font-family: var(--font-d); font-weight: 700; font-size: 1.05rem;
-  letter-spacing: -.02em; color: var(--chalk);
-  display: flex; align-items: center; gap: .5rem;
-}
-.nav-logo::before {
-  content:'';
-  display: inline-block; width: 6px; height: 6px;
-  background: var(--gold); border-radius: 1px;
-  transform: rotate(45deg);
-}
-.nav-center {
-  display: flex; gap: 2.5rem; list-style: none;
-}
-.nav-center a {
-  font-family: var(--font-m); font-size: .7rem; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--dim);
-  transition: color .2s;
-}
-.nav-center a:hover, .nav-center a.active { color: var(--chalk); }
-.nav-center a.active { color: var(--gold); }
-.nav-right { display: flex; align-items: center; gap: 1.5rem; }
-.nav-phone { font-family: var(--font-m); font-size: .68rem; color: var(--dim); letter-spacing: .06em; }
-.nav-cta {
-  font-family: var(--font-m); font-size: .68rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--ink);
-  background: var(--gold);
-  padding: .45rem 1.2rem;
-  transition: background .2s, transform .2s;
-}
-.nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
-.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-.hamburger span { width:22px; height:1.5px; background:var(--chalk); }
-
-@media(max-width:900px) {
-  .nav-center, .nav-phone { display:none; }
-  .hamburger { display:flex; }
-}
-
-/* ─── TICKER ─────────────────────────────────────────────── */
-.ticker-wrap {
-  border-bottom: 1px solid var(--wire);
-  overflow: hidden;
-  background: var(--ink2);
-  position: relative; z-index: 2;
-}
-.ticker-track {
-  display: flex; white-space: nowrap;
-  animation: ticker 28s linear infinite;
-}
-.ticker-item {
-  display: inline-flex; align-items: center; gap: 1.5rem;
-  padding: .7rem 2rem;
-  font-family: var(--font-m); font-size: .65rem; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--dim);
-}
-.ticker-item .dot {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--gold); flex-shrink: 0;
-}
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+@media(max-width:780px){
+  .hero{grid-template-columns:1fr;gap:0}
+  .hero-l{border-right:none;padding-right:0;padding-bottom:2rem;border-bottom:1px solid var(--rule)}
+  .hero-r{padding-left:0;padding-top:2rem}
 }
 
-/* ─── HERO ─────────────────────────────────────────────────── */
-.hero {
-  position: relative; z-index: 2;
-  padding: clamp(5rem,10vw,8rem) clamp(1.5rem,5vw,4rem) clamp(2rem,4vw,3rem);
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3rem; align-items: end;
-  border-bottom: 1px solid var(--wire);
+/* ── FILTER ──────────────────── */
+.filter-row{
+  display:flex;align-items:center;
+  border-bottom:1px solid var(--rule);
+  padding:0 clamp(1.2rem,4vw,3rem);
+  overflow-x:auto;scrollbar-width:none;
+  background:var(--page);
 }
-.hero-left {}
-.hero-index {
-  font-family: var(--font-m); font-size: .65rem; letter-spacing: .2em;
-  color: var(--gold); text-transform: uppercase; margin-bottom: 1.8rem;
-  display: flex; align-items: center; gap: 1rem;
+.filter-row::-webkit-scrollbar{display:none}
+.fbtn{
+  font-family:var(--font-i);font-size:.7rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;cursor:none;
+  padding:1rem 1.2rem;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:color .2s,border-color .2s;
+  flex-shrink:0;
 }
-.hero-index::after {
-  content:''; flex:1; height:1px; background:var(--wire); max-width:80px;
+.fbtn:hover{color:var(--black)}
+.fbtn.active{color:var(--black);border-bottom-color:var(--black)}
+.count-badge{
+  font-family:var(--font-i);font-size:.6rem;
+  background:var(--rule);color:var(--muted);
+  padding:.1rem .4rem;margin-left:.4rem;
+  display:inline-block;
 }
-.hero h1 {
-  font-family: var(--font-d); font-weight: 700;
-  font-size: clamp(3.5rem,8vw,7rem);
-  line-height: .95; letter-spacing: -.04em;
-  color: var(--chalk);
+.fbtn.active .count-badge{background:var(--black);color:var(--white)}
+
+/* ── GRID ─────────────────────── */
+.work-section{padding:0 clamp(1.2rem,4vw,3rem) clamp(4rem,6vw,6rem)}
+.work-label{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0;border-bottom:1px solid var(--rule);margin-bottom:0;
 }
-.hero h1 em {
-  font-style: normal; color: var(--gold);
-  display: block;
-}
-.hero-right {
-  padding-bottom: .5rem;
-}
-.hero-desc {
-  font-size: 1rem; color: var(--dim); line-height: 1.8;
-  max-width: 360px; margin-bottom: 2rem;
-}
-.hero-stats {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--wire);
-  border: 1px solid var(--wire);
-}
-.stat {
-  background: var(--ink2); padding: 1.2rem 1.4rem;
-}
-.stat-n {
-  font-family: var(--font-d); font-size: 2rem; font-weight: 700;
-  color: var(--chalk); letter-spacing: -.04em; line-height: 1;
-  margin-bottom: .25rem;
-}
-.stat-n span { color: var(--gold); }
-.stat-l {
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--dim);
-}
-.hero-line {
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 1px; height: 48px;
-  background: linear-gradient(transparent, var(--gold));
+.work-label span{
+  font-family:var(--font-i);font-size:.68rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
 }
 
-@media(max-width:768px) {
-  .hero { grid-template-columns:1fr; gap:2rem; }
-  .hero-right { padding-bottom:0; }
-  .hero-desc { max-width:100%; }
+/* Magazine grid */
+.mag-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  border-left:1px solid var(--rule);
 }
+/* Featured 2-col spans */
+.card-feature{grid-column:span 2}
 
-/* ─── FILTER ───────────────────────────────────────────────── */
-.filter-bar {
-  position: relative; z-index: 2;
-  display: flex; align-items: center; gap: 0;
-  padding: 0 clamp(1.5rem,5vw,4rem);
-  border-bottom: 1px solid var(--wire);
-  overflow-x: auto; scrollbar-width: none;
-  background: var(--ink2);
+.card{
+  position:relative;overflow:hidden;cursor:none;
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  background:var(--white);
+  transition:background .25s;
 }
-.filter-bar::-webkit-scrollbar { display:none; }
-.filter-btn {
-  font-family: var(--font-m); font-size: .65rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--dim);
-  padding: 1.1rem 1.4rem;
-  border: none; background: none; cursor: none;
-  border-bottom: 2px solid transparent;
-  transition: color .2s, border-color .2s;
-  white-space: nowrap; flex-shrink: 0;
-}
-.filter-btn:hover { color: var(--chalk); }
-.filter-btn.active {
-  color: var(--gold);
-  border-bottom-color: var(--gold);
-}
+.card:hover{background:var(--page)}
+.card.hidden{display:none}
 
-/* ─── GRID SECTION ─────────────────────────────────────────── */
-.grid-section {
-  position: relative; z-index: 2;
-  padding: 0 clamp(1.5rem,5vw,4rem) clamp(4rem,8vw,6rem);
-  padding-top: 0;
+/* Index number */
+.c-num{
+  position:absolute;top:1rem;left:1rem;z-index:4;
+  font-family:var(--font-d);font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;color:var(--white);
+  background:var(--black);padding:.15rem .45rem;
+  mix-blend-mode:normal;
+  transition:background .2s;
 }
-
-/* ─── CARDS ────────────────────────────────────────────────── */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1px;
-  background: var(--wire);
-  border: 1px solid var(--wire);
-  margin-top: -1px;
-}
-.card {
-  position: relative;
-  background: var(--ink2);
-  cursor: none; overflow: hidden;
-  transition: background .3s;
-}
-.card:hover { background: var(--surface2); z-index: 5; }
-
-/* Card counter */
-.card-num {
-  position: absolute; top: 1rem; left: 1rem; z-index: 5;
-  font-family: var(--font-m); font-size: .58rem; letter-spacing: .1em;
-  color: var(--dim); transition: color .3s;
-  background: rgba(10,10,15,0.7); padding: .2rem .45rem;
-}
-.card:hover .card-num { color: var(--gold); }
+.card:hover .c-num{background:var(--blue)}
 
 /* Image */
-.card-img-wrap {
-  position: relative; overflow: hidden;
-  aspect-ratio: 16/10;
-  background: var(--surface);
+.c-img{
+  position:relative;overflow:hidden;
+  aspect-ratio:16/10;background:#eee;
 }
-.card-img-wrap img {
-  width:100%; height:100%; object-fit:cover;
-  filter: grayscale(20%) brightness(0.85);
-  transition: transform .6s cubic-bezier(.22,1,.36,1), filter .4s;
+.card-feature .c-img{aspect-ratio:21/9}
+.c-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s cubic-bezier(.22,1,.36,1),filter .4s;
+  filter:grayscale(15%);
 }
-.card:hover .card-img-wrap img {
-  transform: scale(1.06);
-  filter: grayscale(0%) brightness(1);
-}
-/* scan-line overlay */
-.card-img-wrap::before {
-  content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.04) 2px,
-    rgba(0,0,0,0.04) 4px
-  );
-}
-/* gold reveal bar */
-.card-img-wrap::after {
-  content:''; position:absolute; inset:0; z-index:3; pointer-events:none;
-  background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.92) 100%);
-  opacity:0; transition: opacity .35s;
-}
-.card:hover .card-img-wrap::after { opacity:1; }
+.card:hover .c-img img{transform:scale(1.05);filter:grayscale(0%)}
 
-/* View label */
-.card-view {
-  position: absolute; bottom: 1.2rem; left: 50%; z-index: 6;
-  transform: translateX(-50%) translateY(8px);
-  opacity: 0; transition: opacity .3s, transform .3s;
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--gold);
-  display: flex; align-items: center; gap: .5rem; pointer-events:none;
-  white-space: nowrap;
+/* Overlay */
+.c-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,13,13,0.6) 0%,transparent 50%);
+  opacity:0;transition:opacity .3s;
 }
-.card-view::before {
-  content:''; width: 20px; height: 1px; background: var(--gold);
+.card:hover .c-overlay{opacity:1}
+.c-view{
+  position:absolute;bottom:1.2rem;right:1.2rem;z-index:4;
+  font-family:var(--font-d);font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--white);
+  background:var(--blue);padding:.4rem 1rem;
+  opacity:0;transform:translateY(6px);transition:opacity .28s,transform .28s;
 }
-.card-view::after {
-  content:''; width: 20px; height: 1px; background: var(--gold);
-}
-.card:hover .card-view { opacity:1; transform: translateX(-50%) translateY(0); }
+.card:hover .c-view{opacity:1;transform:translateY(0)}
 
-/* Card body */
-.card-body {
-  padding: 1.1rem 1.2rem 1.3rem;
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: .5rem;
-  border-top: 1px solid var(--wire);
+/* Body */
+.c-body{
+  padding:1rem 1.2rem 1.2rem;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;
+  border-top:1px solid var(--rule);
 }
-.card-title {
-  font-family: var(--font-d); font-size: .92rem; font-weight: 600;
-  letter-spacing: -.01em; color: var(--chalk);
-  line-height: 1.3;
+.c-title{
+  font-family:var(--font-d);font-weight:700;font-size:1rem;
+  letter-spacing:.01em;text-transform:uppercase;color:var(--black);
 }
-.card-tag {
-  font-family: var(--font-m); font-size: .58rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--dim); white-space: nowrap;
-  margin-top: .15rem; flex-shrink: 0;
-}
-.card.hidden { display: none; }
-
-@media(max-width:900px) {
-  .portfolio-grid { grid-template-columns:repeat(2,1fr); }
-}
-@media(max-width:600px) {
-  .portfolio-grid { grid-template-columns:1fr; }
+.card-feature .c-title{font-size:1.25rem}
+.c-tag{
+  font-family:var(--font-i);font-size:.62rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--blue);white-space:nowrap;flex-shrink:0;
+  margin-top:.15rem;
 }
 
-/* ─── MODAL ─────────────────────────────────────────────────── */
-.modal-overlay {
-  position: fixed; inset:0; z-index:900;
-  background: rgba(5,5,10,0.85);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 1rem; opacity:0; pointer-events:none;
-  transition: opacity .35s;
+@media(max-width:900px){
+  .mag-grid{grid-template-columns:1fr 1fr}
+  .card-feature{grid-column:span 2}
 }
-.modal-overlay.open { opacity:1; pointer-events:all; }
-.modal {
-  position: relative;
-  width: 100%; max-width: 820px;
-  max-height: 90vh; overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--wire);
-  scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
-  transform: translateY(24px); transition: transform .4s cubic-bezier(.22,1,.36,1);
-}
-.modal-overlay.open .modal { transform: translateY(0); }
-.modal-img {
-  width:100%; aspect-ratio:16/9; object-fit:cover;
-  display:block;
-  filter: brightness(0.9);
-}
-.modal-body { padding: 2rem 2.2rem 2.4rem; }
-.modal-eyebrow {
-  display: flex; align-items: center; gap: 1rem;
-  margin-bottom: 1rem;
-}
-.modal-tag {
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--gold);
-  border: 1px solid rgba(212,168,83,0.3);
-  padding: .2rem .7rem;
-}
-.modal-title {
-  font-family: var(--font-d); font-size: clamp(1.6rem,3.5vw,2.4rem);
-  font-weight: 700; letter-spacing: -.04em;
-  color: var(--chalk); margin-bottom: 1rem; line-height: 1.1;
-}
-.modal-title em { font-style:normal; color: var(--gold); }
-.modal-desc {
-  color: var(--dim); font-size: .95rem; line-height: 1.8;
-  margin-bottom: 1.6rem; max-width: 620px;
-}
-.modal-meta {
-  display: flex; flex-wrap:wrap; gap: .5rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--wire);
-}
-.modal-meta span {
-  font-family: var(--font-m); font-size: .6rem; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--dim2);
-  border: 1px solid var(--wire2); padding: .25rem .7rem;
-  background: rgba(245,240,232,0.03);
-}
-.modal-close {
-  position:absolute; top:1rem; right:1rem; z-index:10;
-  width:36px; height:36px;
-  background: var(--ink2); border: 1px solid var(--wire);
-  color: var(--dim); font-size:.85rem;
-  display:flex; align-items:center; justify-content:center;
-  cursor:none; transition: color .2s, border-color .2s;
-}
-.modal-close:hover { color:var(--gold); border-color:rgba(212,168,83,0.35); }
-
-/* ─── DIVIDER ─────────────────────────────────────────────── */
-.section-divider {
-  position:relative; z-index:2;
-  display: flex; align-items: center;
-  padding: 3rem clamp(1.5rem,5vw,4rem) 2.5rem;
-  gap: 1.5rem;
-}
-.section-divider::before, .section-divider::after {
-  content:''; flex:1; height:1px; background: var(--wire);
-}
-.section-divider span {
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--dim);
-  white-space: nowrap;
+@media(max-width:600px){
+  .mag-grid{grid-template-columns:1fr}
+  .card-feature{grid-column:span 1}
 }
 
-/* ─── CTA STRIP ─────────────────────────────────────────────── */
-.cta-strip {
-  position: relative; z-index: 2;
-  margin: 0 clamp(1.5rem,5vw,4rem) clamp(4rem,8vw,6rem);
-  border: 1px solid var(--wire);
-  background: var(--ink2);
-  padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4rem);
-  display: flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
-  gap: 2rem; overflow: hidden;
+/* ── MODAL ─────────────────────── */
+.m-wrap{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(13,13,13,0.7);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s;
 }
-/* diagonal gold stripe */
-.cta-strip::before {
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 40px,
-    rgba(212,168,83,0.02) 40px,
-    rgba(212,168,83,0.02) 41px
-  );
+.m-wrap.open{opacity:1;pointer-events:all}
+.modal{
+  position:relative;width:100%;max-width:860px;max-height:92vh;
+  overflow-y:auto;background:var(--white);
+  border:1px solid var(--rule);
+  transform:translateY(20px);transition:transform .38s cubic-bezier(.22,1,.36,1);
+  scrollbar-width:thin;scrollbar-color:var(--black) transparent;
 }
-.cta-strip::after {
-  content:''; position:absolute; left:0; top:0; bottom:0;
-  width:4px; background: var(--gold);
+.m-wrap.open .modal{transform:translateY(0)}
+.m-img{width:100%;aspect-ratio:21/9;object-fit:cover;display:block}
+.m-body{padding:2rem 2.2rem 2.5rem}
+.m-tag{
+  font-family:var(--font-i);font-size:.65rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:.8rem;display:block;
 }
-.cta-left {}
-.cta-eyebrow {
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+.m-title{
+  font-family:var(--font-d);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);
+  letter-spacing:-.01em;text-transform:uppercase;color:var(--black);
+  line-height:1;margin-bottom:1.2rem;
 }
-.cta-strip h2 {
-  font-family: var(--font-d); font-weight: 700;
-  font-size: clamp(1.8rem,3.5vw,2.8rem); letter-spacing: -.04em;
-  line-height: 1.1; max-width: 480px; color: var(--chalk);
+.m-desc{font-family:var(--font-b);font-weight:300;font-size:.97rem;color:var(--muted);line-height:1.8;margin-bottom:1.8rem}
+.m-meta{display:flex;flex-wrap:wrap;gap:.45rem;border-top:1px solid var(--rule);padding-top:1.4rem}
+.m-meta span{
+  font-family:var(--font-i);font-size:.62rem;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:.25rem .7rem;color:var(--muted);
 }
-.cta-actions { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
-.cta-primary {
-  font-family: var(--font-m); font-size: .7rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink); background: var(--gold);
-  padding: .9rem 2.2rem;
-  transition: background .2s, transform .2s;
+.m-close{
+  position:absolute;top:1rem;right:1rem;z-index:10;
+  width:36px;height:36px;background:var(--black);
+  border:none;color:var(--white);font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;transition:background .2s;
 }
-.cta-primary:hover { background: var(--gold2); transform: translateY(-1px); }
-.cta-secondary {
-  font-family: var(--font-m); font-size: .7rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--dim);
-  border: 1px solid var(--wire2); padding: .9rem 2rem;
-  transition: color .2s, border-color .2s;
-}
-.cta-secondary:hover { color: var(--chalk); border-color: rgba(245,240,232,0.15); }
+.m-close:hover{background:var(--blue)}
 
-@media(max-width:640px) {
-  .cta-strip { flex-direction:column; }
+/* ── CAPABILITIES ─────────────── */
+.caps{
+  border-top:1px solid var(--rule);
+  padding:clamp(3rem,6vw,5rem) clamp(1.2rem,4vw,3rem);
+  display:grid;grid-template-columns:1fr 3fr;
+  gap:3rem;align-items:start;
+  background:var(--page);
 }
+.caps-label{
+  font-family:var(--font-i);font-size:.68rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  padding-top:.2rem;
+}
+.caps-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:0;border-left:1px solid var(--rule);border-top:1px solid var(--rule);
+}
+.cap{
+  padding:1.4rem 1.5rem;
+  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.cap-name{
+  font-family:var(--font-d);font-weight:700;font-size:.9rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--black);
+  margin-bottom:.4rem;
+}
+.cap-desc{font-family:var(--font-b);font-size:.82rem;font-weight:300;color:var(--muted);line-height:1.5}
+@media(max-width:700px){.caps{grid-template-columns:1fr}}
 
-/* ─── PARTNERS BAND ─────────────────────────────────────────── */
-.partners {
-  position: relative; z-index: 2;
-  padding: 2.4rem clamp(1.5rem,5vw,4rem);
-  border-top: 1px solid var(--wire);
-  border-bottom: 1px solid var(--wire);
-  background: var(--ink2); margin-bottom: 0;
+/* ── CTA ─────────────────────── */
+.cta{
+  background:var(--black);
+  padding:clamp(4rem,8vw,7rem) clamp(1.2rem,4vw,3rem);
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:2rem;
 }
-.partners-label {
-  font-family: var(--font-m); font-size: .6rem; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--dim2);
-  margin-bottom: 1.4rem;
+.cta h2{
+  font-family:var(--font-d);font-weight:900;
+  font-size:clamp(3rem,7vw,6rem);line-height:.9;
+  letter-spacing:-.01em;text-transform:uppercase;color:var(--white);
 }
-.partners-logos {
-  display: flex; flex-wrap:wrap; gap: .6rem;
+.cta h2 em{font-style:italic;color:var(--blue)}
+.cta-actions{display:flex;flex-direction:column;gap:1rem;align-items:flex-end}
+.cta-btn{
+  font-family:var(--font-d);font-weight:800;font-size:.9rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:var(--blue);color:var(--white);
+  padding:.75rem 2.2rem;
+  display:block;text-align:center;transition:background .2s;
+  white-space:nowrap;
 }
-.partners-logos span {
-  font-family: var(--font-m); font-size: .62rem; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--dim);
-  border: 1px solid var(--wire2); padding: .35rem .9rem;
-  transition: color .2s, border-color .2s;
-}
-.partners-logos span:hover { color: var(--gold); border-color: rgba(212,168,83,0.3); }
+.cta-btn:hover{background:#003DB3}
+.cta-btn.out{background:none;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.6);padding:.72rem 2.2rem}
+.cta-btn.out:hover{border-color:var(--white);color:var(--white)}
+@media(max-width:680px){.cta{grid-template-columns:1fr}.cta-actions{align-items:flex-start}}
 
-/* ─── FOOTER ─────────────────────────────────────────────────── */
-footer {
-  position: relative; z-index: 2;
-  background: var(--ink2);
-  border-top: 1px solid var(--wire);
-  padding: 4rem clamp(1.5rem,5vw,4rem) 2rem;
+/* ── FOOTER ─────────────────── */
+footer{
+  background:var(--page);
+  border-top:1px solid var(--rule);
+  padding:4rem clamp(1.2rem,4vw,3rem) 2rem;
 }
-.footer-top {
-  display: grid; grid-template-columns: 2fr 1fr 1fr;
-  gap: 4rem; margin-bottom: 3rem;
-  padding-bottom: 3rem; border-bottom: 1px solid var(--wire);
-}
-.footer-brand .logo {
-  font-family: var(--font-d); font-weight:700; font-size:1.05rem;
-  letter-spacing:-.02em; color:var(--chalk);
-  display:flex; align-items:center; gap:.5rem; margin-bottom:1rem;
-}
-.footer-brand .logo::before {
-  content:''; display:inline-block; width:6px; height:6px;
-  background:var(--gold); transform:rotate(45deg);
-}
-.footer-brand p { font-size:.88rem; color:var(--dim); line-height:1.75; }
-.footer-brand address { margin-top:.9rem; font-style:normal; font-size:.82rem; color:var(--dim2); line-height:1.7; }
-.footer-brand address a { color:var(--gold); }
-.footer-col h4 {
-  font-family:var(--font-m); font-size:.6rem; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--dim2); margin-bottom:1.1rem;
-}
-.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
-.footer-col ul li a { font-size:.88rem; color:var(--dim); transition:color .2s; }
-.footer-col ul li a:hover { color:var(--gold); }
-.footer-bottom {
-  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;
-}
-.footer-bottom p { font-family:var(--font-m); font-size:.6rem; letter-spacing:.08em; color:var(--dim2); }
-.footer-bottom a { color:var(--gold); }
-.footer-socials { display:flex; gap:.5rem; }
-.footer-socials a {
-  width:32px; height:32px; display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--wire2); color:var(--dim); font-size:.75rem;
-  transition: color .2s, border-color .2s;
-}
-.footer-socials a:hover { color:var(--gold); border-color:rgba(212,168,83,0.3); }
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--rule)}
+.ft-logo{font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.9rem}
+.ft-logo span{color:var(--blue)}
+.ft-about{font-family:var(--font-b);font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+.ft-addr{font-family:var(--font-i);font-size:.78rem;color:var(--light);line-height:1.7;font-style:normal}
+.ft-addr a{color:var(--blue)}
+.ft-col h4{font-family:var(--font-i);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.ft-col ul li a{font-family:var(--font-b);font-size:.88rem;font-weight:300;color:var(--muted);transition:color .2s}
+.ft-col ul li a:hover{color:var(--black)}
+.fb{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem}
+.fb p{font-family:var(--font-i);font-size:.7rem;color:var(--light)}
+.fb a{color:var(--blue)}
+.socials{display:flex;gap:.6rem}
+.socials a{width:32px;height:32px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted);transition:border-color .2s,color .2s}
+.socials a:hover{border-color:var(--black);color:var(--black)}
+@media(max-width:640px){.ft{grid-template-columns:1fr;gap:2rem}}
 
-@media(max-width:700px) {
-  .footer-top { grid-template-columns:1fr; gap:2rem; }
-}
+/* ── MOBILE MENU ─────────────── */
+#mob{display:none;position:fixed;inset:0;z-index:850;background:var(--white);padding:4.5rem 2rem 2rem;border-right:3px solid var(--black)}
+#mob ul{list-style:none;display:flex;flex-direction:column;gap:1.4rem}
+#mob ul li a{font-family:var(--font-d);font-size:2rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--black);transition:color .15s}
+#mob ul li a:hover,.mob-act{color:var(--blue) !important}
+.mob-x{position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--black)}
 
-/* ─── MOBILE MENU ─────────────────────────────────────────── */
-#mobileMenu {
-  display:none; position:fixed; inset:0; z-index:850;
-  background:rgba(10,10,15,0.98); backdrop-filter:blur(20px);
-  padding:5rem 2rem 2rem;
-  border-right:1px solid var(--wire);
-}
-#mobileMenu ul { list-style:none; display:flex; flex-direction:column; gap:1.6rem; }
-#mobileMenu ul li a {
-  font-family:var(--font-d); font-size:1.8rem; font-weight:700;
-  letter-spacing:-.03em; color:var(--chalk);
-  transition: color .2s;
-}
-#mobileMenu ul li a:hover { color:var(--gold); }
-#mobileMenu ul li a.active { color:var(--gold); }
-.menu-close {
-  position:absolute; top:1.2rem; right:1.5rem;
-  background:none; border:none; color:var(--dim); font-size:1.6rem; cursor:pointer;
-}
-
-/* ─── FADE IN ─────────────────────────────────────────────── */
-.fade-in { opacity:0; transform:translateY(20px); transition: opacity .6s ease, transform .6s ease; }
-.fade-in.visible { opacity:1; transform:translateY(0); }
-
-@keyframes fadeInUp {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:none; }
-}
+/* ── FADE-IN ─────────────────── */
+.fi{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fi.vis{opacity:1;transform:none}
+.fi-d2{transition-delay:.1s}
+.fi-d3{transition-delay:.2s}
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div id="c-dot"></div>
-<div id="c-ring"></div>
-<div id="c-label"></div>
+<div id="cur"><div id="cur-inner"></div></div>
+<div id="cur-outer"></div>
 
 <!-- NAV -->
 <nav>
-  <a href="https://www.omnivisiondesign.com" class="nav-logo">Omnivision Design</a>
-  <ul class="nav-center">
+  <a href="https://www.omnivisiondesign.com" class="nav-logo">Omnivision<span>.</span></a>
+  <ul class="nav-links">
     <li><a href="https://www.omnivisiondesign.com/">Home</a></li>
     <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/">About</a></li>
     <li><a href="https://www.omnivisiondesign.com/services/">Services</a></li>
@@ -616,378 +433,317 @@ footer {
   </ul>
   <div class="nav-right">
     <span class="nav-phone">(514) 655-6276</span>
-    <a href="https://www.omnivisiondesign.com/contact/" class="nav-cta">Start a Project</a>
+    <a href="https://www.omnivisiondesign.com/contact/" class="nav-btn">Start a Project</a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger" onclick="openMob()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- TICKER TAPE -->
-<div class="ticker-wrap" aria-hidden="true">
-  <div class="ticker-track">
-    <!-- repeated twice for infinite loop -->
-    <span class="ticker-item"><span class="dot"></span>Web Design</span>
-    <span class="ticker-item"><span class="dot"></span>SEO Strategy</span>
-    <span class="ticker-item"><span class="dot"></span>Google Ads / SEM</span>
-    <span class="ticker-item"><span class="dot"></span>Brand Identity</span>
-    <span class="ticker-item"><span class="dot"></span>Logo Design</span>
-    <span class="ticker-item"><span class="dot"></span>Video Production</span>
-    <span class="ticker-item"><span class="dot"></span>Website Maintenance</span>
-    <span class="ticker-item"><span class="dot"></span>Social Media</span>
-    <span class="ticker-item"><span class="dot"></span>E-Commerce</span>
-    <span class="ticker-item"><span class="dot"></span>WordPress</span>
-    <span class="ticker-item"><span class="dot"></span>Montreal Agency</span>
-    <span class="ticker-item"><span class="dot"></span>Web Design</span>
-    <span class="ticker-item"><span class="dot"></span>SEO Strategy</span>
-    <span class="ticker-item"><span class="dot"></span>Google Ads / SEM</span>
-    <span class="ticker-item"><span class="dot"></span>Brand Identity</span>
-    <span class="ticker-item"><span class="dot"></span>Logo Design</span>
-    <span class="ticker-item"><span class="dot"></span>Video Production</span>
-    <span class="ticker-item"><span class="dot"></span>Website Maintenance</span>
-    <span class="ticker-item"><span class="dot"></span>Social Media</span>
-    <span class="ticker-item"><span class="dot"></span>E-Commerce</span>
-    <span class="ticker-item"><span class="dot"></span>WordPress</span>
-    <span class="ticker-item"><span class="dot"></span>Montreal Agency</span>
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-t">
+    <span class="ti">Web Design<span class="sep">✦</span></span>
+    <span class="ti">SEO Strategy<span class="sep">✦</span></span>
+    <span class="ti">Google Ads / SEM<span class="sep">✦</span></span>
+    <span class="ti">Brand Identity<span class="sep">✦</span></span>
+    <span class="ti">Video Production<span class="sep">✦</span></span>
+    <span class="ti">Social Media Marketing<span class="sep">✦</span></span>
+    <span class="ti">WordPress Development<span class="sep">✦</span></span>
+    <span class="ti">WooCommerce<span class="sep">✦</span></span>
+    <span class="ti">Website Maintenance<span class="sep">✦</span></span>
+    <span class="ti">Web Design<span class="sep">✦</span></span>
+    <span class="ti">SEO Strategy<span class="sep">✦</span></span>
+    <span class="ti">Google Ads / SEM<span class="sep">✦</span></span>
+    <span class="ti">Brand Identity<span class="sep">✦</span></span>
+    <span class="ti">Video Production<span class="sep">✦</span></span>
+    <span class="ti">Social Media Marketing<span class="sep">✦</span></span>
+    <span class="ti">WordPress Development<span class="sep">✦</span></span>
+    <span class="ti">WooCommerce<span class="sep">✦</span></span>
+    <span class="ti">Website Maintenance<span class="sep">✦</span></span>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-index fade-in">Selected Work / 2024</div>
-    <h1 class="fade-in">Work<br>that<br><em>delivers.</em></h1>
+  <div class="hero-l fi">
+    <div class="hero-kicker">Selected Work — Montreal</div>
+    <h1>Our<br><i>Work</i><br>Drives<br>Results.</h1>
   </div>
-  <div class="hero-right fade-in">
-    <p class="hero-desc">Web design, SEO, SEM, video and social media marketing — results-driven digital work for businesses across Montreal and beyond.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-n">12<span>+</span></div>
-        <div class="stat-l">Years Active</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">200<span>+</span></div>
-        <div class="stat-l">Projects Delivered</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">98<span>%</span></div>
-        <div class="stat-l">Client Retention</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">5<span>★</span></div>
-        <div class="stat-l">Avg. Rating</div>
-      </div>
+  <div class="hero-r fi fi-d2">
+    <p class="hero-desc">Web design, SEO, SEM, video and social marketing — results-driven digital work for businesses across Montreal and beyond since 2012.</p>
+    <div class="hero-disciplines">
+      <span class="disc">Web Design</span>
+      <span class="disc">SEO</span>
+      <span class="disc">Google Ads</span>
+      <span class="disc">Social Media</span>
+      <span class="disc">Branding</span>
+      <span class="disc">Video</span>
+      <span class="disc">WordPress</span>
+    </div>
+    <div>
+      <div class="hero-count fi fi-d3"><strong>200+</strong>Projects Delivered</div>
     </div>
   </div>
-  <div class="hero-line"></div>
 </section>
 
-<!-- FILTER BAR -->
-<div class="filter-bar" id="filters" role="tablist" aria-label="Filter projects">
-  <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
-  <button class="filter-btn" data-filter="web-design" role="tab" aria-selected="false">Web Design</button>
-  <button class="filter-btn" data-filter="seo" role="tab" aria-selected="false">SEO</button>
-  <button class="filter-btn" data-filter="sem" role="tab" aria-selected="false">SEM</button>
-  <button class="filter-btn" data-filter="logo-design" role="tab" aria-selected="false">Logo Design</button>
-  <button class="filter-btn" data-filter="video" role="tab" aria-selected="false">Video</button>
-  <button class="filter-btn" data-filter="website-maintenance" role="tab" aria-selected="false">Maintenance</button>
+<!-- FILTER -->
+<div class="filter-row" id="filters" role="tablist">
+  <button class="fbtn active" data-filter="all" role="tab">All <span class="count-badge" id="cb-all">19</span></button>
+  <button class="fbtn" data-filter="web-design" role="tab">Web Design <span class="count-badge" id="cb-web">13</span></button>
+  <button class="fbtn" data-filter="seo" role="tab">SEO <span class="count-badge" id="cb-seo">5</span></button>
+  <button class="fbtn" data-filter="sem" role="tab">SEM <span class="count-badge" id="cb-sem">1</span></button>
+  <button class="fbtn" data-filter="website-maintenance" role="tab">Maintenance <span class="count-badge" id="cb-maint">1</span></button>
 </div>
 
-<!-- PORTFOLIO GRID -->
-<section class="grid-section" id="work">
-  <div class="portfolio-grid" id="portfolioGrid">
+<!-- WORK GRID -->
+<section class="work-section">
+  <div class="work-label">
+    <span>Selected Projects</span>
+    <span id="vis-count">19 projects</span>
+  </div>
+  <div class="mag-grid" id="grid">
 
-    <article class="card" data-category="web-design" onclick="openModal('greene')" tabindex="0" role="button" aria-label="View Greene Locksmiths project">
-      <span class="card-num">01</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg" alt="Greene Locksmiths website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card card-feature fi" data-category="web-design" onclick="openModal('greene')">
+      <span class="c-num">01</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg" alt="Greene Locksmiths" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Greene Locksmiths</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Greene Locksmiths</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('paramedic')" tabindex="0" role="button" aria-label="View Paramedic360 project">
-      <span class="card-num">02</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png" alt="Paramedic360 website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('paramedic')">
+      <span class="c-num">02</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png" alt="Paramedic360" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Paramedic360</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Paramedic360</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('archex')" tabindex="0" role="button">
-      <span class="card-num">03</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png" alt="Archex website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('archex')">
+      <span class="c-num">03</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png" alt="Archex" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Archex</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Archex</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('medaca')" tabindex="0" role="button">
-      <span class="card-num">04</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png" alt="Medaca website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('medaca')">
+      <span class="c-num">04</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png" alt="Medaca" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Medaca</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Medaca</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('hostsailor')" tabindex="0" role="button">
-      <span class="card-num">05</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png" alt="HostSailor website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card card-feature fi" data-category="web-design" onclick="openModal('hostsailor')">
+      <span class="c-num">05</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png" alt="HostSailor" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">HostSailor</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">HostSailor</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('suitestay')" tabindex="0" role="button">
-      <span class="card-num">06</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png" alt="SuiteStay website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('suitestay')">
+      <span class="c-num">06</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png" alt="SuiteStay" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">SuiteStay</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">SuiteStay</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('mckell')" tabindex="0" role="button">
-      <span class="card-num">07</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png" alt="McKell Institute website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('mckell')">
+      <span class="c-num">07</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png" alt="McKell Institute" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">McKell Institute</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">McKell Institute</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('signalalarm')" tabindex="0" role="button">
-      <span class="card-num">08</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png" alt="SignalAlarm website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('signalalarm')">
+      <span class="c-num">08</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png" alt="SignalAlarm" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">SignalAlarm</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">SignalAlarm</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('cleantile')" tabindex="0" role="button">
-      <span class="card-num">09</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png" alt="CleanTile website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('cleantile')">
+      <span class="c-num">09</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png" alt="CleanTile" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">CleanTile</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">CleanTile</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('clinique')" tabindex="0" role="button">
-      <span class="card-num">10</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png" alt="CliniqueAgatha website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card card-feature fi" data-category="web-design" onclick="openModal('clinique')">
+      <span class="c-num">10</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png" alt="CliniqueAgatha" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">CliniqueAgatha</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">CliniqueAgatha</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="website-maintenance" onclick="openModal('kbs')" tabindex="0" role="button">
-      <span class="card-num">11</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png" alt="KBS Maintenance website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="website-maintenance" onclick="openModal('kbs')">
+      <span class="c-num">11</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png" alt="KBS Maintenance" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">KBS Maintenance</span>
-        <span class="card-tag">Maintenance</span>
-      </div>
+      <div class="c-body"><span class="c-title">KBS Maintenance</span><span class="c-tag">Maintenance</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('scanplus')" tabindex="0" role="button">
-      <span class="card-num">12</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png" alt="Scan Plus Tech website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('scanplus')">
+      <span class="c-num">12</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png" alt="Scan Plus Tech" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Scan Plus Tech</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Scan Plus Tech</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="web-design" onclick="openModal('omnivision')" tabindex="0" role="button">
-      <span class="card-num">13</span>
-      <div class="card-img-wrap">
-        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png" alt="Omnivision Design website" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+    <article class="card fi" data-category="web-design" onclick="openModal('omnivision')">
+      <span class="c-num">13</span>
+      <div class="c-img">
+        <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png" alt="Omnivision Design" loading="lazy" width="653" height="490">
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Omnivision Design</span>
-        <span class="card-tag">Web Design</span>
-      </div>
+      <div class="c-body"><span class="c-title">Omnivision Design</span><span class="c-tag">Web Design</span></div>
     </article>
 
-    <article class="card" data-category="seo" onclick="openModal('archexseo')" tabindex="0" role="button">
-      <span class="card-num">14</span>
-      <div class="card-img-wrap">
+    <article class="card fi" data-category="seo" onclick="openModal('archexseo')">
+      <span class="c-num">14</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg" alt="Archex SEO" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Archex SEO</span>
-        <span class="card-tag">SEO</span>
-      </div>
+      <div class="c-body"><span class="c-title">Archex SEO</span><span class="c-tag">SEO</span></div>
     </article>
 
-    <article class="card" data-category="seo" onclick="openModal('canadapeptide')" tabindex="0" role="button">
-      <span class="card-num">15</span>
-      <div class="card-img-wrap">
+    <article class="card card-feature fi" data-category="seo" onclick="openModal('canadapeptide')">
+      <span class="c-num">15</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg" alt="Canada Peptide SEO" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Canada Peptide SEO</span>
-        <span class="card-tag">SEO</span>
-      </div>
+      <div class="c-body"><span class="c-title">Canada Peptide SEO</span><span class="c-tag">SEO</span></div>
     </article>
 
-    <article class="card" data-category="seo" onclick="openModal('lazybag')" tabindex="0" role="button">
-      <span class="card-num">16</span>
-      <div class="card-img-wrap">
+    <article class="card fi" data-category="seo" onclick="openModal('lazybag')">
+      <span class="c-num">16</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg" alt="LazyBagParis SEO" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">LazyBagParis SEO</span>
-        <span class="card-tag">SEO</span>
-      </div>
+      <div class="c-body"><span class="c-title">LazyBagParis SEO</span><span class="c-tag">SEO</span></div>
     </article>
 
-    <article class="card" data-category="seo" onclick="openModal('goldmps')" tabindex="0" role="button">
-      <span class="card-num">17</span>
-      <div class="card-img-wrap">
+    <article class="card fi" data-category="seo" onclick="openModal('goldmps')">
+      <span class="c-num">17</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg" alt="GoldMPS SEO" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">GoldMPS SEO</span>
-        <span class="card-tag">SEO</span>
-      </div>
+      <div class="c-body"><span class="c-title">GoldMPS SEO</span><span class="c-tag">SEO</span></div>
     </article>
 
-    <article class="card" data-category="seo" onclick="openModal('sweetdreams')" tabindex="0" role="button">
-      <span class="card-num">18</span>
-      <div class="card-img-wrap">
+    <article class="card fi" data-category="seo" onclick="openModal('sweetdreams')">
+      <span class="c-num">18</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg" alt="SweetDreamsBamboo SEO" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">SweetDreamsBamboo SEO</span>
-        <span class="card-tag">SEO</span>
-      </div>
+      <div class="c-body"><span class="c-title">SweetDreamsBamboo SEO</span><span class="c-tag">SEO</span></div>
     </article>
 
-    <article class="card" data-category="sem" onclick="openModal('signalalarmsem')" tabindex="0" role="button">
-      <span class="card-num">19</span>
-      <div class="card-img-wrap">
+    <article class="card fi" data-category="sem" onclick="openModal('signalalarmsem')">
+      <span class="c-num">19</span>
+      <div class="c-img">
         <img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg" alt="Signal Alarm SEM" loading="lazy" width="653" height="490">
-        <span class="card-view">View Project</span>
+        <div class="c-overlay"></div>
+        <span class="c-view">View Case ↗</span>
       </div>
-      <div class="card-body">
-        <span class="card-title">Signal Alarm SEM</span>
-        <span class="card-tag">SEM</span>
-      </div>
+      <div class="c-body"><span class="c-title">Signal Alarm SEM</span><span class="c-tag">SEM</span></div>
     </article>
 
   </div>
 </section>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeOnBackdrop(event)">
+<div class="m-wrap" id="mWrap" onclick="closeBg(event)" role="dialog" aria-modal="true" aria-labelledby="mTitle">
   <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close modal">✕</button>
-    <img id="modalImg" src="" alt="" class="modal-img">
-    <div class="modal-body">
-      <div class="modal-eyebrow">
-        <span class="modal-tag" id="modalTag"></span>
-      </div>
-      <h2 class="modal-title" id="modalTitle"></h2>
-      <p class="modal-desc" id="modalDesc"></p>
-      <div class="modal-meta" id="modalMeta"></div>
+    <button class="m-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <img id="mImg" src="" alt="" class="m-img">
+    <div class="m-body">
+      <span class="m-tag" id="mTag"></span>
+      <h2 class="m-title" id="mTitle"></h2>
+      <p class="m-desc" id="mDesc"></p>
+      <div class="m-meta" id="mMeta"></div>
     </div>
   </div>
 </div>
 
-<!-- PARTNERS -->
-<div class="partners">
-  <p class="partners-label">Platforms &amp; Technologies</p>
-  <div class="partners-logos">
-    <span>WordPress</span>
-    <span>Shopify</span>
-    <span>WooCommerce</span>
-    <span>Google Ads</span>
-    <span>Facebook Ads</span>
-    <span>LinkedIn</span>
-    <span>Pinterest</span>
-    <span>Instagram</span>
-    <span>X / Twitter</span>
-    <span>Google Analytics</span>
-    <span>Search Console</span>
+<!-- CAPABILITIES -->
+<div class="caps">
+  <p class="caps-label">Our Disciplines</p>
+  <div class="caps-grid">
+    <div class="cap"><div class="cap-name">Web Design</div><div class="cap-desc">Conversion-focused sites built for performance and results.</div></div>
+    <div class="cap"><div class="cap-name">SEO</div><div class="cap-desc">Technical, on-page, and content strategy for organic growth.</div></div>
+    <div class="cap"><div class="cap-name">Google Ads</div><div class="cap-desc">Paid search campaigns that reduce cost-per-lead.</div></div>
+    <div class="cap"><div class="cap-name">Social Media</div><div class="cap-desc">Platform strategy and creative content that builds audiences.</div></div>
+    <div class="cap"><div class="cap-name">Brand Identity</div><div class="cap-desc">Logo design and brand systems with long-term impact.</div></div>
+    <div class="cap"><div class="cap-name">WordPress Dev</div><div class="cap-desc">Custom themes, plugins, and WooCommerce stores.</div></div>
   </div>
 </div>
 
-<!-- CTA STRIP -->
-<div class="section-divider"><span>Start a Project</span></div>
-<div class="cta-strip fade-in">
-  <div class="cta-left">
-    <p class="cta-eyebrow">Ready to grow?</p>
-    <h2>Let's build something<br>worth talking about.</h2>
-  </div>
+<!-- CTA -->
+<div class="cta fi">
+  <h2>Let's Build<br>Something<br><em>Great.</em></h2>
   <div class="cta-actions">
-    <a href="https://www.omnivisiondesign.com/contact/" class="cta-primary">Get a Free Quote</a>
-    <a href="tel:5146556276" class="cta-secondary">(514) 655-6276</a>
+    <a href="https://www.omnivisiondesign.com/contact/" class="cta-btn">Get a Free Quote</a>
+    <a href="tel:5146556276" class="cta-btn out">(514) 655-6276</a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <span class="logo">Omnivision Design</span>
-      <p>A Montreal web marketing agency delivering results-driven digital strategy for businesses of all sizes — from local startups to publicly listed companies.</p>
-      <address>
+  <div class="ft">
+    <div>
+      <div class="ft-logo">Omnivision<span>.</span></div>
+      <p class="ft-about">A Montreal web marketing agency delivering results-driven digital strategy for businesses of all sizes — from local startups to publicly listed companies.</p>
+      <address class="ft-addr">
         106-7470 Sherbrooke St W, Montreal, QC H4B 1S5<br>
         6860 Chester Ave, Montreal, QC H4V 1K6<br>
         <a href="tel:5146556276">(514) 655-6276</a>
       </address>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
       <h4>Company</h4>
       <ul>
         <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/">About</a></li>
@@ -998,280 +754,113 @@ footer {
         <li><a href="https://www.omnivisiondesign.com/internship/">Internship</a></li>
       </ul>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
       <h4>Recent Writing</h4>
       <ul>
-        <li><a href="https://www.omnivisiondesign.com/how-to-build-aeo-authority-with-content/">How to Build AEO Authority With Content</a></li>
-        <li><a href="https://www.omnivisiondesign.com/how-to-design-a-website-that-converts-visitors-into-leads/">Design a Website That Converts</a></li>
+        <li><a href="https://www.omnivisiondesign.com/how-to-build-aeo-authority-with-content/">Build AEO Authority With Content</a></li>
+        <li><a href="https://www.omnivisiondesign.com/how-to-design-a-website-that-converts-visitors-into-leads/">Design That Converts</a></li>
         <li><a href="https://www.omnivisiondesign.com/ai-threats-explained-what-you-need-to-know/">AI Threats Explained</a></li>
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
+  <div class="fb">
     <p>© 2024 Omnivision Design — All rights reserved &nbsp;|&nbsp; <a href="https://www.omnivisiondesign.com/privacy-policy/">Privacy Policy</a> &nbsp;|&nbsp; <a href="https://www.omnivisiondesign.com/sitemap/">Sitemap</a></p>
-    <div class="footer-socials">
-      <a href="https://www.facebook.com/omnivision.design" aria-label="Facebook" target="_blank" rel="noopener">f</a>
-      <a href="https://twitter.com/omnivisiondes" aria-label="Twitter/X" target="_blank" rel="noopener">𝕏</a>
-      <a href="http://ca.linkedin.com/in/omnivisiondesign" aria-label="LinkedIn" target="_blank" rel="noopener">in</a>
-      <a href="https://www.pinterest.com/omnivisiondesign/" aria-label="Pinterest" target="_blank" rel="noopener">𝕡</a>
-      <a href="https://www.instagram.com/omnivisiondesign/" aria-label="Instagram" target="_blank" rel="noopener">◎</a>
+    <div class="socials">
+      <a href="https://www.facebook.com/omnivision.design" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://twitter.com/omnivisiondes" target="_blank" rel="noopener" aria-label="X">𝕏</a>
+      <a href="http://ca.linkedin.com/in/omnivisiondesign" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="https://www.instagram.com/omnivisiondesign/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
     </div>
   </div>
 </footer>
 
 <!-- MOBILE MENU -->
-<div id="mobileMenu">
-  <button class="menu-close" onclick="toggleMenu()">✕</button>
+<div id="mob">
+  <button class="mob-x" onclick="closeMob()">✕</button>
   <ul>
     <li><a href="https://www.omnivisiondesign.com/">Home</a></li>
     <li><a href="https://www.omnivisiondesign.com/web-marketing-agency/">About</a></li>
     <li><a href="https://www.omnivisiondesign.com/services/">Services</a></li>
-    <li><a href="#" class="active">Work</a></li>
+    <li><a href="#" class="mob-act">Work</a></li>
     <li><a href="https://www.omnivisiondesign.com/blog/">Journal</a></li>
     <li><a href="https://www.omnivisiondesign.com/contact/">Contact</a></li>
   </ul>
 </div>
 
 <script>
-/* ─── PROJECT DATA ───────────────────────────────────────────── */
 const projects = {
-  greene: {
-    title: 'Greene Locksmiths',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg',
-    desc: 'A conversion-focused website for Greene Locksmiths — built around trust signals, fast load times, and a dominant call-to-action strategy. The design communicates emergency availability while driving direct phone calls and quote requests.',
-    meta: ['Web Design','Montreal','WordPress','Mobile-Friendly','Local SEO']
-  },
-  paramedic: {
-    title: 'Paramedic360',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png',
-    desc: 'A clean, authoritative digital presence for Paramedic360 in the medical training sector. Course listings, instructor profiles, registration flows, and an optimised user journey built for measurable conversions.',
-    meta: ['Web Design','Medical Training','WordPress','Responsive','UX Optimised']
-  },
-  archex: {
-    title: 'Archex',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png',
-    desc: 'A premium digital presence for Archex, a construction and architecture firm. High-quality imagery, structured case studies, and a fast-loading, SEO-ready foundation that reflects the brand\'s commitment to precision.',
-    meta: ['Web Design','Architecture','WordPress','Portfolio','SEO-Ready']
-  },
-  medaca: {
-    title: 'Medaca',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png',
-    desc: 'A sophisticated, trust-building site for a healthcare company. Appointment booking integration, HIPAA-conscious content architecture, and a clean professional aesthetic that puts patient confidence first.',
-    meta: ['Web Design','Healthcare','WordPress','Booking Integration','Mobile-Friendly']
-  },
-  hostsailor: {
-    title: 'HostSailor',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png',
-    desc: 'A technically sharp, feature-rich website for a global web hosting provider. Pricing tables, plan comparisons, and technical specification pages — all built for clarity and competitive conversion rates.',
-    meta: ['Web Design','Web Hosting','Custom Design','Pricing Tables','Performance-Focused']
-  },
-  suitestay: {
-    title: 'SuiteStay',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png',
-    desc: 'A luxury-feel property rental experience. Elegant property galleries, availability features, and a booking-oriented layout — designed to evoke premium hospitality while converting visitors into reservations.',
-    meta: ['Web Design','Real Estate','Luxury Design','Booking UI','Responsive']
-  },
-  mckell: {
-    title: 'McKell Institute',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png',
-    desc: 'Editorial-style website for a public policy think-tank. Research hubs, report downloads, and a content architecture that balances academic authority with modern readability — including an email capture engine.',
-    meta: ['Web Design','Non-Profit','Policy Research','Editorial Layout','WordPress']
-  },
-  signalalarm: {
-    title: 'SignalAlarm',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png',
-    desc: 'Lead-generation website for a security and alarm systems company. Trust-building homepage, detailed service pages, and a dominant call-to-action strategy designed to turn visitors into booked consultations.',
-    meta: ['Web Design','Security Systems','Lead Generation','WordPress','Local Business']
-  },
-  cleantile: {
-    title: 'CleanTile',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png',
-    desc: 'A professional online presence for a tile cleaning and restoration service. Before-and-after galleries, service area targeting, and a frictionless quote request flow — built to increase bookings directly.',
-    meta: ['Web Design','Home Services','Gallery Section','Quote Form','Mobile-Friendly']
-  },
-  clinique: {
-    title: 'CliniqueAgatha',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png',
-    desc: 'A premium aesthetic clinic website reflecting high-end positioning in the beauty and wellness space. Elegant typography, soft imagery, online booking integration, and a bilingual structure that instils confidence.',
-    meta: ['Web Design','Aesthetic Clinic','Luxury Feel','Booking System','Bilingual']
-  },
-  kbs: {
-    title: 'KBS Maintenance',
-    tag: 'Maintenance',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png',
-    desc: 'Ongoing website maintenance for KBS — security monitoring, plugin updates, content revisions, performance optimisation, and regular backups, keeping their digital presence secure and fast year-round.',
-    meta: ['Website Maintenance','Security','Performance','WordPress','Ongoing Support']
-  },
-  scanplus: {
-    title: 'Scan Plus Tech',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png',
-    desc: 'A technology-forward site for a document scanning and digitisation company. Clear service communication, local SEO foundations, and a B2B-focused design positioning the brand as a regional industry leader.',
-    meta: ['Web Design','Technology','B2B','WordPress','Local SEO']
-  },
-  omnivision: {
-    title: 'Omnivision Design',
-    tag: 'Web Design',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png',
-    desc: 'Our own agency website — built to the highest performance and conversion standards. A showcase of capabilities across web design, SEO, SEM, and digital marketing, serving as both a portfolio and a lead engine.',
-    meta: ['Web Design','Agency Site','WordPress','High-Performance','SEO Optimised']
-  },
-  archexseo: {
-    title: 'Archex SEO',
-    tag: 'SEO',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg',
-    desc: 'A comprehensive SEO campaign for Archex targeting competitive construction and architecture keywords. Technical audits, content strategy, on-page optimisation, and link building delivered significant organic search gains.',
-    meta: ['SEO','Construction','Keyword Research','On-Page SEO','Link Building']
-  },
-  canadapeptide: {
-    title: 'Canada Peptide SEO',
-    tag: 'SEO',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg',
-    desc: 'Targeted SEO for a competitive e-commerce niche. Technical SEO, product page optimisation, content marketing, and authority building delivered measurable organic growth and stronger search visibility.',
-    meta: ['SEO','E-Commerce','Technical SEO','Content Marketing','Organic Growth']
-  },
-  lazybag: {
-    title: 'LazyBagParis SEO',
-    tag: 'SEO',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg',
-    desc: 'Multilingual SEO strategy for a Paris-based fashion brand targeting English and French audiences. Keyword mapping, on-page content optimisation, and structured data implementation improved product search visibility substantially.',
-    meta: ['SEO','Fashion','Multilingual','Structured Data','On-Page Optimisation']
-  },
-  goldmps: {
-    title: 'GoldMPS SEO',
-    tag: 'SEO',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg',
-    desc: 'Full SEO campaign including technical audit, backlink profile analysis, competitor gap analysis, and a content calendar — growing organic traffic and domain authority significantly over the engagement period.',
-    meta: ['SEO','Technical Audit','Backlink Strategy','Competitor Analysis','Content']
-  },
-  sweetdreams: {
-    title: 'SweetDreamsBamboo SEO',
-    tag: 'SEO',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg',
-    desc: 'Content-driven SEO for a sustainable baby and lifestyle brand targeting eco-conscious shoppers. Product optimisation, blog content, and category page improvements drove measurable growth in organic revenue.',
-    meta: ['SEO','Sustainable Products','Content SEO','E-Commerce','Organic Revenue']
-  },
-  signalalarmsem: {
-    title: 'Signal Alarm SEM',
-    tag: 'SEM / Google Ads',
-    img: 'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg',
-    desc: 'A high-performance Google Ads campaign covering keyword selection, ad copy, bid strategy, landing page alignment, and conversion tracking — significantly reducing cost-per-lead while growing qualified enquiry volume.',
-    meta: ['SEM','Google Ads','Conversion Tracking','Landing Pages','Pay-Per-Click']
-  }
+  greene:{title:'Greene Locksmiths',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg',desc:'A conversion-focused website built around trust signals, fast load times, and a dominant call-to-action strategy. Designed to communicate emergency availability while driving phone calls and quote requests.',meta:['Web Design','Montreal','WordPress','Mobile-First','Local SEO']},
+  paramedic:{title:'Paramedic360',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png',desc:'A clean, authoritative digital presence for a medical training company. Course listings, instructor profiles, registration flows, and an optimised user journey built for measurable conversions.',meta:['Web Design','Medical Training','WordPress','Responsive','UX Optimised']},
+  archex:{title:'Archex',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png',desc:'A premium digital presence for a construction and architecture firm. High-quality imagery, structured case studies, and a fast-loading SEO-ready foundation reflecting the brand\'s precision.',meta:['Web Design','Architecture','WordPress','Portfolio','SEO-Ready']},
+  medaca:{title:'Medaca',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png',desc:'A sophisticated, trust-building healthcare site with appointment booking integration, HIPAA-conscious content architecture, and a clean professional aesthetic that puts patient confidence first.',meta:['Web Design','Healthcare','WordPress','Booking Integration','Mobile-First']},
+  hostsailor:{title:'HostSailor',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png',desc:'A technically sharp, feature-rich website for a global web hosting provider. Pricing tables, plan comparisons, and technical specification pages built for clarity and competitive conversion rates.',meta:['Web Design','Web Hosting','Custom Design','Pricing Tables','Performance']},
+  suitestay:{title:'SuiteStay',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png',desc:'A luxury-feel property rental experience with elegant galleries, availability features, and a booking-oriented layout designed to evoke premium hospitality while converting visitors into reservations.',meta:['Web Design','Real Estate','Luxury Design','Booking UI','Responsive']},
+  mckell:{title:'McKell Institute',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png',desc:'Editorial-style site for a public policy think-tank — research hubs, report downloads, and a content architecture balancing academic authority with modern readability.',meta:['Web Design','Non-Profit','Policy Research','Editorial Layout','WordPress']},
+  signalalarm:{title:'SignalAlarm',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png',desc:'Lead-generation website for a security and alarm systems company with trust-building homepage, detailed service pages, and a dominant call-to-action strategy.',meta:['Web Design','Security','Lead Generation','WordPress','Local Business']},
+  cleantile:{title:'CleanTile',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png',desc:'A professional online presence for a tile cleaning and restoration service with before-and-after galleries, service area targeting, and a frictionless quote request flow to increase bookings.',meta:['Web Design','Home Services','Gallery Section','Quote Form','Mobile-First']},
+  clinique:{title:'CliniqueAgatha',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png',desc:'A premium aesthetic clinic website reflecting high-end positioning in the beauty and wellness space — elegant typography, online booking integration, and a bilingual structure.',meta:['Web Design','Aesthetic Clinic','Luxury Feel','Booking System','Bilingual']},
+  kbs:{title:'KBS Maintenance',tag:'Maintenance',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png',desc:'Ongoing website maintenance keeping KBS\'s digital presence secure, fast, and up to date — security monitoring, plugin updates, content revisions, performance optimisation, and regular backups.',meta:['Maintenance','Security','Performance','WordPress','Ongoing Support']},
+  scanplus:{title:'Scan Plus Tech',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png',desc:'A technology-forward site for a document scanning and digitisation company with clear service communication, local SEO foundations, and a B2B-focused design.',meta:['Web Design','Technology','B2B','WordPress','Local SEO']},
+  omnivision:{title:'Omnivision Design',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png',desc:'Our own agency website — built to the highest performance and conversion standards, serving as both a portfolio showcase and a lead generation engine.',meta:['Web Design','Agency Site','WordPress','High-Performance','SEO Optimised']},
+  archexseo:{title:'Archex SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg',desc:'A comprehensive SEO campaign targeting competitive construction and architecture keywords — technical audits, content strategy, on-page optimisation, and link building.',meta:['SEO','Construction','Keyword Research','On-Page SEO','Link Building']},
+  canadapeptide:{title:'Canada Peptide SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg',desc:'Targeted SEO for a competitive e-commerce niche covering technical SEO, product page optimisation, content marketing, and authority building for measurable organic growth.',meta:['SEO','E-Commerce','Technical SEO','Content Marketing','Organic Growth']},
+  lazybag:{title:'LazyBagParis SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg',desc:'Multilingual SEO strategy for a Paris fashion brand targeting English and French audiences — keyword mapping, on-page content optimisation, and structured data implementation.',meta:['SEO','Fashion','Multilingual','Structured Data','On-Page']},
+  goldmps:{title:'GoldMPS SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg',desc:'Full SEO engagement including technical audit, backlink profile analysis, competitor gap analysis, and content calendar — growing organic traffic and domain authority substantially.',meta:['SEO','Technical Audit','Backlink Strategy','Competitor Analysis','Content']},
+  sweetdreams:{title:'SweetDreamsBamboo SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg',desc:'Content-driven SEO for a sustainable baby and lifestyle brand — product optimisation, blog content, and category page improvements driving measurable growth in organic revenue.',meta:['SEO','Sustainable Products','Content SEO','E-Commerce','Organic Revenue']},
+  signalalarmsem:{title:'Signal Alarm SEM',tag:'SEM',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg',desc:'High-performance Google Ads campaign covering keyword selection, ad copy, bid strategy, landing page alignment, and conversion tracking — reducing cost-per-lead while growing qualified enquiries.',meta:['SEM','Google Ads','Conversion Tracking','Landing Pages','Pay-Per-Click']}
 };
 
-/* ─── CURSOR ────────────────────────────────────────────────── */
-const cDot = document.getElementById('c-dot');
-const cRing = document.getElementById('c-ring');
-const cLabel = document.getElementById('c-label');
-let mx=0, my=0, dx=0, dy=0, rx=0, ry=0;
-
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-
-(function animCursor(){
-  dx += (mx-dx)*.35;
-  dy += (my-dy)*.35;
-  rx += (mx-rx)*.12;
-  ry += (my-ry)*.12;
-  cDot.style.left = dx+'px'; cDot.style.top = dy+'px';
-  cRing.style.left = rx+'px'; cRing.style.top = ry+'px';
-  cLabel.style.left = dx+'px'; cLabel.style.top = dy+'px';
-  requestAnimationFrame(animCursor);
+/* CURSOR */
+const dot=document.getElementById('cur'),ring=document.getElementById('cur-outer');
+let mx=0,my=0,dx=0,dy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function tick(){
+  dx+=(mx-dx)*.4;dy+=(my-dy)*.4;
+  rx+=(mx-rx)*.13;ry+=(my-ry)*.13;
+  dot.style.left=dx+'px';dot.style.top=dy+'px';
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
 })();
 
-document.querySelectorAll('a, button, .card, .filter-btn').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cDot.classList.add('hover');
-    cRing.classList.add('hover');
-    if(el.classList.contains('card')) {
-      cLabel.textContent = 'View';
-      cLabel.classList.add('show');
-    }
-  });
-  el.addEventListener('mouseleave', () => {
-    cDot.classList.remove('hover');
-    cRing.classList.remove('hover');
-    cLabel.classList.remove('show');
-  });
-});
-
-/* ─── FILTER ────────────────────────────────────────────────── */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.remove('active');
-      b.setAttribute('aria-selected','false');
-    });
+/* FILTER */
+document.querySelectorAll('.fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    btn.setAttribute('aria-selected','true');
-    const f = btn.dataset.filter;
-    let idx = 1;
-    document.querySelectorAll('.card').forEach(card => {
-      if(f === 'all' || card.dataset.category === f) {
-        card.classList.remove('hidden');
-        card.querySelector('.card-num').textContent = String(idx).padStart(2,'0');
-        idx++;
-        card.style.animation = 'fadeInUp .4s ease forwards';
-      } else {
-        card.classList.add('hidden');
-        card.style.animation = '';
-      }
+    const f=btn.dataset.filter;
+    let n=0;
+    document.querySelectorAll('.card').forEach(c=>{
+      const show=f==='all'||c.dataset.category===f;
+      c.classList.toggle('hidden',!show);
+      if(show)n++;
     });
+    document.getElementById('vis-count').textContent=n+' project'+(n!==1?'s':'');
   });
 });
 
-/* ─── MODAL ─────────────────────────────────────────────────── */
-function openModal(id) {
-  const p = projects[id];
-  if (!p) return;
-  document.getElementById('modalImg').src = p.img;
-  document.getElementById('modalImg').alt = p.title;
-  document.getElementById('modalTag').textContent = p.tag;
-  document.getElementById('modalTitle').textContent = p.title;
-  document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalMeta').innerHTML = p.meta.map(m => `<span>${m}</span>`).join('');
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+/* MODAL */
+function openModal(id){
+  const p=projects[id];if(!p)return;
+  document.getElementById('mImg').src=p.img;
+  document.getElementById('mImg').alt=p.title;
+  document.getElementById('mTag').textContent=p.tag;
+  document.getElementById('mTitle').textContent=p.title;
+  document.getElementById('mDesc').textContent=p.desc;
+  document.getElementById('mMeta').innerHTML=p.meta.map(m=>`<span>${m}</span>`).join('');
+  document.getElementById('mWrap').classList.add('open');
+  document.body.style.overflow='hidden';
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeOnBackdrop(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-  if (e.key === 'Enter' && document.activeElement.classList.contains('card')) {
-    const id = document.activeElement.getAttribute('onclick').replace("openModal('","").replace("')","");
-    openModal(id);
-  }
-});
+function closeModal(){document.getElementById('mWrap').classList.remove('open');document.body.style.overflow='';}
+function closeBg(e){if(e.target===document.getElementById('mWrap'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-/* ─── MOBILE MENU ────────────────────────────────────────────── */
-function toggleMenu() {
-  const m = document.getElementById('mobileMenu');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
+/* MOBILE MENU */
+function openMob(){document.getElementById('mob').style.display='block'}
+function closeMob(){document.getElementById('mob').style.display='none'}
 
-/* ─── SCROLL FADE-IN ─────────────────────────────────────────── */
-const fadeEls = document.querySelectorAll('.fade-in');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-  });
-}, { threshold: 0.12 });
-fadeEls.forEach(el => io.observe(el));
+/* SCROLL FADE */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.fi').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
