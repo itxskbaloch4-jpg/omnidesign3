@@ -1,509 +1,517 @@
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useInView } from "framer-motion";
+import { X, ArrowUpRight, Phone, Sparkles, ChevronDown } from "lucide-react";
 
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0a0a0f;
-  --surface:#f9f9f8;
-  --mid:#e8e8e4;
-  --muted:#8a8a85;
-  --accent:#2f5bff;
-  --accent2:#00d48b;
-  --font-head:'Inter',sans-serif;
-}
-body{background:transparent}
-.wrap{font-family:'Inter',sans-serif;color:var(--ink);background:var(--color-background-primary);overflow:hidden;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg)}
+/* ────────────────────────────────────────────────────────────
+   DATA
+──────────────────────────────────────────────────────────── */
+const PROJECTS = [
+  { id: "greene", title: "Greene Locksmiths", category: "web-design", tag: "Web Design", feature: true,
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg",
+    desc: "A conversion-focused locksmith site built around trust signals, fast load times and a dominant call-to-action strategy for emergency callouts.",
+    meta: ["WordPress", "Local SEO", "Mobile-First"] },
+  { id: "paramedic", title: "Paramedic360", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png",
+    desc: "A clean, authoritative platform for a medical training company with course listings, instructor profiles and streamlined registration.",
+    meta: ["WordPress", "Responsive", "UX"] },
+  { id: "archex", title: "Archex", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png",
+    desc: "A premium digital presence for a construction and architecture firm with rich imagery and structured case studies.",
+    meta: ["Portfolio", "SEO-Ready", "WordPress"] },
+  { id: "medaca", title: "Medaca", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png",
+    desc: "A trust-building healthcare site with appointment booking and a clean clinical aesthetic that puts patient confidence first.",
+    meta: ["Healthcare", "Booking", "Mobile-First"] },
+  { id: "hostsailor", title: "HostSailor", category: "web-design", tag: "Web Design", feature: true,
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png",
+    desc: "A technically sharp site for a global hosting provider with pricing tables and plan comparisons built for clarity and conversion.",
+    meta: ["Hosting", "Pricing UI", "Performance"] },
+  { id: "suitestay", title: "SuiteStay", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png",
+    desc: "A luxury property rental experience with elegant galleries and a booking-oriented layout for premium hospitality.",
+    meta: ["Real Estate", "Luxury", "Booking"] },
+  { id: "mckell", title: "McKell Institute", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png",
+    desc: "An editorial-style site for a public policy think tank balancing academic authority with modern readability.",
+    meta: ["Editorial", "Non-Profit", "WordPress"] },
+  { id: "signalalarm", title: "SignalAlarm", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png",
+    desc: "A lead-generation website for a security company with a trust-building homepage and dominant CTA strategy.",
+    meta: ["Security", "Lead Gen", "Local Business"] },
+  { id: "cleantile", title: "CleanTile", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png",
+    desc: "A polished site for a tile cleaning service featuring before-and-after galleries and a frictionless quote flow.",
+    meta: ["Home Services", "Gallery", "Mobile-First"] },
+  { id: "clinique", title: "CliniqueAgatha", category: "web-design", tag: "Web Design", feature: true,
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png",
+    desc: "A premium aesthetic clinic site with elegant typography, online booking and a bilingual structure for high-end positioning.",
+    meta: ["Aesthetic Clinic", "Booking", "Bilingual"] },
+  { id: "kbs", title: "KBS Maintenance", category: "website-maintenance", tag: "Maintenance",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png",
+    desc: "Ongoing maintenance keeping the client's site secure, fast and current with monitoring, updates and backups.",
+    meta: ["Security", "Performance", "Support"] },
+  { id: "scanplus", title: "Scan Plus Tech", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png",
+    desc: "A technology-forward site for a document scanning company with clear B2B messaging and local SEO foundations.",
+    meta: ["B2B", "Technology", "Local SEO"] },
+  { id: "omnivision", title: "Omnivision Design", category: "web-design", tag: "Web Design",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png",
+    desc: "Our own agency site, built to the highest performance and conversion standards as a portfolio and lead engine.",
+    meta: ["Agency", "High-Performance", "SEO"] },
+  { id: "archexseo", title: "Archex SEO", category: "seo", tag: "SEO",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg",
+    desc: "A comprehensive SEO campaign for competitive construction keywords covering audits, content and link building.",
+    meta: ["Technical SEO", "Content", "Link Building"] },
+  { id: "canadapeptide", title: "Canada Peptide SEO", category: "seo", tag: "SEO", feature: true,
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg",
+    desc: "Targeted SEO for a competitive e-commerce niche covering technical fixes, product pages and authority building.",
+    meta: ["E-Commerce", "Technical SEO", "Content"] },
+  { id: "lazybag", title: "LazyBagParis SEO", category: "seo", tag: "SEO",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg",
+    desc: "A multilingual SEO strategy for a Paris fashion brand across English and French audiences with structured data.",
+    meta: ["Fashion", "Multilingual", "Structured Data"] },
+  { id: "goldmps", title: "GoldMPS SEO", category: "seo", tag: "SEO",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg",
+    desc: "A full SEO engagement spanning technical audits, backlink strategy and a content calendar to grow organic traffic.",
+    meta: ["Technical Audit", "Backlinks", "Content"] },
+  { id: "sweetdreams", title: "SweetDreamsBamboo SEO", category: "seo", tag: "SEO",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg",
+    desc: "Content-driven SEO for a sustainable lifestyle brand improving product and category pages for organic revenue.",
+    meta: ["E-Commerce", "Content SEO", "Sustainability"] },
+  { id: "signalalarmsem", title: "Signal Alarm SEM", category: "sem", tag: "SEM",
+    img: "https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg",
+    desc: "A high-performance Google Ads campaign covering keyword strategy, ad copy and landing page alignment to cut cost-per-lead.",
+    meta: ["Google Ads", "PPC", "Conversion Tracking"] },
+];
 
-/* — NAV — */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:28px;height:28px;background:var(--ink);border-radius:6px;display:flex;align-items:center;justify-content:center}
-.logo-mark svg{width:16px;height:16px}
-.logo-text{font-size:13px;font-weight:500;letter-spacing:-.2px;color:var(--color-text-primary)}
-.logo-text span{color:var(--accent)}
-.nav-links{display:flex;gap:24px}
-.nav-links a{font-size:12px;color:var(--color-text-secondary);text-decoration:none;transition:color .15s}
-.nav-links a.active{color:var(--color-text-primary);font-weight:500}
-.nav-cta{font-size:11px;font-weight:500;letter-spacing:.3px;background:var(--ink);color:#fff;padding:8px 18px;border-radius:6px;cursor:pointer;border:none}
+const FILTERS = [
+  { key: "all", label: "All" },
+  { key: "web-design", label: "Web Design" },
+  { key: "seo", label: "SEO" },
+  { key: "sem", label: "SEM" },
+  { key: "website-maintenance", label: "Maintenance" },
+];
 
-/* — HERO — */
-.hero{padding:60px 28px 48px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
-.hero-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
-.hero-label::before{content:'';width:20px;height:1.5px;background:var(--accent)}
-.hero h1{font-size:58px;font-weight:500;line-height:1.0;letter-spacing:-2px;color:var(--color-text-primary);margin-bottom:24px}
-.hero h1 em{font-style:italic;color:var(--accent)}
-.hero-meta{display:flex;gap:32px}
-.hero-stat{display:flex;flex-direction:column;gap:3px}
-.hero-stat-n{font-size:22px;font-weight:500;color:var(--color-text-primary)}
-.hero-stat-l{font-size:11px;color:var(--color-text-secondary)}
-.hero-right{padding-top:8px}
-.hero-desc{font-size:14px;color:var(--color-text-secondary);line-height:1.7;margin-bottom:24px}
-.hero-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
-.htag{font-size:11px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);padding:5px 12px;border-radius:20px}
-.hero-devs{display:flex;align-items:center;gap:12px}
-.dev-stack{display:flex}
-.dev-av{width:28px;height:28px;border-radius:50%;border:2px solid var(--color-background-primary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;margin-left:-8px;color:#fff}
-.dev-av:first-child{margin-left:0}
-.dev-label{font-size:12px;color:var(--color-text-secondary);line-height:1.4}
-.dev-label strong{display:block;font-size:12px;font-weight:500;color:var(--color-text-primary)}
-
-/* — TICKER — */
-.ticker{overflow:hidden;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);padding:10px 0}
-.ticker-inner{display:flex;white-space:nowrap;animation:scroll 28s linear infinite}
-.tk{display:inline-flex;align-items:center;gap:10px;padding:0 20px;font-size:11px;font-weight:500;letter-spacing:.4px;text-transform:uppercase;color:var(--color-text-secondary)}
-.tk .dot{width:4px;height:4px;border-radius:50%;background:var(--accent)}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* — FILTER — */
-.filter-bar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
-.filters{display:flex;gap:0}
-.fb{font-size:12px;font-weight:400;color:var(--color-text-secondary);background:none;border:none;border-bottom:2px solid transparent;padding:14px 16px;cursor:pointer;white-space:nowrap;transition:all .15s}
-.fb:hover{color:var(--color-text-primary)}
-.fb.on{color:var(--color-text-primary);font-weight:500;border-bottom-color:var(--accent)}
-.filter-count{font-size:11px;color:var(--color-text-secondary)}
-
-/* — GRID — */
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:0.5px solid var(--color-border-tertiary)}
-.pcard{border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:background .15s;display:flex;flex-direction:column}
-.pcard.feat{grid-column:span 2}
-.pcard:hover{background:var(--color-background-secondary)}
-.pcard.hidden{display:none}
-.pc-img{position:relative;overflow:hidden;background:var(--color-background-secondary)}
-.pc-img img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/10;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.pcard.feat .pc-img img{aspect-ratio:21/9}
-.pcard:hover .pc-img img{transform:scale(1.04)}
-.pc-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .25s;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px}
-.pcard:hover .pc-overlay{background:rgba(10,10,15,0.38)}
-.pc-btn{font-size:11px;font-weight:500;letter-spacing:.3px;background:var(--accent);color:#fff;padding:7px 14px;border-radius:4px;opacity:0;transform:translateY(6px);transition:all .2s}
-.pcard:hover .pc-btn{opacity:1;transform:translateY(0)}
-.pc-idx{position:absolute;top:10px;left:10px;font-size:10px;font-weight:500;color:rgba(255,255,255,0.7);background:rgba(0,0,0,0.35);padding:3px 8px;border-radius:3px;backdrop-filter:blur(4px)}
-.pc-body{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--color-border-tertiary);flex:1}
-.pc-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
-.pcard.feat .pc-name{font-size:14px}
-.pc-cat{font-size:11px;color:var(--accent);font-weight:500}
-.pc-arrow{font-size:16px;color:var(--color-text-secondary);opacity:0;transition:opacity .15s,transform .15s;transform:translateX(-4px)}
-.pcard:hover .pc-arrow{opacity:1;transform:translateX(0)}
-
-/* — MODAL BG — */
-.modal-bg{min-height:0;max-height:0;overflow:hidden;transition:max-height .3s;background:rgba(0,0,0,0.55);position:relative}
-.modal-bg.open{min-height:520px;max-height:600px}
-.mcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);width:90%;max-width:580px;position:absolute;top:40px;left:50%;transform:translateX(-50%);overflow:hidden}
-.m-img-wrap{aspect-ratio:21/9;overflow:hidden;background:var(--color-background-secondary)}
-.m-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
-.m-body{padding:20px 24px}
-.m-tag{font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
-.m-title{font-size:22px;font-weight:500;letter-spacing:-0.6px;color:var(--color-text-primary);margin-bottom:10px}
-.m-desc{font-size:13px;line-height:1.65;color:var(--color-text-secondary);margin-bottom:16px}
-.m-chips{display:flex;flex-wrap:wrap;gap:6px;border-top:0.5px solid var(--color-border-tertiary);padding-top:14px}
-.mchip{font-size:11px;border:0.5px solid var(--color-border-tertiary);padding:4px 12px;border-radius:20px;color:var(--color-text-secondary)}
-.m-close-btn{position:absolute;top:10px;right:10px;z-index:5;width:30px;height:30px;background:var(--ink);border:none;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
-
-/* — CAPABILITIES — */
-.caps-sect{border-top:0.5px solid var(--color-border-tertiary);padding:40px 28px;display:grid;grid-template-columns:180px 1fr;gap:32px;background:var(--color-background-secondary)}
-.caps-label{font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--color-text-secondary);padding-top:3px}
-.caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:0.5px solid var(--color-border-tertiary)}
-.cap{padding:16px 18px;border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary)}
-.cap-name{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px}
-.cap-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
-
-/* — TEAM STRIP — */
-.team-strip{border-top:0.5px solid var(--color-border-tertiary);padding:40px 28px;display:grid;grid-template-columns:180px 1fr;gap:32px;background:var(--color-background-primary)}
-.team-label{font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--color-text-secondary)}
-.team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.tmember{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:14px 12px;text-align:center;background:var(--color-background-primary)}
-.tm-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;margin:0 auto 10px;color:#fff}
-.tm-name{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
-.tm-role{font-size:11px;color:var(--color-text-secondary)}
-.tm-skills{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
-.tmsk{font-size:10px;color:var(--color-text-secondary);background:var(--color-background-secondary);padding:2px 7px;border-radius:10px}
-
-/* — CTA — */
-.cta-sect{border-top:0.5px solid var(--color-border-tertiary);padding:60px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink)}
-.cta-h{font-size:42px;font-weight:500;letter-spacing:-1.5px;color:#fff;line-height:1}
-.cta-h em{font-style:italic;color:var(--accent)}
-.cta-actions{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-.cta-main{font-size:12px;font-weight:500;letter-spacing:.3px;background:var(--accent);color:#fff;padding:12px 26px;border-radius:6px;cursor:pointer;border:none;white-space:nowrap}
-.cta-sec{font-size:12px;color:rgba(255,255,255,0.5);background:none;border:0.5px solid rgba(255,255,255,0.2);padding:11px 26px;border-radius:6px;cursor:pointer;white-space:nowrap}
-
-/* — FOOTER — */
-.footer{border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);padding:32px 28px 20px;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:28px}
-.ft-logo{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.ft-lm{width:22px;height:22px;background:var(--ink);border-radius:5px;display:flex;align-items:center;justify-content:center}
-.ft-lm svg{width:12px;height:12px}
-.ft-lname{font-size:12px;font-weight:500;color:var(--color-text-primary)}
-.ft-lname span{color:var(--accent)}
-.ft-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:10px}
-.ft-addr{font-size:11px;color:var(--color-text-secondary);line-height:1.7}
-.ft-col h4{font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:10px}
-.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
-.ft-col ul li a{font-size:12px;color:var(--color-text-secondary);text-decoration:none}
-.ft-bot{grid-column:1/-1;border-top:0.5px solid var(--color-border-tertiary);padding-top:16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.ft-copy{font-size:11px;color:var(--color-text-secondary)}
-.ft-socials{display:flex;gap:8px}
-.ft-s{width:26px;height:26px;border:0.5px solid var(--color-border-tertiary);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--color-text-secondary)}
-</style>
-
-<div class="wrap">
-
-<nav class="nav">
-  <div class="nav-logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="white"/><rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity=".5"/><rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity=".5"/><rect x="9" y="9" width="5" height="5" rx="1" fill="white"/></svg>
-    </div>
-    <span class="logo-text">Omnivision<span>.</span></span>
-  </div>
-  <div class="nav-links">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#" class="active">Work</a>
-    <a href="#">Journal</a>
-    <a href="#">Contact</a>
-  </div>
-  <button class="nav-cta">Start a project</button>
-</nav>
-
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="tk">Web Design <span class="dot"></span></span>
-    <span class="tk">React / Next.js <span class="dot"></span></span>
-    <span class="tk">Node.js backends <span class="dot"></span></span>
-    <span class="tk">SEO Strategy <span class="dot"></span></span>
-    <span class="tk">Google Ads <span class="dot"></span></span>
-    <span class="tk">WordPress / WooCommerce <span class="dot"></span></span>
-    <span class="tk">CI/CD Pipelines <span class="dot"></span></span>
-    <span class="tk">Performance Optimization <span class="dot"></span></span>
-    <span class="tk">Brand Identity <span class="dot"></span></span>
-    <span class="tk">Video Production <span class="dot"></span></span>
-    <span class="tk">Web Design <span class="dot"></span></span>
-    <span class="tk">React / Next.js <span class="dot"></span></span>
-    <span class="tk">Node.js backends <span class="dot"></span></span>
-    <span class="tk">SEO Strategy <span class="dot"></span></span>
-    <span class="tk">Google Ads <span class="dot"></span></span>
-    <span class="tk">WordPress / WooCommerce <span class="dot"></span></span>
-    <span class="tk">CI/CD Pipelines <span class="dot"></span></span>
-    <span class="tk">Performance Optimization <span class="dot"></span></span>
-    <span class="tk">Brand Identity <span class="dot"></span></span>
-    <span class="tk">Video Production <span class="dot"></span></span>
-  </div>
-</div>
-
-<section class="hero">
-  <div>
-    <div class="hero-label">Selected Work — Montréal</div>
-    <h1>Our<br><em>work</em><br>drives<br>results.</h1>
-    <div class="hero-meta">
-      <div class="hero-stat"><span class="hero-stat-n">200+</span><span class="hero-stat-l">Projects shipped</span></div>
-      <div class="hero-stat"><span class="hero-stat-n">12+</span><span class="hero-stat-l">Years operating</span></div>
-      <div class="hero-stat"><span class="hero-stat-n">10+</span><span class="hero-stat-l">Senior devs</span></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <p class="hero-desc">Web design, SEO, SEM, and performance marketing — built by a senior team that writes production code and ships on time. We don't outsource.</p>
-    <div class="hero-tags">
-      <span class="htag">Web Design</span>
-      <span class="htag">React</span>
-      <span class="htag">WordPress</span>
-      <span class="htag">SEO</span>
-      <span class="htag">Google Ads</span>
-      <span class="htag">Branding</span>
-      <span class="htag">WooCommerce</span>
-    </div>
-    <div class="hero-devs">
-      <div class="dev-stack">
-        <div class="dev-av" style="background:#2f5bff">MK</div>
-        <div class="dev-av" style="background:#7f4bf7">AR</div>
-        <div class="dev-av" style="background:#00a872">JS</div>
-        <div class="dev-av" style="background:#e05a3a">PL</div>
-        <div class="dev-av" style="background:#c84b9e">TN</div>
-        <div class="dev-av" style="background:#5a6a7a">+6</div>
-      </div>
-      <div class="dev-label">
-        <strong>10 senior developers</strong>
-        on-staff in Montréal — no outsourcing
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="filter-bar">
-  <div class="filters">
-    <button class="fb on" data-f="all">All <span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 6px;font-size:10px;margin-left:4px" id="c-all">19</span></button>
-    <button class="fb" data-f="web-design">Web Design <span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 6px;font-size:10px;margin-left:4px">13</span></button>
-    <button class="fb" data-f="seo">SEO <span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 6px;font-size:10px;margin-left:4px">5</span></button>
-    <button class="fb" data-f="sem">SEM <span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 6px;font-size:10px;margin-left:4px">1</span></button>
-    <button class="fb" data-f="website-maintenance">Maintenance <span style="background:var(--color-background-secondary);border-radius:3px;padding:1px 6px;font-size:10px;margin-left:4px">1</span></button>
-  </div>
-  <span class="filter-count" id="vis-count">19 projects</span>
-</div>
-
-<div class="work-grid" id="grid">
-
-  <div class="pcard feat" data-c="web-design" onclick="openM('greene')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg" alt="Greene Locksmiths" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">01</span></div>
-    <div class="pc-body"><span class="pc-name">Greene Locksmiths</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('paramedic')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png" alt="Paramedic360" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">02</span></div>
-    <div class="pc-body"><span class="pc-name">Paramedic360</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('archex')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png" alt="Archex" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">03</span></div>
-    <div class="pc-body"><span class="pc-name">Archex</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('medaca')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png" alt="Medaca" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">04</span></div>
-    <div class="pc-body"><span class="pc-name">Medaca</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('hostsailor')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png" alt="HostSailor" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">05</span></div>
-    <div class="pc-body"><span class="pc-name">HostSailor</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard feat" data-c="web-design" onclick="openM('suitestay')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png" alt="SuiteStay" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">06</span></div>
-    <div class="pc-body"><span class="pc-name">SuiteStay</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('mckell')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png" alt="McKell Institute" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">07</span></div>
-    <div class="pc-body"><span class="pc-name">McKell Institute</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('signalalarm')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png" alt="SignalAlarm" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">08</span></div>
-    <div class="pc-body"><span class="pc-name">SignalAlarm</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('cleantile')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png" alt="CleanTile" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">09</span></div>
-    <div class="pc-body"><span class="pc-name">CleanTile</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard feat" data-c="web-design" onclick="openM('clinique')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png" alt="CliniqueAgatha" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">10</span></div>
-    <div class="pc-body"><span class="pc-name">CliniqueAgatha</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="website-maintenance" onclick="openM('kbs')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png" alt="KBS Maintenance" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">11</span></div>
-    <div class="pc-body"><span class="pc-name">KBS Maintenance</span><span class="pc-cat">Maintenance</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('scanplus')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png" alt="Scan Plus" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">12</span></div>
-    <div class="pc-body"><span class="pc-name">Scan Plus Tech</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="web-design" onclick="openM('omnivision')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png" alt="Omnivision" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">13</span></div>
-    <div class="pc-body"><span class="pc-name">Omnivision Design</span><span class="pc-cat">Web Design</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="seo" onclick="openM('archexseo')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg" alt="Archex SEO" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">14</span></div>
-    <div class="pc-body"><span class="pc-name">Archex SEO</span><span class="pc-cat">SEO</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard feat" data-c="seo" onclick="openM('canadapeptide')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg" alt="Canada Peptide" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">15</span></div>
-    <div class="pc-body"><span class="pc-name">Canada Peptide SEO</span><span class="pc-cat">SEO</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="seo" onclick="openM('lazybag')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg" alt="LazyBagParis" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">16</span></div>
-    <div class="pc-body"><span class="pc-name">LazyBagParis SEO</span><span class="pc-cat">SEO</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="seo" onclick="openM('goldmps')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg" alt="GoldMPS" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">17</span></div>
-    <div class="pc-body"><span class="pc-name">GoldMPS SEO</span><span class="pc-cat">SEO</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="seo" onclick="openM('sweetdreams')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg" alt="SweetDreamsBamboo" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">18</span></div>
-    <div class="pc-body"><span class="pc-name">SweetDreamsBamboo SEO</span><span class="pc-cat">SEO</span><span class="pc-arrow">→</span></div>
-  </div>
-
-  <div class="pcard" data-c="sem" onclick="openM('signalalarmsem')">
-    <div class="pc-img"><img src="https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg" alt="Signal Alarm SEM" loading="lazy"><div class="pc-overlay"><div class="pc-btn">View case ↗</div></div><span class="pc-idx">19</span></div>
-    <div class="pc-body"><span class="pc-name">Signal Alarm SEM</span><span class="pc-cat">SEM</span><span class="pc-arrow">→</span></div>
-  </div>
-
-</div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="mbg">
-  <div class="mcard" id="mcard">
-    <button class="m-close-btn" onclick="closeM()">✕</button>
-    <div class="m-img-wrap"><img id="mImg" src="" alt=""></div>
-    <div class="m-body">
-      <span class="m-tag" id="mTag"></span>
-      <div class="m-title" id="mTitle"></div>
-      <div class="m-desc" id="mDesc"></div>
-      <div class="m-chips" id="mChips"></div>
-    </div>
-  </div>
-</div>
-
-<!-- CAPABILITIES -->
-<div class="caps-sect">
-  <div class="caps-label">Our disciplines</div>
-  <div class="caps-grid">
-    <div class="cap"><div class="cap-name">Web Design & Dev</div><div class="cap-desc">Conversion-focused sites in React, Next.js, and WordPress.</div></div>
-    <div class="cap"><div class="cap-name">SEO</div><div class="cap-desc">Technical, on-page, and content strategy for organic growth.</div></div>
-    <div class="cap"><div class="cap-name">Google Ads / SEM</div><div class="cap-desc">Paid campaigns built to lower cost-per-lead.</div></div>
-    <div class="cap"><div class="cap-name">Social Media</div><div class="cap-desc">Platform strategy and creative content that builds audiences.</div></div>
-    <div class="cap"><div class="cap-name">Brand Identity</div><div class="cap-desc">Logo and systems designed for long-term impact.</div></div>
-    <div class="cap"><div class="cap-name">Maintenance & Infra</div><div class="cap-desc">Security, CI/CD, performance, uptime monitoring.</div></div>
-  </div>
-</div>
-
-<!-- TEAM STRIP -->
-<div class="team-strip">
-  <div class="team-label">Senior team</div>
-  <div class="team-grid">
-    <div class="tmember">
-      <div class="tm-av" style="background:#2f5bff">MK</div>
-      <div class="tm-name">Marc K.</div>
-      <div class="tm-role">Lead Dev</div>
-      <div class="tm-skills"><span class="tmsk">React</span><span class="tmsk">Node</span></div>
-    </div>
-    <div class="tmember">
-      <div class="tm-av" style="background:#7f4bf7">AR</div>
-      <div class="tm-name">Ana R.</div>
-      <div class="tm-role">UX / UI</div>
-      <div class="tm-skills"><span class="tmsk">Figma</span><span class="tmsk">CSS</span></div>
-    </div>
-    <div class="tmember">
-      <div class="tm-av" style="background:#00a872">JS</div>
-      <div class="tm-name">Jean S.</div>
-      <div class="tm-role">SEO Lead</div>
-      <div class="tm-skills"><span class="tmsk">Tech SEO</span><span class="tmsk">GA4</span></div>
-    </div>
-    <div class="tmember">
-      <div class="tm-av" style="background:#e05a3a">PL</div>
-      <div class="tm-name">Pierre L.</div>
-      <div class="tm-role">WP Dev</div>
-      <div class="tm-skills"><span class="tmsk">PHP</span><span class="tmsk">WooC.</span></div>
-    </div>
-    <div class="tmember">
-      <div class="tm-av" style="background:#c84b9e">TN</div>
-      <div class="tm-name">Tanya N.</div>
-      <div class="tm-role">PPC / SEM</div>
-      <div class="tm-skills"><span class="tmsk">Ads</span><span class="tmsk">CRO</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- CTA -->
-<div class="cta-sect">
-  <div class="cta-h">Let's build<br>something<br><em>great.</em></div>
-  <div class="cta-actions">
-    <button class="cta-main">Get a free quote →</button>
-    <button class="cta-sec">(514) 655-6276</button>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <div>
-    <div class="ft-logo">
-      <div class="ft-lm"><svg viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="4" height="4" rx="1" fill="white"/><rect x="7" y="1" width="4" height="4" rx="1" fill="white" opacity=".5"/><rect x="1" y="7" width="4" height="4" rx="1" fill="white" opacity=".5"/><rect x="7" y="7" width="4" height="4" rx="1" fill="white"/></svg></div>
-      <span class="ft-lname">Omnivision<span>.</span></span>
-    </div>
-    <p class="ft-desc">A Montréal web agency with a senior in-house team delivering results-driven digital strategy — from local startups to listed companies.</p>
-    <div class="ft-addr">106-7470 Sherbrooke St W, Montréal, QC H4B 1S5<br>(514) 655-6276</div>
-  </div>
-  <div class="ft-col">
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Clients</a></li>
-      <li><a href="#">Testimonials</a></li>
-      <li><a href="#">Team</a></li>
-      <li><a href="#">FAQ</a></li>
-      <li><a href="#">Internship</a></li>
-    </ul>
-  </div>
-  <div class="ft-col">
-    <h4>Recent writing</h4>
-    <ul>
-      <li><a href="#">Build AEO Authority With Content</a></li>
-      <li><a href="#">Design That Converts</a></li>
-      <li><a href="#">AI Threats Explained</a></li>
-    </ul>
-  </div>
-  <div class="ft-bot">
-    <span class="ft-copy">© 2025 Omnivision Design — All rights reserved</span>
-    <div class="ft-socials">
-      <div class="ft-s">f</div>
-      <div class="ft-s">𝕏</div>
-      <div class="ft-s">in</div>
-      <div class="ft-s">◎</div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<script>
-const pdata={
-  greene:{title:'Greene Locksmiths',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_bedf8bc4f42cdb991f78bec6f36765dd.jpg',desc:'Conversion-focused website built around trust signals, fast load times, and a dominant CTA strategy — driving phone calls and quote requests.',meta:['Web Design','Montreal','WordPress','Mobile-First','Local SEO']},
-  paramedic:{title:'Paramedic360',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_f34e949feb7a3e6c5d652d06e314f8e5.png',desc:'Clean, authoritative digital presence for a medical training company — course listings, instructor profiles, registration flows, and optimised user journey.',meta:['Web Design','Medical Training','WordPress','Responsive','UX']},
-  archex:{title:'Archex',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d7fa6464710aaca0b622d55e56b95cac.png',desc:'Premium digital presence for a construction & architecture firm. High-quality imagery, structured case studies, and an SEO-ready foundation.',meta:['Web Design','Architecture','WordPress','Portfolio','SEO-Ready']},
-  medaca:{title:'Medaca',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_43e41c2f75861288a5484beea70ae41d.png',desc:'Sophisticated healthcare site with booking integration, HIPAA-conscious content architecture, and a clean aesthetic that builds patient confidence.',meta:['Web Design','Healthcare','WordPress','Booking','Mobile-First']},
-  hostsailor:{title:'HostSailor',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_25bcd70386bf639025a35703047f3e09.png',desc:'Technically sharp website for a global hosting provider — pricing tables, plan comparisons, and spec pages built for clarity and conversion.',meta:['Web Design','Web Hosting','Custom Design','Pricing Tables','Performance']},
-  suitestay:{title:'SuiteStay',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_973e0d2be062a69446233938943847d9.png',desc:'Luxury property rental experience with elegant galleries, availability features, and a booking-oriented layout that converts visitors into reservations.',meta:['Web Design','Real Estate','Luxury Design','Booking UI','Responsive']},
-  mckell:{title:'McKell Institute',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_4cdbfdce12ae5b6142babe7af5a7cf11.png',desc:'Editorial-style site for a public policy think-tank — research hubs, report downloads, balancing academic authority with modern readability.',meta:['Web Design','Non-Profit','Policy','Editorial','WordPress']},
-  signalalarm:{title:'SignalAlarm',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_eca860e4a731ba50e460ebbeaca97581.png',desc:'Lead-generation site for a security company with trust-building homepage, service pages, and a dominant CTA strategy.',meta:['Web Design','Security','Lead Gen','WordPress','Local Business']},
-  cleantile:{title:'CleanTile',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_2c612ae6390a7bbe6ccc03b1e91b63a3.png',desc:'Professional online presence for tile cleaning & restoration — before/after galleries, service area targeting, frictionless quote request flow.',meta:['Web Design','Home Services','Gallery','Quote Form','Mobile-First']},
-  clinique:{title:'CliniqueAgatha',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_d9828a4bc420474d9f24770245eca65f.png',desc:'Premium aesthetic clinic site — elegant typography, online booking, and a bilingual structure reflecting high-end positioning in beauty & wellness.',meta:['Web Design','Clinic','Luxury','Booking','Bilingual']},
-  kbs:{title:'KBS Maintenance',tag:'Maintenance',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_68f0dd98732c6049b4ed3c534642c746.png',desc:'Ongoing maintenance keeping KBS secure, fast, and up to date — security monitoring, plugin updates, performance optimisation, and backups.',meta:['Maintenance','Security','Performance','WordPress','Support']},
-  scanplus:{title:'Scan Plus Tech',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_ef5fef10f10dc79310362bfd08d575d7.png',desc:'Technology-forward site for a document scanning company — clear service communication, local SEO foundations, B2B-focused design.',meta:['Web Design','Technology','B2B','WordPress','Local SEO']},
-  omnivision:{title:'Omnivision Design',tag:'Web Design',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_5aefad5ac20ca779f335ef065d8105ea.png',desc:'Our own agency site — built to the highest performance and conversion standards, serving as both portfolio showcase and lead generation engine.',meta:['Web Design','Agency','WordPress','High-Performance','SEO']},
-  archexseo:{title:'Archex SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_0d2dce9d12eb5623ec791094ab2e141f.jpg',desc:'Comprehensive SEO campaign targeting competitive construction and architecture keywords — technical audits, content strategy, on-page, link building.',meta:['SEO','Construction','Keyword Research','On-Page','Link Building']},
-  canadapeptide:{title:'Canada Peptide SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_fc927b92180d3d4dc2f4d67fe340aad3.jpg',desc:'Targeted e-commerce SEO — technical audits, product page optimisation, content marketing, and authority building for measurable organic growth.',meta:['SEO','E-Commerce','Technical SEO','Content','Organic Growth']},
-  lazybag:{title:'LazyBagParis SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_a95343eebd2c11b5b29c5b2d1edd0aba.jpg',desc:'Multilingual SEO for a Paris fashion brand — EN/FR keyword mapping, on-page content optimisation, and structured data implementation.',meta:['SEO','Fashion','Multilingual','Structured Data','On-Page']},
-  goldmps:{title:'GoldMPS SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_b839ab3eee66f5ca5b5782a6a6ed3c67.jpg',desc:'Full SEO engagement — technical audit, backlink analysis, competitor gap analysis, and content calendar growing organic traffic and domain authority.',meta:['SEO','Technical Audit','Backlinks','Competitor Analysis','Content']},
-  sweetdreams:{title:'SweetDreamsBamboo SEO',tag:'SEO',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_507e0e0b13437a3cbd00f7fcb1381e74.jpg',desc:'Content-driven SEO for a sustainable baby brand — product optimisation, blog content, and category improvements driving organic revenue growth.',meta:['SEO','E-Commerce','Content SEO','Sustainable','Organic Revenue']},
-  signalalarmsem:{title:'Signal Alarm SEM',tag:'SEM',img:'https://www.omnivisiondesign.com/wp-content/uploads/ewpt_cache/653x490_100_1_c_FFFFFF_e88d43959aed6af302ae995736cc1694.jpg',desc:'High-performance Google Ads campaign — keyword selection, ad copy, bid strategy, landing page alignment, and conversion tracking.',meta:['SEM','Google Ads','Conversion Tracking','Landing Pages','PPC']}
+const CATEGORY_COLORS = {
+  "web-design": "from-violet-500 to-fuchsia-500",
+  "seo": "from-cyan-400 to-blue-500",
+  "sem": "from-amber-400 to-orange-500",
+  "website-maintenance": "from-emerald-400 to-teal-500",
 };
 
-function openM(id){
-  const p=pdata[id];if(!p)return;
-  document.getElementById('mImg').src=p.img;
-  document.getElementById('mImg').alt=p.title;
-  document.getElementById('mTag').textContent=p.tag;
-  document.getElementById('mTitle').textContent=p.title;
-  document.getElementById('mDesc').textContent=p.desc;
-  document.getElementById('mChips').innerHTML=p.meta.map(m=>`<span class="mchip">${m}</span>`).join('');
-  document.getElementById('mbg').classList.add('open');
-  document.getElementById('mbg').style.maxHeight='600px';
-  document.getElementById('mbg').style.minHeight='520px';
-}
-function closeM(){
-  const mb=document.getElementById('mbg');
-  mb.classList.remove('open');
-  mb.style.maxHeight='0';
-  mb.style.minHeight='0';
+const CATEGORY_TEXT = {
+  "web-design": "text-fuchsia-300 bg-fuchsia-500/10 border-fuchsia-400/30",
+  "seo": "text-cyan-300 bg-cyan-500/10 border-cyan-400/30",
+  "sem": "text-amber-300 bg-amber-500/10 border-amber-400/30",
+  "website-maintenance": "text-emerald-300 bg-emerald-500/10 border-emerald-400/30",
+};
+
+/* ────────────────────────────────────────────────────────────
+   ANIMATION VARIANTS
+──────────────────────────────────────────────────────────── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+};
+
+const wordVariant = {
+  hidden: { opacity: 0, y: 60, rotateX: -40 },
+  show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
+/* ────────────────────────────────────────────────────────────
+   SLIDE INDICATOR (right side dots)
+──────────────────────────────────────────────────────────── */
+function SlideDots({ refs, labels }) {
+  return (
+    <div className="hidden lg:flex flex-col gap-4 fixed right-6 top-1/2 -translate-y-1/2 z-40">
+      {refs.map((ref, i) => {
+        const inView = useInView(ref, { margin: "-50% 0px -50% 0px" });
+        return (
+          <a key={i} href={`#slide-${i}`} className="group flex items-center gap-3 justify-end">
+            <span className={`text-[10px] tracking-[0.2em] uppercase transition-opacity ${inView ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-60 text-white/60"}`}>
+              {labels[i]}
+            </span>
+            <motion.span
+              className="block rounded-full bg-white/30"
+              animate={{
+                width: inView ? 28 : 8,
+                height: 8,
+                backgroundColor: inView ? "#e879f9" : "rgba(255,255,255,0.3)",
+              }}
+              transition={{ duration: 0.3 }}
+            />
+          </a>
+        );
+      })}
+    </div>
+  );
 }
 
-document.querySelectorAll('.fb').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    const f=btn.dataset.f;
-    let n=0;
-    document.querySelectorAll('.pcard').forEach(c=>{
-      const show=f==='all'||c.dataset.c===f;
-      c.classList.toggle('hidden',!show);
-      if(show)n++;
-    });
-    document.getElementById('vis-count').textContent=n+' project'+(n!==1?'s':'');
-  });
-});
-</script>
+/* ────────────────────────────────────────────────────────────
+   PROJECT CARD
+──────────────────────────────────────────────────────────── */
+function ProjectCard({ project, index, onOpen }) {
+  return (
+    <motion.article
+      layout
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={{ y: -10 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      onClick={() => onOpen(project)}
+      className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm
+        ${project.feature ? "md:col-span-2" : ""}`}
+    >
+      {/* Index badge */}
+      <div className={`absolute top-4 left-4 z-10 rounded-full bg-gradient-to-r ${CATEGORY_COLORS[project.category]} px-3 py-1 text-[11px] font-bold tracking-wider text-white shadow-lg`}>
+        {String(index + 1).padStart(2, "0")}
+      </div>
+
+      {/* Image */}
+      <div className={`relative overflow-hidden ${project.feature ? "aspect-[21/9]" : "aspect-[4/3]"}`}>
+        <motion.img
+          src={project.img}
+          alt={project.title}
+          loading="lazy"
+          className="h-full w-full object-cover"
+          whileHover={{ scale: 1.08 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+        {/* View case button */}
+        <motion.div
+          className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-bold text-black opacity-0 group-hover:opacity-100"
+          initial={{ y: 10 }}
+          whileHover={{ y: 0 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          View Case <ArrowUpRight size={14} />
+        </motion.div>
+      </div>
+
+      {/* Body */}
+      <div className="flex items-center justify-between gap-3 border-t border-white/10 p-4">
+        <h3 className={`font-bold uppercase tracking-tight ${project.feature ? "text-xl" : "text-base"}`}>
+          {project.title}
+        </h3>
+        <span className={`shrink-0 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${CATEGORY_TEXT[project.category]}`}>
+          {project.tag}
+        </span>
+      </div>
+    </motion.article>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   MODAL
+──────────────────────────────────────────────────────────── */
+function ProjectModal({ project, onClose }) {
+  if (!project) return null;
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 bg-[#120a24]"
+        initial={{ opacity: 0, y: 60, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 40, scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 300, damping: 28 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-fuchsia-500"
+        >
+          <X size={18} />
+        </button>
+
+        <img src={project.img} alt={project.title} className="aspect-[21/9] w-full object-cover" />
+
+        <div className="p-8">
+          <span className={`mb-3 inline-block rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-widest ${CATEGORY_TEXT[project.category]}`}>
+            {project.tag}
+          </span>
+          <h2 className="mb-4 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">{project.title}</h2>
+          <p className="mb-6 leading-relaxed text-white/60">{project.desc}</p>
+
+          <div className="flex flex-wrap gap-2 border-t border-white/10 pt-5">
+            {project.meta.map((m) => (
+              <span key={m} className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-wider text-white/50">
+                {m}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   MAIN PAGE
+──────────────────────────────────────────────────────────── */
+export default function OmnivisionWork() {
+  const [filter, setFilter] = useState("all");
+  const [active, setActive] = useState(null);
+
+  const heroRef = useRef(null);
+  const workRef = useRef(null);
+  const ctaRef = useRef(null);
+
+  const { scrollYProgress } = useScroll();
+
+  const filtered = filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+
+  const services = ["Web Design", "SEO Strategy", "Google Ads / SEM", "Brand Identity", "Video Production", "Social Media", "WordPress Dev", "WooCommerce"];
+
+  return (
+    <div className="min-h-screen bg-[#0a0118] font-sans text-white selection:bg-fuchsia-500/40">
+
+      {/* SCROLL PROGRESS BAR */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 z-[200] h-1 origin-left bg-gradient-to-r from-violet-500 via-fuchsia-500 to-amber-400"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      <SlideDots refs={[heroRef, workRef, ctaRef]} labels={["Intro", "Work", "Contact"]} />
+
+      {/* NAVBAR */}
+      <nav className="fixed top-0 left-0 right-0 z-[150] flex items-center justify-between border-b border-white/5 bg-[#0a0118]/70 px-6 py-4 backdrop-blur-md md:px-12">
+        <div className="text-lg font-extrabold uppercase tracking-widest">
+          Omnivision<span className="text-fuchsia-400">.</span>
+        </div>
+        <div className="hidden gap-8 text-xs font-medium uppercase tracking-widest text-white/50 md:flex">
+          <a href="#" className="transition hover:text-white">Home</a>
+          <a href="#" className="text-white">Work</a>
+          <a href="#" className="transition hover:text-white">Services</a>
+          <a href="#" className="transition hover:text-white">Contact</a>
+        </div>
+        <a href="#" className="rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-5 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-fuchsia-500/20">
+          Start a Project
+        </a>
+      </nav>
+
+      {/* ── SLIDE 1 — HERO ─────────────────────────────── */}
+      <section id="slide-0" ref={heroRef} className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-24 md:px-12">
+        {/* Animated gradient blobs */}
+        <motion.div
+          className="absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-violet-600/30 blur-[140px]"
+          animate={{ x: [0, 80, 0], y: [0, 50, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -right-20 h-[30rem] w-[30rem] rounded-full bg-fuchsia-600/30 blur-[140px]"
+          animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/3 left-1/2 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-cyan-500/20 blur-[120px]"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-fuchsia-300"
+        >
+          <Sparkles size={14} /> Selected Work — Montreal
+        </motion.div>
+
+        <motion.h1
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+          className="relative z-10 text-[14vw] font-black uppercase leading-[0.9] tracking-tight md:text-[8vw]"
+          style={{ perspective: 800 }}
+        >
+          <motion.span variants={wordVariant} className="block bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+            Our Work
+          </motion.span>
+          <motion.span variants={wordVariant} className="block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent">
+            Drives Results
+          </motion.span>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="relative z-10 mt-10 flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between"
+        >
+          <p className="max-w-md text-white/50">
+            Web design, SEO, SEM, video and social marketing — results-driven digital work for businesses across Montreal and beyond since 2012.
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {services.map((s, i) => (
+              <motion.span
+                key={s}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.7 + i * 0.05 }}
+                whileHover={{ scale: 1.08, borderColor: "#e879f9", color: "#e879f9" }}
+                className="rounded-full border border-white/10 px-4 py-1.5 text-[11px] font-medium uppercase tracking-widest text-white/50"
+              >
+                {s}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Big stat */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="relative z-10 mt-12 flex items-baseline gap-4"
+        >
+          <span className="bg-gradient-to-r from-amber-300 to-fuchsia-400 bg-clip-text text-6xl font-black text-transparent md:text-7xl">200+</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/40">Projects Delivered</span>
+        </motion.div>
+
+        {/* Scroll cue */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity }}
+        >
+          <ChevronDown size={28} />
+        </motion.div>
+      </section>
+
+      {/* MARQUEE TICKER */}
+      <div className="relative overflow-hidden border-y border-white/5 bg-gradient-to-r from-violet-600/20 via-fuchsia-600/20 to-amber-500/20 py-3">
+        <motion.div
+          className="flex w-max gap-10 whitespace-nowrap"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+        >
+          {[...services, ...services, ...services].map((s, i) => (
+            <span key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-white/70">
+              {s} <span className="text-fuchsia-400">✦</span>
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* ── SLIDE 2 — FILTER + GRID ───────────────────── */}
+      <section id="slide-1" ref={workRef} className="relative px-6 py-24 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+        >
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-fuchsia-300">Selected Projects</p>
+            <h2 className="text-4xl font-black uppercase md:text-6xl">
+              The <span className="bg-gradient-to-r from-violet-400 to-amber-300 bg-clip-text text-transparent">Portfolio</span>
+            </h2>
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2">
+            {FILTERS.map((f) => (
+              <button
+                key={f.key}
+                onClick={() => setFilter(f.key)}
+                className={`relative rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-widest transition-colors
+                  ${filter === f.key ? "text-black" : "text-white/50 hover:text-white"}`}
+              >
+                {filter === f.key && (
+                  <motion.span
+                    layoutId="filterPill"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-400 to-fuchsia-400"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{f.label}</span>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Grid */}
+        <motion.div layout className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} onOpen={setActive} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </section>
+
+      {/* MODAL */}
+      <AnimatePresence>
+        {active && <ProjectModal project={active} onClose={() => setActive(null)} />}
+      </AnimatePresence>
+
+      {/* ── SLIDE 3 — CTA ──────────────────────────────── */}
+      <section id="slide-2" ref={ctaRef} className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <motion.div
+          className="absolute -top-1/3 left-1/2 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-600/30 via-fuchsia-600/20 to-amber-500/20 blur-[150px]"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        />
+
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10 text-5xl font-black uppercase leading-[0.95] md:text-8xl"
+        >
+          Let's Build<br />
+          Something <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent">Great</span>
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className="relative z-10 mt-10 flex flex-col items-center gap-4 sm:flex-row"
+        >
+          <motion.a
+            href="#"
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.97 }}
+            className="rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-xl shadow-fuchsia-500/30"
+          >
+            Get a Free Quote
+          </motion.a>
+          <motion.a
+            href="tel:5146556276"
+            whileHover={{ scale: 1.06, borderColor: "#e879f9" }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white/70"
+          >
+            <Phone size={16} /> (514) 655-6276
+          </motion.a>
+        </motion.div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/5 px-6 py-10 text-center text-xs uppercase tracking-widest text-white/30 md:px-12">
+        © 2026 Omnivision Design — All rights reserved
+      </footer>
+    </div>
+  );
+}
